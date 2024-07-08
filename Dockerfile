@@ -7,6 +7,6 @@ ENV MYSQL_ROOT_PASSWORD $MYSQL_ROOT_PASSWORD
 ENV MYSQL_USER user
 ENV MYSQL_PASSWORD $MYSQL_ROOT_PASSWORD
 
-ADD ./backend/scripts/backup.sql /docker-entrypoint-initdb.d
+ADD ./scripts/backup.sql /docker-entrypoint-initdb.d
 
 EXPOSE 3307
