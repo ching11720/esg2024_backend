@@ -1,3 +1,5 @@
-mysql-connector-python
 celery
 SQLAlchemy
+django
+rest_framework
+mysql-connector-python

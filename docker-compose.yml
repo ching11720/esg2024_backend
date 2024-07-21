@@ -6,11 +6,11 @@ services:
   backend:
     container_name: backend
     build: 
-      context: ./backend
+      context: ./ds_test
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
     volumes:
-      - .:/carbon
+      - .:/ds_test
     links:
       - db
     depends_on:
@@ -21,8 +21,10 @@ services:
       - esg_network
   
   rabbitmq:
-    restart: always
-    image: rabbitmq:latest
+    image: rabbitmq:3.10.5-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    hostname: my-rabbit
     ports:
       - "5672:5672"
       - "15672:15672"
