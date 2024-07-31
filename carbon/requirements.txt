@@ -1,5 +1,1 @@
-celery
-SQLAlchemy
-django
-rest_framework
 mysql-connector-python
