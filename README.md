@@ -9,3 +9,8 @@ enter database
 ```
 docker exec -it mysqldb mysql -u user -p
 ```
+
+backup database
+```
+./scripts/backup_db.sh
+```
