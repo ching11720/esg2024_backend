@@ -7,7 +7,7 @@ from django.http import HttpResponse
 def login_user(request):
     if request.method == "POST":
         username = request.POST["username"]
-        password = request.POST["password"]
+        password = request.POST["password"]  # user, Password
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)

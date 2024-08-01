@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,14 +78,17 @@ WSGI_APPLICATION = 'carbon.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+env_path = os.path.join(parent_dir, '.env')
+load_dotenv(dotenv_path=env_path)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'carbon',
-		'USER': 'ESG',
-		'PASSWORD': 'esgdbpassword',
-		'HOST': 'localhost',
-		'PORT': '',
+        'NAME': os.getenv('MYSQL_DATABASE'),
+        'USER': os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '3307',
     }
 }
 

@@ -1,5 +1,7 @@
 celery
 SQLAlchemy
 django
-rest_framework
+djangorestframework
 mysql-connector-python
+mysqlclient
+bcrypt

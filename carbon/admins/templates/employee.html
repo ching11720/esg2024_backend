@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <script>
+        async function fetchData(method, url, data) {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            document.getElementById('message').innerText = JSON.stringify(result);
+        }
+
+        function addEmployee() {
+            const name = document.getElementById('name').value;
+            fetchData('POST', `/employees/`, {name: name});
+        }
+
+        function updateEmployee() {
+            const id = document.getElementById('id').value;
+            const name = document.getElementById('name').value;
+            fetchData('PUT', `/employees/${id}/`, {name: name});
+        }
+
+        function deleteEmployee() {
+            const id = document.getElementById('id').value;
+            fetchData('DELETE', `/employees/${id}/`);
+        }
+    </script>
+</head>
+<body>
+    <h1>Employee Management</h1>
+    <label for="id">Employee ID:</label>
+    <input type="text" id="id" name="id"><br><br>
+    <label for="name">Employee Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+    <button onclick="addEmployee()">Add Employee</button>
+    <button onclick="updateEmployee()">Update Employee</button>
+    <button onclick="deleteEmployee()">Delete Employee</button>
+    <p id="message"></p>
+</body>
+</html>

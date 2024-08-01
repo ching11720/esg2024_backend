@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt --no-cache-dir
 
 EXPOSE 8000
 
-CMD [ "python", "manage.py"]
+CMD [ "tail", "-f", "/dev/null"]

@@ -6,11 +6,11 @@ services:
   backend:
     container_name: backend
     build: 
-      context: ./ds_test
+      context: ./carbon
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
-      - .:/ds_test
+      - .:/carbon
     links:
       - db
     depends_on:
