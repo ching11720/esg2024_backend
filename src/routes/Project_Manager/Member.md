@@ -1,4 +1,3 @@
-# I don't know what this part do
 # /Project_Management/member
 
 <details>
@@ -18,7 +17,7 @@
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `200`        | `application/json`   | the detail of the posted member    |
+| `201`        | `application/json`   | the detail of the posted member    |
 | `400`        | `text/plain`         | `{ message: "client error"}`       |
 | `500`        | `text/plain`         | `{ message: "server error"}`       |
 </details>
@@ -44,8 +43,9 @@
 ##### Responses
 | http code    | content-type | description                           |
 | ------------ | -------------| ------------------------------------- |
-| `200`        | `text/plain` | `{ message: "success"}`               |
+| `200`        | `text/plain` | `{'message': 'Member revised successfully!', 'data': serializer.data}`|
 | `400`        | `text/plain` | `{ message: "client error"}`          |
+| `404`,       | `text/plain` | `{ message: "Member not found"}`      |
 | `500`        | `text/plain` | `{ message: "server error"}`          |
 
 </details>
@@ -66,8 +66,9 @@
 ##### Responses
 | http code    | content-type | description                           |
 | ------------ | -------------| ------------------------------------- |
-| `200`        | `text/plain` | `{ message: "success"}`               |
+| `204`        | `text/plain` | `{ message: "Member deleted successfully!"}`|
 | `400`        | `text/plain` | `{ message: "client error"}`          |
+| `404`        | `text/plain` | `{ message: "Member not found"}`      |
 | `500`        | `text/plain` | `{ message: "server error"}`          |
 
 </details>
@@ -91,7 +92,7 @@
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
 | `200`        | `application/json` | the detail of the retrieved member          |
-| `400`,       | `text/plain`       | `{ message: "client error"}`                |
+| `404`,       | `text/plain`       | `{ message: "Member not found"}`            |
 | `500`        | `text/plain`       | `{ message: "server error"}`                |
 
 </details>

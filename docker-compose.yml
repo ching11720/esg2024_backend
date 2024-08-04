@@ -3,22 +3,20 @@
 version: "3.8"
 
 services:
-  #backend:
-   # container_name: backend
-    #build: 
-     # context: ./carbon
-      #dockerfile: Dockerfile
-    #restart: unless-stopped
-    #volumes:
-     # - .:/carbon
-    #links:
-     # - db
-    #depends_on:
-     # - rabbitmq
-    #ports:
-     # - 8000:8000
-    #networks:
-     # - esg_network
+  backend:
+    container_name: backend
+    build: 
+      context: ./carbon
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - esg_network
   
   rabbitmq:
     image: rabbitmq:3.10.5-management
@@ -52,9 +50,10 @@ services:
     tty: true
     restart: always
     working_dir: /var/lib/mysql
+    command: --bind-address=0.0.0.0
     ports:
       # <Port exposed> : <MySQL Port running inside container>
-      - 3307:3307
+      - 3307:3306
     volumes:
       - ESG_db:/var/lib/mysql
       #- ./my.cnf:/etc/mysql/conf.d/my.cnf
@@ -63,7 +62,6 @@ services:
       MYSQL_DATABASE: 'ESG_db'
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_TCP_PORT: 3307
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u${MYSQL_USER} -p${MYSQL_PASSWORD} && mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} -e 'show databases;'"]
       timeout: 25s

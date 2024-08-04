@@ -18,7 +18,7 @@
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `200`        | `application/json`   | the detail of the posted material  |
+| `201`        | `application/json`   | `{ 'message': 'Material added successfully!','data': serializer.data}`  |
 | `400`        | `text/plain`         | `{ message: "client error"}`       |
 | `500`        | `text/plain`         | `{ message: "server error"}`       |
 </details>
@@ -44,8 +44,9 @@
 ##### Responses
 | http code    | content-type | description                           |
 | ------------ | -------------| ------------------------------------- |
-| `200`        | `text/plain` | `{ message: "success"}`               |
+| `200`        | `text/plain` | `{ message: "Material reviseed successfully!"}`|
 | `400`        | `text/plain` | `{ message: "client error"}`          |
+| `404`        | `text/plain` | `{ message: "Material not found"}`    |
 | `500`        | `text/plain` | `{ message: "server error"}`          |
 
 </details>
@@ -67,7 +68,7 @@
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
 | `200`        | `application/json` | the detail of the retrieved material        |
-| `400`,       | `text/plain`       | `{ message: "client error"}`                |
+| `404`,       | `text/plain`       | `{ message: "Material not found"}`          |
 | `500`        | `text/plain`       | `{ message: "server error"}`                |
 
 </details>

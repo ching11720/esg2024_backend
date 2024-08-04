@@ -1,7 +1,7 @@
 # /Project_Management/Flow
 
 <details>
-<summary><code>POST</code> <code><b>/</b></code> <code>(Post a flow of a project)</code></summary>
+<summary><code>PUT</code> <code><b>/{PID}</b></code> <code>(Put a flow of a project)</code></summary>
 
 <br />
 
@@ -9,6 +9,10 @@
 | key | values | description |
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
+##### Path Parameters
+| key | required | data type | description                           |
+| --- | -------- | --------- | ------------------------------------- |
+| PID | true     | string    | the pid which is wanted to be posed |
 ##### Body
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
@@ -16,8 +20,9 @@
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `200`        | `text/plain`         | `{ message: "success"}`            |
+| `201`        | `text/plain`         | `{'message': 'Flow added successfully!', 'data': serializer.data}` |
 | `400`        | `text/plain`         | `{ message: "client error"}`       |
+| `404`        | `text/plain`         | `{ message: "PID is invalid"}`     |
 | `500`        | `text/plain`         | `{ message: "server error"}`       |
 </details>
 
@@ -42,7 +47,8 @@
 | http code    | content-type | description                           |
 | ------------ | -------------| ------------------------------------- |
 | `200`        | `text/plain` | `{ message: "success"}`               |
-| `400`        | `text/plain` | `{ message: "client error"}`          |
+| `400`        | `text/plain` | `{ message: "client error"}`       |
+| `404`        | `text/plain` | `{ message: "PID is invalid"}`        |
 | `500`        | `text/plain` | `{ message: "server error"}`          |
 
 </details>

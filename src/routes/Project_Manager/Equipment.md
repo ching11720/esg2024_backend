@@ -18,13 +18,13 @@
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `200`        | `application/json`   | the detail of the posted equipment |
+| `201`        | `application/json`   | `{'message': 'Equipment added successfully!', 'data': serializer.data}`|
 | `400`        | `text/plain`         | `{ message: "client error"}`       |
 | `500`        | `text/plain`         | `{ message: "server error"}`       |
 </details>
 
 <details>
-<summary><code>REMOVE</code> <code><b>/{EID}</b></code> <code>(Remove an eqiupment)</code></summary>
+<summary><code>REMOVE</code> <code><b>/{EQID}</b></code> <code>(Remove an eqiupment)</code></summary>
 
 <br />
 
@@ -41,14 +41,14 @@
 ##### Responses
 | http code    | content-type | description                           |
 | ------------ | -------------| ------------------------------------- |
-| `200`        | `text/plain` | `{ message: "success"}`               |
-| `400`        | `text/plain` | `{ message: "client error"}`          |
+| `204`        | `text/plain` | `{ message: "Food item deleted successfully!"}`|
+| `404`        | `text/plain` | `{ message: "Equipment not found"}`   |
 | `500`        | `text/plain` | `{ message: "server error"}`          |
 
 </details>
 
 <details>
-<summary><code>RETRIEVE</code> <code><b>/{EID}</b></code> <code>(Retrieve the detail of an equipment)</code></summary>
+<summary><code>RETRIEVE</code> <code><b>/{EQID}</b></code> <code>(Retrieve the detail of an equipment)</code></summary>
 
 <br />
 
@@ -64,7 +64,7 @@
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
 | `200`        | `application/json` | the detail of the retrieved equipment       |
-| `400`        | `text/plain`       | `{ message: "client error"}`                |
+| `404`        | `text/plain`       | `{ message: "Equipment not found"}`         |
 | `500`        | `text/plain`       | `{ message: "server error"}`                |
 
 </details>
