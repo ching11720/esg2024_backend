@@ -1,9 +1,14 @@
 from django.urls import path
+from .views import CreateUserView, CreateProjectView, EmployeeView, DeleteEmployeeView
 from . import views
 
 urlpatterns = [
-    path('create_user', views.create_user, name="create_user"),
-    path('create_project', views.create_project, name="create_project"),
-    path('employees/', views.employee_management, name='employee-management'),
-    path('employee/<str:eid>', views.employee, name="employee_management"),
+    path('create_user/', CreateUserView.as_view(), name='create_user'),
+    path('create_project/', CreateProjectView.as_view(), name='create_project'),
+    path('employee/create/', EmployeeView.as_view(), name='employee_create'),
+    path('employee/delete/', DeleteEmployeeView.as_view(), name='employee_delete'),
+    path('employee/retrieve/', EmployeeView.as_view(), name='employee_retrieve'),
+    path('employee/revise/', EmployeeView.as_view(), name='employee_revise'),
 ]
+
+
