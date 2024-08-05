@@ -69,7 +69,7 @@ class Usage(models.Model):
     PID = models.ForeignKey('Project', on_delete=models.CASCADE)
     EQID = models.ForeignKey('Equipment', null=True, blank=True, on_delete=models.SET_NULL)
     MID = models.ForeignKey('Material', null=True, blank=True, on_delete=models.SET_NULL)
-    amount = models.IntegerField()
+    amount = models.IntegerField(default=1)
     unit = models.CharField(max_length=45)
 
     class Meta:
