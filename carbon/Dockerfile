@@ -10,4 +10,3 @@ COPY . /app/
 
 EXPOSE 8000
 
-CMD [ "tail", "-f", "/dev/null"]

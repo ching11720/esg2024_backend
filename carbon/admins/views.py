@@ -7,7 +7,7 @@ from .serializers import UserSerializer, EmployeesCreateSerialzer, EmployeesSeri
 import random
 import string
 from datetime import datetime
-from .models import Employee, Project, WorksOn
+from .models import Employee, Project, WorksOn, Usage
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -21,7 +21,7 @@ class CreateUserView(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             username = serializer.validated_data['username']
-            permission = serializer.validated_data['permission']
+            permissions = serializer.validated_data['permission']
             
             try:
                 employee = Employee.objects.get(name=username)
@@ -30,17 +30,61 @@ class CreateUserView(APIView):
             except Employee.DoesNotExist:
                 return Response({'error': 'Employee not found'}, status=status.HTTP_404_NOT_FOUND)
 
-            if permission:
-                project_group, created = Group.objects.get_or_create(name=f'project_{permission}')
-                user.groups.add(project_group)
+            if permissions:
+                permissions = permissions.split(', ')
+                for x in permissions:
+                    for x in permissions:
+                        try:
+                            project_group = Group.objects.get(name=f'project_{x}')
+                            user.groups.add(project_group)
+                        except:
+                            return Response({'fail': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
             return Response({'username': username, 'password': password}, status=status.HTTP_201_CREATED)
            # return Response({'username': username, 'password': password, 'p': user.password}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-# {"pname":"project3", "flow":"none", "PMID":"somebody"}
+class AssignAccessView(APIView):
+    def put(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        eid = request.data.get('userID')
+        permissions = request.data.get('Access')
+        if username:
+            try:
+                user1 = User.objects.get(username=username)
+            except:
+                return Response({'fail': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        if eid:
+            try:
+                employee = Employee.objects.get(EID=eid)
+                ename = employee.name
+                user2 = User.objects.get(username=ename)
+            except:
+                return Response({'fail': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        if username and eid:
+            if user1 != user2:
+                return Response({'fail': 'username and userID do not match'}, status=status.HTTP_400_BAD_REQUEST)
+        if username:
+            user = user1
+        elif eid:
+            user = user2
+        permissions = permissions.split(', ')
+        for x in permissions:
+            for x in permissions:
+                try:
+                    project_group = Group.objects.get(name=f'project_{x}')
+                    user.groups.add(project_group)
+                except:
+                    return Response({'fail': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response('success', status=status.HTTP_200_OK)
+    
+# {"pname":"project10", "PMID":"022024080009", "Material": "a, b", "Equipment": "c, d"}
 class CreateProjectView(APIView):
 
     def post(self, request, *args, **kwargs):
+
+        ms = request.data.get('Material')
+        eqs = request.data.get('Equipment')
+
         # Get the current date
         now = datetime.now()
         yy = now.strftime("%y") 
@@ -55,20 +99,28 @@ class CreateProjectView(APIView):
 
         # Add the generated PID to the request data
         request.data['PID'] = PID
-
-        serializer = ProjectSerializer(data=request.data)
-        if serializer.is_valid():
-            project = serializer.save()
-
+        try:
+            pmid = Employee.objects.get(EID=request.data.get('PMID'))
+            #request.data['PMID'] = pmid
+        except:
+            return Response({'fail': 'PMID not found'}, status=status.HTTP_404_NOT_FOUND)
+        project = Project.objects.create(PID=PID, pname=request.data.get('pname'), PMID=pmid)
+        #serializer = ProjectSerializer(data=request.data)
+        #if serializer.is_valid():
+            #project = serializer.save()
             # Create an authentication group for the project
-            group_name = f"project_{project.PID}"
-            group, created = Group.objects.get_or_create(name=group_name)
-            if created:
-                print(f"Group '{group_name}' created successfully.")
+        group_name = f"project_{project.PID}"
+        group = Group.objects.create(name=group_name)
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        msl = ms.split(', ')
+        eqsl = eqs.split(', ')
+        for x in msl:
+            usage = Usage.objects.create(PID=project, MID=x)
+        for x in eqsl:
+            usage = Usage.objects.create(PID=project, EQID=x)
+        #return Response('success', status=status.HTTP_201_CREATED)
+        return Response({'PID': PID, 'PMID': pmid.EID, 'Material': ms, 'Equipment': eqs}, status=status.HTTP_201_CREATED)
+        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # {"name":"test7", "gender":1, "phone":"0912345678", "email":"a@a.com", "nation":"TW", "status":"1", "PID":"01000000"}
@@ -157,7 +209,7 @@ class EmployeeView(APIView):
                     WorksOn.objects.create(EID=employee, PID=project, position="Default Position")
                 except Project.DoesNotExist:
                     return Response({'error': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response('success': serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
@@ -178,7 +230,7 @@ class DeleteEmployeeView(APIView):
             user = User.objects.filter(username=name)
             user.delete()
             serializer = EmployeesSerialzer(employee)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response('success', status=status.HTTP_200_OK)
         except Employee.DoesNotExist:
             return Response({'error': 'Employee not found'}, status=status.HTTP_404_NOT_FOUND)
 

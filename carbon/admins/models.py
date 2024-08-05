@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+# myapp/models.py
+
+from django.db import models
 from django.core.validators import RegexValidator
 
 class Employee(models.Model):
@@ -17,7 +21,8 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
-    class Meta:
+    
+    class Mata:
         managed = False
         db_table = 'employees'
 
@@ -27,12 +32,12 @@ class Project(models.Model):
     PID = models.CharField(max_length=10, primary_key=True, validators=[pid_validator])
     pname = models.CharField(max_length=255)
     flow = models.TextField(null=True, blank=True)
-    PMID = models.CharField(max_length=12)
-
+    PMID = models.ForeignKey(Employee, on_delete=models.CASCADE, db_column='EID')
+    # PMID = models.CharField(max_length=10)
     def __str__(self):
         return self.pname
-    
-    class Meta:
+
+    class Mata:
         managed = False
         db_table = 'projects'
 
@@ -51,5 +56,13 @@ class WorksOn(models.Model):
 
     def __str__(self):
         return f"{self.EID} works on {self.PID} as {self.position}"
+    
+class Usage(models.Model):
+    PID = PID = models.ForeignKey(Project, on_delete=models.CASCADE, db_column='PID')
+    EQID = models.CharField(max_length=12)
+    MID = models.CharField(max_length=14)
+
+    def __str__(self):
+        return f"{self.PID} uses {self.EQID}{self.MID}"
 
 

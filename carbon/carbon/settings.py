@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import os
-from dotenv import load_dotenv
+#import os
+#from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-c3*yu-piv4rftqla8u@hjs(=$1*cya3v2nl^cl2$a)n6=y8_$^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'helloworld',
     'login',
     'admins',
@@ -53,6 +54,19 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
 
 ROOT_URLCONF = 'carbon.urls'
 
@@ -78,20 +92,30 @@ WSGI_APPLICATION = 'carbon.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-env_path = os.path.join(parent_dir, '.env')
-load_dotenv(dotenv_path=env_path)
+#parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+#env_path = os.path.join(parent_dir, '.env')
+#load_dotenv(dotenv_path=env_path)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE'),
-        'USER': os.getenv('MYSQL_USER'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': 'localhost',
+        # 'NAME': os.getenv('MYSQL_DATABASE'),
+        # 'USER': os.getenv('MYSQL_USER'),
+        # 'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'NAME': 'ESG_db',
+        'USER': 'user', 
+        'PASSWORD': 'carbon2024',
+        'HOST': 'mysqldb',
         'PORT': '3307',
     }
 }
 
+"""
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
+    }
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -111,6 +135,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+"""
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.ScryptPasswordHasher",
+]"""
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

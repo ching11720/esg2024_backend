@@ -1,50 +1,54 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import Group
-import MySQLdb
-from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Boundary, Source
+from .serializers import BoundarySerializer, SourceSerializer
+from rest_framework.views import APIView
+from datetime import datetime
+"""
+class boundary(APIView):
+    def post(self, request, *args, **kwargs):
+        postal_code = request.data.get('postal_code')
+        b_count = Boundary.Objects.count() #+ 1
+        BID = f"05{postal_code}{b_count:03d}"
+        request.data['BID'] = BID
+        serializer = BoundarySerializer(data=request.data)
+        if serializer.is_valid():
+            boundary = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def connect_db():
-    db = MySQLdb.connect(host="esg_mysql",
-            user="user", passwd="carbon2024",
-            db="carbon", charset="utf8")
-    return db
-
-
-class boundary():
-    def Post(request):
-        name = request.Post['Name']
-        addr = request.Post['address']
-        type = request.Post['type']
+    def put(self, request, *args, **kwargs):
+        try:
+            boundary = Boundary.objects.get(BID=BID)
+        except Boundary.DoesNotExist:
+            return Response({'error': 'Boundary not found'}, status=status.HTTP_404_NOT_FOUND)
         
-        db = connect_db()
-        cursor = db.cursor()
-        
-        cnt = 'SELECT COUNT(*) FROM borders'
-        cursor.execute(cnt)
-        cnt_result = cursor.fetchone()[0]
-        bid = '05' + postal_code + str(cnt_result).zfill(3)
-        insertion = 'INSERT INTO borders VALUES ({}, {}, {})'.format()
-        cursor.execute(insertion)
-        db.commit()
-        db.close()
-        return HttpResponse(bid)
-
-    def Revise(request):
-        if(request.method == 'POST'):
-            bid = request.Post['BID']
-            addr = request.Post['address']
-            db = connect_db()
-            cursor = db.cursor()
-            revision = 'UPDATE FROM borders SET address = {} WHERE BID = {}'.format(addr, bid)
-            cursor.execute(revision)
-            retrieve = 'SELECT * FROM borders WHERE BID = {}'.format(bid)
-            cursor.execute(retrieve)
-            result = cursor.fetchall()
-            db.commit()
-            db.close()
-            return HttpResponse(result)
+        serializer = EmployeesSerialzer(employee, data=request.data)
+        pid = request.data.get('PID', None)      
+        if serializer.is_valid():
+            Employee.objects.filter(EID=EID).update(
+                name=serializer.validated_data['name'],
+                gender=serializer.validated_data['gender'],
+                phone=serializer.validated_data['phone'],
+                email=serializer.validated_data['email'],
+                nation=serializer.validated_data['nation'],
+                status=1
+            )
+            if pid:
+                try:
+                    employee = Employee.objects.get(EID=EID)
+                    project = Project.objects.get(PID=pid)
+                    WorksOn.objects.create(EID=employee, PID=project, position="Default Position")
+                except Project.DoesNotExist:
+                    return Response({'error': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def Delete(request):
+    
+    def delete(self, request, *args, **kwargs):
         if(request.method == 'DELETE'):
             bid = request.Post['BID']
             db = connect_db()
@@ -53,9 +57,9 @@ class boundary():
             cursor.execute(delete)
             db.commit()
             db.close()
-            return HttpResponse('success')
+            return Response('success')
     
-    def retrieve(request):
+    def get(self, request, *args, **kwargs):
         if(request.method == 'GET'):
             conditions = [request.Post['BID'], request.Post['name'], request.Post['type']]
             db = connect_db()
@@ -74,26 +78,17 @@ class boundary():
             cursor.execute(retrieve, param)
             result = cursor.fetchall()
             db.close()
-            return HttpResponse(result)
+            return Response(result)
 
+"""
+"""
 class source():
-    def Post(request):
-        ename = request.Post['EName']
-        form = request.Post['Form']
-        mname = request.Post['MName']
-        cat = request.Post['Category']
-        
-        db = connect_db()
-        cursor = db.cursor()
-        
-        insertion = 'INSERT INTO borders VALUES ({}, {}, {})'.format()
-        cursor.execute(insertion)
-        db.commit()
-        db.close()
-        return HttpResponse(bid)
-    def revise():
+    def Post(self, request, *args, **kwargs):
+        serializer = SourceSerializer(data=request.data)
+        # get MID
+    def put():
     def delete():
-    def retrieve():
+    def get():
 
 
 class statement():
