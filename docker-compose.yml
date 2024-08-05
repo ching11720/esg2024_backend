@@ -3,22 +3,22 @@
 version: "3.8"
 
 services:
-  #backend:
-   # container_name: backend
-    #build: 
-     # context: ./carbon
-      #dockerfile: Dockerfile
-    #restart: unless-stopped
-    #volumes:
-     # - .:/carbon
-    #links:
-     # - db
-    #depends_on:
-     # - rabbitmq
-    #ports:
-     # - 8000:8000
-    #networks:
-     # - esg_network
+  backend:
+    container_name: backend
+    build: 
+      context: ./carbon
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+     - .:/carbon
+    links:
+     - db
+    depends_on:
+     - rabbitmq
+    ports:
+     - 8000:8000
+    networks:
+     - esg_network
   
   rabbitmq:
     image: rabbitmq:3.10.5-management
