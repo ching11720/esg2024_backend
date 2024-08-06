@@ -12,13 +12,13 @@
 ##### Body
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
-| Name               | true     | string    | name of the equipment                    |
-| Amount             | true     | int       | amount of the equipment                  |
-| Unit               | true     | number    | the unit of the equipment                |
+| EQID               | true     | string    | id of the equipment                      |
+| amount             | true     | int       | amount of the equipment                  |
+| unit               | true     | string    | the unit of the equipment                |
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `200`        | `application/json`   | the detail of the posted equipment |
+| `200`        | `application/json`   | `{ message: 'Equipment added successfully!', data: the detail of the equipment }` |
 | `400`        | `text/plain`         | `{ message: "client error"}`       |
 | `500`        | `text/plain`         | `{ message: "server error"}`       |
 </details>
@@ -33,17 +33,15 @@
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
 ##### Path Parameters
-| key    | required | data type | description                     |
-| ------ | -------- | --------- | ------------------------------- |
-| Name   | true     | string    | the name of the equipment       |
-| Amount | true     | int       | the amount of removed equipment |
-| Unit   | true     | number    | the unit of the equipment       |
+| key  | required | data type | description         |
+| ---- | -------- | --------- | ------------------- |
+| EQID | true     | string    | id of the equipment |
 ##### Responses
-| http code    | content-type | description                           |
-| ------------ | -------------| ------------------------------------- |
-| `200`        | `text/plain` | `{ message: "success"}`               |
-| `400`        | `text/plain` | `{ message: "client error"}`          |
-| `500`        | `text/plain` | `{ message: "server error"}`          |
+| http code    | content-type | description                                     |
+| ------------ | -------------| ----------------------------------------------- |
+| `204`        | `text/plain` | `{ message: "equipment deleted successfully!"}` |
+| `404`        | `text/plain` | `{ message: "Equipment not found"}`             |
+| `500`        | `text/plain` | `{ message: "server error"}`                    |
 
 </details>
 
@@ -59,12 +57,12 @@
 ##### Path Parameters
 | key  | required | data type | description           |
 | ---- | -------- | --------- | --------------------- |
-| Name | true     | string    | name of the equipment |
+| EID  | true     | string    | id of the equipment   |
 ##### Responses
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
 | `200`        | `application/json` | the detail of the retrieved equipment       |
-| `400`        | `text/plain`       | `{ message: "client error"}`                |
+| `404`        | `text/plain`       | `{ message: "Equipment not found"}`         |
 | `500`        | `text/plain`       | `{ message: "server error"}`                |
 
 </details>
