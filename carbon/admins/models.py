@@ -3,15 +3,11 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
 class Employee(models.Model):
-    eid_validator = RegexValidator(regex=r'^02[0-9]{10}$', message="EID must be in the format '02' followed by 10 digits.")
-    email_validator = RegexValidator(regex=r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', message="Enter a valid email address.")
-    phone_validator = RegexValidator(regex=r'^[0-9]+$', message="Phone number must contain only digits.")
-
-    EID = models.CharField(max_length=12, primary_key=True, validators=[eid_validator])
+    EID = models.CharField(max_length=12, primary_key=True)
     name = models.CharField(max_length=255)
-    gender = models.IntegerField(choices=((1, 'Male'), (2, 'Female')))
-    email = models.CharField(max_length=255, validators=[email_validator], default='default@example.com')
-    phone = models.CharField(max_length=11, validators=[phone_validator])
+    gender = models.IntegerField()
+    email = models.EmailField()
+    phone = models.CharField(max_length=11)
     nation = models.CharField(max_length=255)
     status = models.IntegerField(default=1)
 
