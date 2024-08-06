@@ -103,8 +103,12 @@ DATABASES = {
         'NAME': os.getenv('MYSQL_DATABASE'),
 		'USER': os.getenv('MYSQL_USER'),
 		'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        #if run in docker, use this two lines
 		'HOST': 'db',
 		'PORT': '3306',
+        #if run in local, use this two lines
+        #'HOST': 'localhost',
+        #'PORT': '3307',
     }
 }
 
