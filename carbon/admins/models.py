@@ -17,7 +17,7 @@ class Employee(models.Model):
     class Mata:
         managed = False
         db_table = 'employees'
-"""
+
 class Project(models.Model):
     pid_validator = RegexValidator(regex=r'^01[0-9]{6}$', message="PID must be in the format '01' followed by 6 digits.")
 
@@ -57,5 +57,3 @@ class Usage(models.Model):
     def __str__(self):
         return f"{self.PID} uses {self.EQID}{self.MID}"
 
-
-"""

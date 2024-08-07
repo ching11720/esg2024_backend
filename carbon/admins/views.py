@@ -3,11 +3,11 @@ from django.contrib.auth.models import User, Group
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer#, EmployeesCreateSerialzer, EmployeesSerialzer, EmployeesDeleteSerialzer, ProjectSerializer
+from .serializers import UserSerializer, EmployeesCreateSerialzer, EmployeesSerialzer, EmployeesDeleteSerialzer, ProjectSerializer
 import random
 import string
 from datetime import datetime
-from .models import Employee#, Project, WorksOn, Usage
+from .models import Employee, Project, WorksOn, Usage
 from django.db.models import Q
 
 # when employee is deleted, user and workson should be deleted too
@@ -34,10 +34,11 @@ class CreateUserView(APIView):
             return Response({'username': username, 'password': password}, status=status.HTTP_201_CREATED)
            # return Response({'username': username, 'password': password, 'p': user.password}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-"""
+
 class AssignAccessView(APIView):
     def put(self, request, *args, **kwargs):
         username = request.data.get('username')
+        
         eid = request.data.get('userID')
         permissions = request.data.get('Access')
         if username:
@@ -226,4 +227,4 @@ class DeleteEmployeeView(APIView):
         except Employee.DoesNotExist:
             return Response({'error': 'Employee not found'}, status=status.HTTP_404_NOT_FOUND)
 
-"""
+
