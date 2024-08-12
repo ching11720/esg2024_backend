@@ -12,8 +12,9 @@
 ##### Body
 | key      | required | data type | description                              |
 | -------- | -------- | --------- | ---------------------------------------- |
-| EID      | true     | string    |                                          |
-| Position | true     | string    |                                          |
+| PID      | true     | string    | id of the project                        |
+| EID      | true     | string    | the EID of the member                    |
+| position | true     | string    |                                          |
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
@@ -23,7 +24,7 @@
 </details>
 
 <details>
-<summary><code>REVISE</code> <code><b>/{EID}</b></code> <code>(Revise an member)</code></summary>
+<summary><code>REVISE</code> <code><b>/{PID}/{EID}</b></code> <code>(Revise an member)</code></summary>
 
 <br />
 
@@ -34,24 +35,26 @@
 ##### Path Parameters
 | key      | required | data type | description           |
 | -------- | -------- | --------- | --------------------- |
+| PID      | true     | string    | id of the project     |
 | EID      | true     | string    | the EID of the member |
 ##### Body
 | key      | required | data type | description                |
 | -------- | -------- | --------- | -------------------------- |
+| PID      | true     | string    | id of the project          |
 | EID      | true     | string    | the EID of the member      |
 | Position | true     | string    | the position of the memeber|
 ##### Responses
-| http code    | content-type | description                           |
-| ------------ | -------------| ------------------------------------- |
-| `200`        | `text/plain` | `{'message': 'Member revised successfully!', 'data': serializer.data}`|
-| `400`        | `text/plain` | `{ message: "client error"}`          |
-| `404`,       | `text/plain` | `{ message: "Member not found"}`      |
-| `500`        | `text/plain` | `{ message: "server error"}`          |
+| http code    | content-type | description                                  |
+| ------------ | -------------| -------------------------------------        |
+| `200`        | `text/plain` | `{'message': 'Member revised successfully!'}`|
+| `400`        | `text/plain` | `{ message: "client error"}`                 |
+| `404`,       | `text/plain` | `{ message: "Member not found"}`             |
+| `500`        | `text/plain` | `{ message: "server error"}`                 |
 
 </details>
 
 <details>
-<summary><code>REMOVE</code> <code><b>/{EID}</b></code> <code>(Remove an member)</code></summary>
+<summary><code>REMOVE</code> <code><b>/{PID}/{EID}</b></code> <code>(Remove an member)</code></summary>
 
 <br />
 
@@ -62,19 +65,20 @@
 ##### Path Parameters
 | key      | required | data type | description                              |
 | -------- | -------- | --------- | ---------------------------------------- |
-| EID      | true     | string    |                                          |
+| PID      | true     | string    | id of the project                        |
+| EID      | true     | string    | the EID of the member                    |
 ##### Responses
-| http code    | content-type | description                           |
-| ------------ | -------------| ------------------------------------- |
+| http code    | content-type | description                                 |
+| ------------ | -------------| -------------------------------------       |
 | `204`        | `text/plain` | `{ message: "Member deleted successfully!"}`|
-| `400`        | `text/plain` | `{ message: "client error"}`          |
-| `404`        | `text/plain` | `{ message: "Member not found"}`      |
-| `500`        | `text/plain` | `{ message: "server error"}`          |
+| `400`        | `text/plain` | `{ message: "client error"}`                |
+| `404`        | `text/plain` | `{ message: "Member not found"}`            |
+| `500`        | `text/plain` | `{ message: "server error"}`                |
 
 </details>
 
 <details>
-<summary><code>RETRIEVE</code> <code><b>/{}</b></code> <code>(Retrieve the detail of an member)</code></summary>
+<summary><code>RETRIEVE</code> <code><b>/{PID}/{EID}</b></code> <code>(Retrieve the detail of an member)</code></summary>
 
 <br />only for admin
 
@@ -82,12 +86,11 @@
 | key | values | description |
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
-##### Body
-| key      | required   | data type | description            |
-| -------- | ---------- | --------- | ---------------------- |
-| EID      | at least 1 | string    | EID of the member      |
-| Name     | at least 1 | string    | name of the member     |
-| Position | at least 1 | string    | position of the member |
+##### Path Parameters
+| key      | required | data type | description                              |
+| -------- | -------- | --------- | ---------------------------------------- |
+| PID      | true     | string    | id of the project                        |
+| EID      | true     | string    | the EID of the member                    |
 ##### Responses
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
