@@ -3,4 +3,7 @@ SQLAlchemy
 django
 djangorestframework
 mysql-connector-python
+mysqlclient
+bcrypt
+djangorestframework-simplejwt
 python-dotenv
