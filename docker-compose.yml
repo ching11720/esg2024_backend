@@ -18,22 +18,22 @@ services:
     networks:
       - esg_network
   
-  rabbitmq:
-    image: rabbitmq:3.10.5-management
-    container_name: rabbitmq
-    restart: unless-stopped
-    hostname: my-rabbit
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    expose:
-      - "5672"
-    environment:
-      RABBITMQ_DEFAULT_VHOST: my_vhost
-      RABBITMQ_DEFAULT_USER: ${RMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RMQ_PASSWORD}
-    networks:
-      - esg_network
+  # rabbitmq:
+  #   image: rabbitmq:3.10.5-management
+  #   container_name: rabbitmq
+  #   restart: unless-stopped
+  #   hostname: my-rabbit
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   expose:
+  #     - "5672"
+  #   environment:
+  #     RABBITMQ_DEFAULT_VHOST: my_vhost
+  #     RABBITMQ_DEFAULT_USER: ${RMQ_USER}
+  #     RABBITMQ_DEFAULT_PASS: ${RMQ_PASSWORD}
+  #   networks:
+  #     - esg_network
 
   #frontend:
    # image: frontend
