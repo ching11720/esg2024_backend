@@ -12,6 +12,7 @@
 ##### Body
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
+| PID                | true     | string    | id of the project                        |
 | EQID               | true     | string    | id of the equipment                      |
 | amount             | true     | int       | amount of the equipment                  |
 | unit               | true     | string    | the unit of the equipment                |
@@ -24,7 +25,7 @@
 </details>
 
 <details>
-<summary><code>REMOVE</code> <code><b>/{EID}</b></code> <code>(Remove an eqiupment)</code></summary>
+<summary><code>REMOVE</code> <code><b>/{PID}/{EID}</b></code> <code>(Remove an eqiupment)</code></summary>
 
 <br />
 
@@ -35,6 +36,7 @@
 ##### Path Parameters
 | key  | required | data type | description         |
 | ---- | -------- | --------- | ------------------- |
+| PID  | true     | string    | id of the project   |
 | EQID | true     | string    | id of the equipment |
 ##### Responses
 | http code    | content-type | description                                     |
@@ -46,7 +48,7 @@
 </details>
 
 <details>
-<summary><code>RETRIEVE</code> <code><b>/{EID}</b></code> <code>(Retrieve the detail of an equipment)</code></summary>
+<summary><code>RETRIEVE</code> <code><b>/{PID}/{EID}</b></code> <code>(Retrieve the detail of an equipment)</code></summary>
 
 <br />
 
@@ -57,6 +59,7 @@
 ##### Path Parameters
 | key  | required | data type | description           |
 | ---- | -------- | --------- | --------------------- |
+| PID  | true     | string    | id of the project     |
 | EID  | true     | string    | id of the equipment   |
 ##### Responses
 | http code    | content-type       | description                                 |
