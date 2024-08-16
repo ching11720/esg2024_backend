@@ -1,38 +1,33 @@
-# myapp/views.py
 from django.contrib.auth.models import User, Group
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer#, EmployeesCreateSerialzer, EmployeesSerialzer, EmployeesDeleteSerialzer, ProjectSerializer
-import random
-import string
+from .serializers import UserSerializer, EmployeesCreateSerialzer, EmployeesSerialzer, EmployeesDeleteSerialzer, ProjectSerializer
+import random, string, hashlib
 from datetime import datetime
-from .models import Employee#, Project, WorksOn, Usage
+from .models import Employee, Project, WorksOn, Usage
 from django.db.models import Q
 
-# when employee is deleted, user and workson should be deleted too
-# should user just be deleted or updated?
-
-# {"username": "test2", "permission": "01240801"}
 class CreateUserView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             username = serializer.validated_data['username']
             permissions = serializer.validated_data['permission']
-            
             try:
                 employee = Employee.objects.get(name=username)
-                password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
-                user = User.objects.create_user(username=username, password=password)
             except Employee.DoesNotExist:
-                return Response({'error': 'Employee not found'}, status=status.HTTP_404_NOT_FOUND)
-
+                return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+            password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+            hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
+            # user = User.objects.create_user(username=username, password=hashed)
+            user = User(username=username)
+            user.set_password(hashed)  # Set password plaintext; Django handles hashing
+            user.save()
             if permissions:
                 group = Group.objects.get(name=permissions)
                 user.groups.add(group)
-            return Response({'username': username, 'password': password}, status=status.HTTP_201_CREATED)
-           # return Response({'username': username, 'password': password, 'p': user.password}, status=status.HTTP_201_CREATED)
+            return Response({'username': username, 'password': password, 'hashed': hashed}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 """
 class AssignAccessView(APIView):
