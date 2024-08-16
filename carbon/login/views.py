@@ -7,25 +7,31 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from admins.models import Employee
+import hashlib
 
-
-# {test8 GVEh2HTJ}
 class LoginUserView(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get("user")
         password = request.data.get("password")
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        # hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        # user = authenticate(request, username=username, password=hashed)
+        # user = User.objects.filter(username=username, password=hashed).first()
+        # return Response(user)
+        user= User.objects.get(username=username)
+        # if user.check_password(hashed):
+        if user.check_password(password):
+        #if user is not None:
             login(request, user)
-            refresh = RefreshToken.for_user(user)
+            # refresh = RefreshToken.for_user(user)
             """
             return Response({
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             }, status=status.HTTP_200_OK)"""
-            return Response({'success': True, 'JWT': str(refresh.access_token), 'first_login': True})
+            return Response({"success": True, "JWT": str(refresh.access_token), "first_login": True})
         else:
-            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+            # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'success': False, 'JWT': '', 'first_login': True})
             
 
     
