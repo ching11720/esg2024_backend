@@ -82,7 +82,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add act',6,'add_act'),(22,'Can change act',6,'change_act'),(23,'Can delete act',6,'delete_act'),(24,'Can view act',6,'view_act'),(25,'Can add act fac',7,'add_actfac'),(26,'Can change act fac',7,'change_actfac'),(27,'Can delete act fac',7,'delete_actfac'),(28,'Can view act fac',7,'view_actfac'),(29,'Can add ef',8,'add_ef'),(30,'Can change ef',8,'change_ef'),(31,'Can delete ef',8,'delete_ef'),(32,'Can view ef',8,'view_ef'),(33,'Can add es',9,'add_es'),(34,'Can change es',9,'change_es'),(35,'Can delete es',9,'delete_es'),(36,'Can view es',9,'view_es'),(37,'Can add gwps',10,'add_gwps'),(38,'Can change gwps',10,'change_gwps'),(39,'Can delete gwps',10,'delete_gwps'),(40,'Can view gwps',10,'view_gwps'),(41,'Can add act',11,'add_act'),(42,'Can change act',11,'change_act'),(43,'Can delete act',11,'delete_act'),(44,'Can view act',11,'view_act'),(45,'Can add act fac',12,'add_actfac'),(46,'Can change act fac',12,'change_actfac'),(47,'Can delete act fac',12,'delete_actfac'),(48,'Can view act fac',12,'view_actfac'),(49,'Can add ef',13,'add_ef'),(50,'Can change ef',13,'change_ef'),(51,'Can delete ef',13,'delete_ef'),(52,'Can view ef',13,'view_ef'),(53,'Can add es',14,'add_es'),(54,'Can change es',14,'change_es'),(55,'Can delete es',14,'delete_es'),(56,'Can view es',14,'view_es'),(57,'Can add gwps',15,'add_gwps'),(58,'Can change gwps',15,'change_gwps'),(59,'Can delete gwps',15,'delete_gwps'),(60,'Can view gwps',15,'view_gwps'),(61,'Can add session',16,'add_session'),(62,'Can change session',16,'change_session'),(63,'Can delete session',16,'delete_session'),(64,'Can view session',16,'view_session'),(65,'Can add employee',17,'add_employee'),(66,'Can change employee',17,'change_employee'),(67,'Can delete employee',17,'delete_employee'),(68,'Can view employee',17,'view_employee'),(69,'Can add equipment',18,'add_equipment'),(70,'Can change equipment',18,'change_equipment'),(71,'Can delete equipment',18,'delete_equipment'),(72,'Can view equipment',18,'view_equipment'),(73,'Can add material',19,'add_material'),(74,'Can change material',19,'change_material'),(75,'Can delete material',19,'delete_material'),(76,'Can view material',19,'view_material'),(77,'Can add project',20,'add_project'),(78,'Can change project',20,'change_project'),(79,'Can delete project',20,'delete_project'),(80,'Can view project',20,'view_project'),(81,'Can add supplier',21,'add_supplier'),(82,'Can change supplier',21,'change_supplier'),(83,'Can delete supplier',21,'delete_supplier'),(84,'Can view supplier',21,'view_supplier'),(85,'Can add user',22,'add_user'),(86,'Can change user',22,'change_user'),(87,'Can delete user',22,'delete_user'),(88,'Can view user',22,'view_user'),(89,'Can add usage',23,'add_usage'),(90,'Can change usage',23,'change_usage'),(91,'Can delete usage',23,'delete_usage'),(92,'Can view usage',23,'view_usage'),(93,'Can add supply',24,'add_supply'),(94,'Can change supply',24,'change_supply'),(95,'Can delete supply',24,'delete_supply'),(96,'Can view supply',24,'view_supply'),(97,'Can add works on',25,'add_workson'),(98,'Can change works on',25,'change_workson'),(99,'Can delete works on',25,'delete_workson'),(100,'Can view works on',25,'view_workson');
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add act',6,'add_act'),(22,'Can change act',6,'change_act'),(23,'Can delete act',6,'delete_act'),(24,'Can view act',6,'view_act'),(25,'Can add act fac',7,'add_actfac'),(26,'Can change act fac',7,'change_actfac'),(27,'Can delete act fac',7,'delete_actfac'),(28,'Can view act fac',7,'view_actfac'),(29,'Can add ef',8,'add_ef'),(30,'Can change ef',8,'change_ef'),(31,'Can delete ef',8,'delete_ef'),(32,'Can view ef',8,'view_ef'),(33,'Can add es',9,'add_es'),(34,'Can change es',9,'change_es'),(35,'Can delete es',9,'delete_es'),(36,'Can view es',9,'view_es'),(37,'Can add gwps',10,'add_gwps'),(38,'Can change gwps',10,'change_gwps'),(39,'Can delete gwps',10,'delete_gwps'),(40,'Can view gwps',10,'view_gwps'),(41,'Can add act',11,'add_act'),(42,'Can change act',11,'change_act'),(43,'Can delete act',11,'delete_act'),(44,'Can view act',11,'view_act'),(45,'Can add act fac',12,'add_actfac'),(46,'Can change act fac',12,'change_actfac'),(47,'Can delete act fac',12,'delete_actfac'),(48,'Can view act fac',12,'view_actfac'),(49,'Can add ef',13,'add_ef'),(50,'Can change ef',13,'change_ef'),(51,'Can delete ef',13,'delete_ef'),(52,'Can view ef',13,'view_ef'),(53,'Can add es',14,'add_es'),(54,'Can change es',14,'change_es'),(55,'Can delete es',14,'delete_es'),(56,'Can view es',14,'view_es'),(57,'Can add gwps',15,'add_gwps'),(58,'Can change gwps',15,'change_gwps'),(59,'Can delete gwps',15,'delete_gwps'),(60,'Can view gwps',15,'view_gwps'),(61,'Can add session',16,'add_session'),(62,'Can change session',16,'change_session'),(63,'Can delete session',16,'delete_session'),(64,'Can view session',16,'view_session'),(65,'Can add employee',17,'add_employee'),(66,'Can change employee',17,'change_employee'),(67,'Can delete employee',17,'delete_employee'),(68,'Can view employee',17,'view_employee'),(69,'Can add equipment',18,'add_equipment'),(70,'Can change equipment',18,'change_equipment'),(71,'Can delete equipment',18,'delete_equipment'),(72,'Can view equipment',18,'view_equipment'),(73,'Can add material',19,'add_material'),(74,'Can change material',19,'change_material'),(75,'Can delete material',19,'delete_material'),(76,'Can view material',19,'view_material'),(77,'Can add project',20,'add_project'),(78,'Can change project',20,'change_project'),(79,'Can delete project',20,'delete_project'),(80,'Can view project',20,'view_project'),(81,'Can add supplier',21,'add_supplier'),(82,'Can change supplier',21,'change_supplier'),(83,'Can delete supplier',21,'delete_supplier'),(84,'Can view supplier',21,'view_supplier'),(85,'Can add user',22,'add_user'),(86,'Can change user',22,'change_user'),(87,'Can delete user',22,'delete_user'),(88,'Can view user',22,'view_user'),(89,'Can add usage',23,'add_usage'),(90,'Can change usage',23,'change_usage'),(91,'Can delete usage',23,'delete_usage'),(92,'Can view usage',23,'view_usage'),(93,'Can add supply',24,'add_supply'),(94,'Can change supply',24,'change_supply'),(95,'Can delete supply',24,'delete_supply'),(96,'Can view supply',24,'view_supply'),(97,'Can add works on',25,'add_workson'),(98,'Can change works on',25,'change_workson'),(99,'Can delete works on',25,'delete_workson'),(100,'Can view works on',25,'view_workson'),(101,'Can add usage m',26,'add_usagem'),(102,'Can change usage m',26,'change_usagem'),(103,'Can delete usage m',26,'delete_usagem'),(104,'Can view usage m',26,'view_usagem'),(105,'Can add usage eq',27,'add_usageeq'),(106,'Can change usage eq',27,'change_usageeq'),(107,'Can delete usage eq',27,'delete_usageeq'),(108,'Can view usage eq',27,'view_usageeq');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,6 +186,33 @@ LOCK TABLES `auth_user_user_permissions` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `boundary`
+--
+
+DROP TABLE IF EXISTS `boundary`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `boundary` (
+  `BID` varchar(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  PRIMARY KEY (`BID`),
+  CONSTRAINT `check_bid_format` CHECK (regexp_like(`BID`,_utf8mb4'^04[0-9]{9}$'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `boundary`
+--
+
+LOCK TABLES `boundary` WRITE;
+/*!40000 ALTER TABLE `boundary` DISABLE KEYS */;
+INSERT INTO `boundary` VALUES ('04106234002','office 1','台北市大安區仁愛路4段234號5樓','office'),('04305123001','factory 1','新竹縣竹北市光明一路123號','factory');
+/*!40000 ALTER TABLE `boundary` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `django_admin_log`
 --
 
@@ -232,7 +259,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,7 +268,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(6,'helloworld','act'),(7,'helloworld','actfac'),(8,'helloworld','ef'),(9,'helloworld','es'),(10,'helloworld','gwps'),(11,'login','act'),(12,'login','actfac'),(13,'login','ef'),(14,'login','es'),(15,'login','gwps'),(17,'pm','employee'),(18,'pm','equipment'),(19,'pm','material'),(20,'pm','project'),(21,'pm','supplier'),(24,'pm','supply'),(23,'pm','usage'),(22,'pm','user'),(25,'pm','workson'),(16,'sessions','session');
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(6,'helloworld','act'),(7,'helloworld','actfac'),(8,'helloworld','ef'),(9,'helloworld','es'),(10,'helloworld','gwps'),(11,'login','act'),(12,'login','actfac'),(13,'login','ef'),(14,'login','es'),(15,'login','gwps'),(17,'pm','employee'),(18,'pm','equipment'),(19,'pm','material'),(20,'pm','project'),(21,'pm','supplier'),(24,'pm','supply'),(23,'pm','usage'),(27,'pm','usageeq'),(26,'pm','usagem'),(22,'pm','user'),(25,'pm','workson'),(16,'sessions','session');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,6 +324,34 @@ LOCK TABLES `django_session` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `emission`
+--
+
+DROP TABLE IF EXISTS `emission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `emission` (
+  `SRID` varchar(14) NOT NULL,
+  `GID` varchar(10) NOT NULL,
+  `amount` float NOT NULL,
+  PRIMARY KEY (`SRID`,`GID`),
+  KEY `emission_ibfk_1` (`GID`),
+  CONSTRAINT `emission_ibfk_1` FOREIGN KEY (`GID`) REFERENCES `gas` (`GID`),
+  CONSTRAINT `emission_ibfk_2` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `emission`
+--
+
+LOCK TABLES `emission` WRITE;
+/*!40000 ALTER TABLE `emission` DISABLE KEYS */;
+INSERT INTO `emission` VALUES ('03202401010010','1',10),('03202401010010','2',1),('03202403020012','1',12),('03202405010013','1',13),('03202406010014','1',14),('03202407010015','1',15),('03202407010017','1',17),('03202407010017','4',0.0005),('03202407010018','1',18),('03202407020016','1',16),('03202407020016','5',0.001),('03202408010020','1',20),('03202408010020','3',0.1),('03202408020021','1',21);
+/*!40000 ALTER TABLE `emission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `employees`
 --
 
@@ -330,65 +385,28 @@ INSERT INTO `employees` VALUES ('022020112701','aaa',2,'aaa@mail.com','091111111
 UNLOCK TABLES;
 
 --
--- Table structure for table `equipments`
+-- Table structure for table `gas`
 --
 
-DROP TABLE IF EXISTS `equipments`;
+DROP TABLE IF EXISTS `gas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `equipments` (
-  `EQID` varchar(12) NOT NULL,
+CREATE TABLE `gas` (
+  `GID` varchar(10) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `amount` int NOT NULL,
-  `unit` varchar(10) NOT NULL,
-  `coefficient` float DEFAULT NULL,
-  `purchase_date` date NOT NULL,
-  `disposal_date` date NOT NULL,
-  `age` int NOT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`EQID`),
-  CONSTRAINT `check_eqid_format` CHECK (regexp_like(`EQID`,_utf8mb4'^03[0-9]{10}$'))
+  `gwp` float NOT NULL,
+  PRIMARY KEY (`GID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `equipments`
+-- Dumping data for table `gas`
 --
 
-LOCK TABLES `equipments` WRITE;
-/*!40000 ALTER TABLE `equipments` DISABLE KEYS */;
-INSERT INTO `equipments` VALUES ('032025070008','Equipment H',2,'pcs',NULL,'2023-07-01','2025-07-01',2,1),('032025070011','Equipment K',2,'pcs',NULL,'2024-07-20','2025-07-20',1,1),('032025110009','Equipment I',9,'pcs',NULL,'2023-11-10','2025-11-10',2,1),('032026070001','Equipment A',5,'pcs',NULL,'2020-07-15','2026-07-15',6,1),('032027070003','Equipment C',1,'pcs',NULL,'2021-07-10','2027-07-10',6,1),('032028070005','Equipment E',8,'pcs',NULL,'2022-07-15','2028-07-15',6,1),('032029010004','Equipment D',1,'pcs',NULL,'2022-01-01','2029-01-01',7,1),('032029040002','Equipment B',5,'pcs',NULL,'2021-04-01','2029-04-01',8,1),('032030020007','Equipment G',6,'pcs',NULL,'2023-02-05','2030-02-05',7,1),('032030090006','Equipment F',7,'pcs',NULL,'2022-09-01','2030-09-01',8,1),('032033020010','Equipment J',1,'pcs',NULL,'2024-02-01','2033-02-01',9,1);
-/*!40000 ALTER TABLE `equipments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `materials`
---
-
-DROP TABLE IF EXISTS `materials`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `materials` (
-  `MID` varchar(14) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `amount` int NOT NULL,
-  `unit` varchar(10) NOT NULL,
-  `coefficient` float DEFAULT NULL,
-  `purchase_date` date NOT NULL,
-  `age` int NOT NULL,
-  PRIMARY KEY (`MID`),
-  CONSTRAINT `check_mid_format` CHECK (regexp_like(`MID`,_utf8mb4'^04[0-9]{12}$'))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `materials`
---
-
-LOCK TABLES `materials` WRITE;
-/*!40000 ALTER TABLE `materials` DISABLE KEYS */;
-INSERT INTO `materials` VALUES ('04202401010001','Material A',50,'kg',NULL,'2024-01-10',1),('04202403020002','Material B',30,'kg',NULL,'2024-03-15',2),('04202405010003','Material C',40,'kg',NULL,'2024-05-20',1),('04202406010004','Material D',25,'kg',NULL,'2024-06-25',1),('04202407010005','Material E',60,'kg',NULL,'2024-07-10',1),('04202407010007','Material G',35,'kg',NULL,'2024-07-15',1),('04202407010008','Material H',45,'kg',NULL,'2024-07-20',1),('04202407020006','Material F',55,'kg',NULL,'2024-07-13',2),('04202408010009','Material I',65,'kg',NULL,'2024-08-05',1),('04202408020010','Material J',50,'kg',NULL,'2024-08-05',2);
-/*!40000 ALTER TABLE `materials` ENABLE KEYS */;
+LOCK TABLES `gas` WRITE;
+/*!40000 ALTER TABLE `gas` DISABLE KEYS */;
+INSERT INTO `gas` VALUES ('1','CO2',1),('2','CH4',27.9),('3','N2O',273),('4','SF6',24300),('5','NF3',17400);
+/*!40000 ALTER TABLE `gas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -403,9 +421,12 @@ CREATE TABLE `projects` (
   `pname` varchar(255) NOT NULL,
   `flow` mediumtext,
   `PMID` varchar(12) NOT NULL,
+  `BID` varchar(11) NOT NULL,
   PRIMARY KEY (`PID`),
   KEY `projects_ibfk_1` (`PMID`),
+  KEY `projects_ibfk_2` (`BID`),
   CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`PMID`) REFERENCES `users` (`UID`),
+  CONSTRAINT `projects_ibfk_2` FOREIGN KEY (`BID`) REFERENCES `boundary` (`BID`),
   CONSTRAINT `check_pid_format` CHECK (regexp_like(`PID`,_utf8mb4'^01[0-9]{6}$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -416,8 +437,73 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES ('01240701','Project A','[\n  {\"step\": 1, \"equipments\": [\"032027070003\"], \"materials\": [\"04202403020002\"], \"description\": \"Initial setup and preparation\"},\n  {\"step\": 2, \"equipments\": [\"032029040002\", \"032028070005\", \"032025070011\"], \"materials\": [\"04202401010001\", \"04202406010004\"], \"description\": \"Processing and assembly\"},\n  {\"step\": 3, \"equipments\": [\"032030020007\"], \"materials\": [\"04202407010005\", \"\"04202407010008], \"description\": \"Final inspection and testing\"}\n]','022024040210'),('01240702','Project B','[\n  {\"step\": 1, \"equipments\": [\"032026070001\"], \"materials\": [\"\"], \"description\": \"Design and planning\"},\n  {\"step\": 2, \"equipments\": [\"032030090006\", \"032025070008\", \"032025110009\"], \"materials\": [\"04202405010003\", \"04202407020006\", \"04202407010007\", \"04202408010009\"], \"description\": \"Fabrication and construction\"},\n  {\"step\": 3, \"equipments\": [\"032033020010\"], \"materials\": [\"04202407010008\"], \"description\": \"Quality check and packaging\"},\n  {\"step\": 4, \"equipments\": [\"032030020007\"], \"materials\": [\"04202407010005\", \"04202408020010\"], \"description\": \"Final inspection and testing\"}\n]','022022070508');
+INSERT INTO `projects` VALUES ('01240701','Project A','[\n  {\"step\": 1, \"equipments\": [\"03202107060003\"], \"materials\": [\"03202403020012\"], \"description\": \"Initial setup and preparation\"},\n  {\"step\": 2, \"equipments\": [\"03202104080002\", \"03202207060005\", \"03202407010019\"], \"materials\": [\"03202401010010\", \"03202406010014\"], \"description\": \"Processing and assembly\"},\n  {\"step\": 3, \"equipments\": [\"03202302070007\"], \"materials\": [\"03202407010015\", \"\"03202407010018], \"description\": \"Final inspection and testing\"}\n]','022024040210','04305123001'),('01240702','Project B','[\n  {\"step\": 1, \"equipments\": [\"03202007060001\"], \"materials\": [\"\"], \"description\": \"Design and planning\"},\n  {\"step\": 2, \"equipments\": [\"03202209080006\", \"03202307020008\", \"03202311020009\"], \"materials\": [\"03202405010013\", \"03202407020016\", \"03202407010017\", \"03202408010020\"], \"description\": \"Fabrication and construction\"},\n  {\"step\": 3, \"equipments\": [\"03202402090011\"], \"materials\": [\"03202407010018\"], \"description\": \"Quality check and packaging\"},\n  {\"step\": 4, \"equipments\": [\"03202302070007\"], \"materials\": [\"03202407010015\", \"03202408020021\"], \"description\": \"Final inspection and testing\"}\n]','022022070508','04305123001');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `record`
+--
+
+DROP TABLE IF EXISTS `record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `record` (
+  `PID` varchar(10) NOT NULL,
+  `SRID` varchar(14) NOT NULL,
+  `date` date NOT NULL,
+  `runtime` float DEFAULT NULL,
+  `amount` float DEFAULT NULL,
+  `unit` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`PID`,`SRID`,`date`),
+  KEY `record_ibfk_2` (`SRID`),
+  CONSTRAINT `record_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
+  CONSTRAINT `record_ibfk_2` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `record`
+--
+
+LOCK TABLES `record` WRITE;
+/*!40000 ALTER TABLE `record` DISABLE KEYS */;
+INSERT INTO `record` VALUES ('01240701','03202104080002','2024-08-16',6,NULL,NULL),('01240701','03202107060003','2024-08-16',5.5,NULL,NULL),('01240701','03202207060005','2024-08-16',6.2,NULL,NULL),('01240701','03202302070007','2024-08-17',6.5,NULL,NULL),('01240701','03202406010014','2024-08-17',NULL,25,'kg'),('01240701','03202407010018','2024-08-17',NULL,45,'kg'),('01240702','03202007060001','2024-08-16',5,NULL,NULL),('01240702','03202209080006','2024-08-17',7,NULL,NULL),('01240702','03202307020008','2024-08-17',2,NULL,NULL),('01240702','03202311020009','2024-08-17',7.5,NULL,NULL),('01240702','03202401010010','2024-08-16',NULL,50,'kg'),('01240702','03202405010013','2024-08-16',NULL,40,'kg'),('01240702','03202407010015','2024-08-17',NULL,60,'kg');
+/*!40000 ALTER TABLE `record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `source`
+--
+
+DROP TABLE IF EXISTS `source`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `source` (
+  `SRID` varchar(14) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `amount` int NOT NULL,
+  `unit` varchar(10) NOT NULL,
+  `purchase_date` date NOT NULL,
+  `disposal_date` date NOT NULL,
+  `age` int NOT NULL,
+  `factor` float DEFAULT NULL,
+  `form` varchar(10) DEFAULT NULL,
+  `category` varchar(10) DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`SRID`),
+  CONSTRAINT `check_srid_format` CHECK (regexp_like(`SRID`,_utf8mb4'^03[0-9]{12}$'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `source`
+--
+
+LOCK TABLES `source` WRITE;
+/*!40000 ALTER TABLE `source` DISABLE KEYS */;
+INSERT INTO `source` VALUES ('03202007060001','Equipment A',5,'pcs','2020-07-15','2026-07-15',6,NULL,NULL,NULL,1),('03202104080002','Equipment B',5,'pcs','2021-04-01','2029-04-01',8,NULL,NULL,NULL,1),('03202107060003','Equipment C',1,'pcs','2021-07-10','2027-07-10',6,NULL,NULL,NULL,1),('03202201070004','Equipment D',1,'pcs','2022-01-01','2029-01-01',7,NULL,NULL,NULL,1),('03202207060005','Equipment E',8,'pcs','2022-07-15','2028-07-15',6,NULL,NULL,NULL,1),('03202209080006','Equipment F',7,'pcs','2022-09-01','2030-09-01',8,NULL,NULL,NULL,1),('03202302070007','Equipment G',6,'pcs','2023-02-05','2030-02-05',7,NULL,NULL,NULL,1),('03202307020008','Equipment H',2,'pcs','2023-07-01','2025-07-01',2,NULL,NULL,NULL,1),('03202311020009','Equipment I',9,'pcs','2023-11-10','2025-11-10',2,NULL,NULL,NULL,1),('03202401010010','Material A',50,'kg','2024-01-10','2025-01-10',1,NULL,NULL,NULL,2),('03202402090011','Equipment J',1,'pcs','2024-02-01','2033-02-01',9,NULL,NULL,NULL,1),('03202403020012','Material B',30,'kg','2024-03-15','2026-03-15',2,NULL,NULL,NULL,2),('03202405010013','Material C',40,'kg','2024-05-20','2025-05-20',1,NULL,NULL,NULL,2),('03202406010014','Material D',25,'kg','2024-06-25','2025-06-25',1,NULL,NULL,NULL,2),('03202407010015','Material E',60,'kg','2024-07-10','2025-07-10',1,NULL,NULL,NULL,2),('03202407010017','Material G',35,'kg','2024-07-15','2025-07-15',1,NULL,NULL,NULL,2),('03202407010018','Material H',45,'kg','2024-07-20','2025-07-20',1,NULL,NULL,NULL,2),('03202407010019','Equipment K',2,'pcs','2024-07-20','2025-07-20',1,NULL,NULL,NULL,1),('03202407020016','Material F',55,'kg','2024-07-13','2026-07-13',2,NULL,NULL,NULL,2),('03202408010020','Material I',65,'kg','2024-08-05','2025-08-05',1,NULL,NULL,NULL,2),('03202408020021','Material J',50,'kg','2024-08-05','2026-08-05',2,NULL,NULL,NULL,2);
+/*!40000 ALTER TABLE `source` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -434,7 +520,7 @@ CREATE TABLE `suppliers` (
   `nation` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   PRIMARY KEY (`SID`),
-  CONSTRAINT `check_sid_format` CHECK (regexp_like(`SID`,_utf8mb4'^06[0-9]{10}$')),
+  CONSTRAINT `check_sid_format` CHECK (regexp_like(`SID`,_utf8mb4'^05[0-9]{10}$')),
   CONSTRAINT `check_sphone_format` CHECK (regexp_like(`phone`,_utf8mb4'^[0-9]+$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -445,7 +531,7 @@ CREATE TABLE `suppliers` (
 
 LOCK TABLES `suppliers` WRITE;
 /*!40000 ALTER TABLE `suppliers` DISABLE KEYS */;
-INSERT INTO `suppliers` VALUES ('062020010001','Supplier A','0912345678','TW','1234 Taiwan St, Taipei'),('062020010002','Supplier B','0923456789','TW','5678 Taiwan Rd, Taipei'),('062020010003','Supplier C','0934567890','TW','9101 Taiwan Ave, Kaohsiung'),('062020010004','Supplier D','0945678901','TW','2345 Taiwan Blvd, Taichung'),('062020020005','Supplier E','0956789012','TW','6789 Taiwan Ln, Tainan'),('062020020006','Supplier F','0967890123','TW','3456 Taiwan Dr, Hsinchu'),('062020100007','Supplier G','0978901234','JP','7890 Tokyo St, Shibuya'),('062020100008','Supplier H','0989012345','JP','1234 Osaka Rd, Namba'),('062020100009','Supplier I','0990123456','JP','5678 Kyoto Ave, Gion'),('062021040010','Supplier J','0901234567','TW','9101 Taoyuan St, Taoyuan'),('062021080011','Supplier K','0912345670','TW','3456 Chiayi Ln, Chiayi'),('062022030012','Supplier L','0923456781','TW','6789 Pingtung Dr, Pingtung'),('062022070013','Supplier M','0934567892','TW','9101 Yunlin Blvd, Yunlin'),('062023050014','Supplier N','0945678903','TW','1234 Hualien Ct, Hualien'),('062023050015','Supplier O','0956789014','TW','5678 Keelung Pl, Keelung');
+INSERT INTO `suppliers` VALUES ('052020010001','Supplier A','0912345678','TW','1234 Taiwan St, Taipei'),('052020010002','Supplier B','0923456789','TW','5678 Taiwan Rd, Taipei'),('052020010003','Supplier C','0934567890','TW','9101 Taiwan Ave, Kaohsiung'),('052020010004','Supplier D','0945678901','TW','2345 Taiwan Blvd, Taichung'),('052020020005','Supplier E','0956789012','TW','6789 Taiwan Ln, Tainan'),('052020020006','Supplier F','0967890123','TW','3456 Taiwan Dr, Hsinchu'),('052020100007','Supplier G','0978901234','JP','7890 Tokyo St, Shibuya'),('052020100008','Supplier H','0989012345','JP','1234 Osaka Rd, Namba'),('052020100009','Supplier I','0990123456','JP','5678 Kyoto Ave, Gion'),('052021040010','Supplier J','0901234567','TW','9101 Taoyuan St, Taoyuan'),('052021080011','Supplier K','0912345670','TW','3456 Chiayi Ln, Chiayi'),('052022030012','Supplier L','0923456781','TW','6789 Pingtung Dr, Pingtung'),('052022070013','Supplier M','0934567892','TW','9101 Yunlin Blvd, Yunlin'),('052023050014','Supplier N','0945678903','TW','1234 Hualien Ct, Hualien'),('052023050015','Supplier O','0956789014','TW','5678 Keelung Pl, Keelung');
 /*!40000 ALTER TABLE `suppliers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -458,14 +544,11 @@ DROP TABLE IF EXISTS `supply`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `supply` (
   `SID` varchar(12) NOT NULL,
-  `EQID` varchar(12) DEFAULT NULL,
-  `MID` varchar(14) DEFAULT NULL,
-  KEY `supply_ibfk_1` (`SID`),
-  KEY `supply_ibfk_2` (`EQID`),
-  KEY `supply_ibfk_3` (`MID`),
+  `SRID` varchar(14) NOT NULL,
+  PRIMARY KEY (`SID`,`SRID`),
+  KEY `supply_ibfk_2` (`SRID`),
   CONSTRAINT `supply_ibfk_1` FOREIGN KEY (`SID`) REFERENCES `suppliers` (`SID`),
-  CONSTRAINT `supply_ibfk_2` FOREIGN KEY (`EQID`) REFERENCES `equipments` (`EQID`),
-  CONSTRAINT `supply_ibfk_3` FOREIGN KEY (`MID`) REFERENCES `materials` (`MID`)
+  CONSTRAINT `supply_ibfk_2` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -475,66 +558,37 @@ CREATE TABLE `supply` (
 
 LOCK TABLES `supply` WRITE;
 /*!40000 ALTER TABLE `supply` DISABLE KEYS */;
-INSERT INTO `supply` VALUES ('062020010001','032025070008',NULL),('062020010002','032025070011',NULL),('062020010003','032025110009',NULL),('062020010004','032026070001',NULL),('062020020005','032027070003',NULL),('062020020006','032028070005',NULL),('062020100007','032029010004',NULL),('062020100008','032029040002',NULL),('062020100009','032030020007',NULL),('062021040010','032030090006',NULL),('062021080011','032033020010',NULL),('062020100007',NULL,'04202401010001'),('062022030012',NULL,'04202403020002'),('062020010004',NULL,'04202405010003'),('062023050014',NULL,'04202406010004'),('062020010001',NULL,'04202407010005'),('062020100009',NULL,'04202407010007'),('062021080011',NULL,'04202407010008'),('062023050015',NULL,'04202407020006'),('062020010002',NULL,'04202408010009'),('062022070013',NULL,'04202408020010'),('062020100007',NULL,'04202401010001'),('062022030012',NULL,'04202403020002'),('062020010004',NULL,'04202406010004'),('062021080011',NULL,'04202407010008'),('062023050014',NULL,'04202408020010');
+INSERT INTO `supply` VALUES ('052020010004','03202007060001'),('052020100008','03202104080002'),('052020020005','03202107060003'),('052020100007','03202201070004'),('052020020006','03202207060005'),('052021040010','03202209080006'),('052020100009','03202302070007'),('052020010001','03202307020008'),('052020010003','03202311020009'),('052020100007','03202401010010'),('052021080011','03202402090011'),('052022030012','03202403020012'),('052020010004','03202405010013'),('052020010004','03202406010014'),('052023050014','03202406010014'),('052020010001','03202407010015'),('052020100009','03202407010017'),('052021080011','03202407010018'),('052020010002','03202407010019'),('052023050015','03202407020016'),('052020010002','03202408010020'),('052022070013','03202408020021'),('052023050014','03202408020021');
 /*!40000 ALTER TABLE `supply` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `usage_eq`
+-- Table structure for table `usage`
 --
 
-DROP TABLE IF EXISTS `usage_eq`;
+DROP TABLE IF EXISTS `usage`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usage_eq` (
+CREATE TABLE `usage` (
   `PID` varchar(10) NOT NULL,
-  `EQID` varchar(12) NOT NULL,
+  `SRID` varchar(14) NOT NULL,
   `amount` int NOT NULL,
   `unit` varchar(45) NOT NULL,
-  PRIMARY KEY (`EQID`,`PID`),
-  KEY `usage_eqibfk_1` (`PID`),
-  CONSTRAINT `usage_eqibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
-  CONSTRAINT `usage_ibfk_2` FOREIGN KEY (`EQID`) REFERENCES `equipments` (`EQID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usage_eq`
---
-
-LOCK TABLES `usage_eq` WRITE;
-/*!40000 ALTER TABLE `usage_eq` DISABLE KEYS */;
-INSERT INTO `usage_eq` VALUES ('01240702','032025070008',1,'unit'),('01240701','032025070011',1,'unit'),('01240702','032025110009',1,'unit'),('01240702','032026070001',1,'unit'),('01240701','032027070003',1,'unit'),('01240701','032028070005',1,'unit'),('01240701','032029040002',1,'unit'),('01240701','032030020007',1,'unit'),('01240702','032030020007',1,'unit'),('01240702','032030090006',1,'unit'),('01240702','032033020010',1,'unit');
-/*!40000 ALTER TABLE `usage_eq` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usage_m`
---
-
-DROP TABLE IF EXISTS `usage_m`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usage_m` (
-  `PID` varchar(10) NOT NULL,
-  `MID` varchar(14) NOT NULL,
-  `amount` int NOT NULL,
-  `unit` varchar(45) NOT NULL,
-  PRIMARY KEY (`PID`,`MID`),
-  KEY `usage_ibfk_3` (`MID`),
+  PRIMARY KEY (`SRID`,`PID`),
+  KEY `usage_ibfk_1` (`PID`),
   CONSTRAINT `usage_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
-  CONSTRAINT `usage_ibfk_3` FOREIGN KEY (`MID`) REFERENCES `materials` (`MID`)
+  CONSTRAINT `usage_ibfk_2` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usage_m`
+-- Dumping data for table `usage`
 --
 
-LOCK TABLES `usage_m` WRITE;
-/*!40000 ALTER TABLE `usage_m` DISABLE KEYS */;
-INSERT INTO `usage_m` VALUES ('01240701','04202401010001',1,'kg'),('01240701','04202403020002',1,'kg'),('01240701','04202406010004',1,'kg'),('01240701','04202407010005',1,'kg'),('01240701','04202407010008',1,'kg'),('01240702','04202405010003',1,'kg'),('01240702','04202407010005',1,'kg'),('01240702','04202407010007',1,'kg'),('01240702','04202407010008',1,'kg'),('01240702','04202407020006',1,'kg'),('01240702','04202408010009',1,'kg'),('01240702','04202408020010',1,'kg');
-/*!40000 ALTER TABLE `usage_m` ENABLE KEYS */;
+LOCK TABLES `usage` WRITE;
+/*!40000 ALTER TABLE `usage` DISABLE KEYS */;
+INSERT INTO `usage` VALUES ('01240702','03202007060001',1,'unit'),('01240701','03202104080002',1,'unit'),('01240701','03202107060003',1,'unit'),('01240701','03202207060005',1,'unit'),('01240702','03202209080006',1,'unit'),('01240701','03202302070007',1,'unit'),('01240702','03202302070007',1,'unit'),('01240702','03202307020008',1,'unit'),('01240702','03202311020009',1,'unit'),('01240701','03202401010010',1,'kg'),('01240702','03202402090011',1,'unit'),('01240701','03202403020012',1,'kg'),('01240702','03202405010013',1,'kg'),('01240701','03202406010014',1,'kg'),('01240701','03202407010015',1,'kg'),('01240702','03202407010015',1,'kg'),('01240702','03202407010017',1,'kg'),('01240701','03202407010018',1,'kg'),('01240702','03202407010018',1,'kg'),('01240701','03202407010019',1,'unit'),('01240702','03202407020016',1,'kg'),('01240702','03202408010020',1,'kg'),('01240702','03202408020021',1,'kg');
+/*!40000 ALTER TABLE `usage` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -600,4 +654,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-11 18:56:53
+-- Dump completed on 2024-08-18 17:23:35
