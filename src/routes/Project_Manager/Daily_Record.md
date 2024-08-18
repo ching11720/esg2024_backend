@@ -1,4 +1,4 @@
-# /Project_Management/Daily_Record
+# /Project_Management/daily_record
 
 <details>
 <summary><code>POST</code> <code><b>/</b></code> <code>(Create a daily record)</code></summary>
@@ -12,24 +12,22 @@
 ##### Body
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
-| Date               | true     | date      | the date of the daily record             |
-| Equipment          | true     | string    | the equipment used (Name? ID?)           | 
-| Material           | true     | string    | the material used                        |
-| EQMamount          | true     | int       | the amount of equipment used that day    |
-| EQMUnit            | true     | number    | the unit of the equipment                |
-| MATamount          | true     | int       | the amount of material used that day     |
-| MATUnit            | true     | number    | the unit of the equipment                |
-| Runtime            | true     | int       | the runtime that day, unit: hr           |
+| PID                | true     | string    | the id of the project                    |
+| SRID               | true     | string    | the id of the source                     |
+| date               | true     | date      | the date of the daily record             |
+| runtime            | false    | float     | equipment runtime of that day, unit: hr  |
+| amount             | false    | float     | the amount of material used that day     |
+| unit               | false    | string    | the unit of material                     |
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `200`        | `application/json`   | the detail of the daily record     |
+| `201`        | `application/json`   | `{'message': 'Record added successfully!','data': the detail of revised daily record}`|
 | `400`        | `text/plain`         | `{ message: "client error"}`       |
 | `500`        | `text/plain`         | `{ message: "server error"}`       |
 </details>
 
 <details>
-<summary><code>REVISE</code> <code><b>/{}</b></code> <code>(Revise a daily record)</code></summary>
+<summary><code>PUT</code> <code><b>/{PID}/{date}</b></code> <code>(Revise a daily record)</code></summary>
 
 <br />
 
@@ -38,31 +36,31 @@
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
 ##### Path Parameters
-| key  | required | data type | description           |
-| ---- | -------- | --------- | --------------------- |
-| ---- | -------- | --------- | --------------------- |
+| key  | required | data type | description                    |
+| ---- | -------- | --------- | ------------------------------ |
+| PID  | true     | string    | the id of the project          |
+| date | true     | date      | the date of the daily record   |
 ##### Body
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
-| Date               | true     | date      | the date of the daily record             |
-| Equipment          | true     | string    | the equipment used (Name? ID?)           | 
-| Material           | true     | string    | the material used                        |
-| EQMamount          | true     | int       | the amount of equipment used that day    |
-| EQMUnit            | true     | number    | the unit of the equipment                |
-| MATamount          | true     | int       | the amount of material used that day     |
-| MATUnit            | true     | number    | the unit of the equipment                |
-| Runtime            | true     | int       | the runtime that day, unit: hr           |
+| PID                | true     | string    | the id of the project                    |
+| SRID               | true     | string    | the id of the source                     |
+| date               | true     | date      | the date of the daily record             |
+| runtime            | false    | float     | equipment runtime of that day, unit: hr  |
+| amount             | false    | float     | the amount of material used that day     |
+| unit               | false    | string    | the unit of material                     |
 ##### Responses
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
 | `200`        | `application/json` | the detail of revised daily record          |
 | `400`        | `text/plain`       | `{ message: "client error"}`                |
+| `404`        | `text/plain`       | `{ message: "Record not found"}`            |
 | `500`        | `text/plain`       | `{ message: "server error"}`                |
 
 </details>
 
 <details>
-<summary><code>RETRIEVE</code> <code><b>/{date}</b></code> <code>(Retrieve the detail of a daily record)</code></summary>
+<summary><code>GET</code> <code><b>/{PID}/{date}</b></code> <code>(Retrieve the detail of a daily records)</code></summary>
 
 <br />
 
@@ -73,12 +71,13 @@
 ##### Path Parameters
 | key  | required | data type | description                         |
 | ---- | -------- | --------- | ----------------------------------- |
-| Date | true     | string    | the date of the daily record wanted |
+| PID  | true     | string    | the id of the project               |
+| date | true     | date      | the date of the daily record        |
 ##### Responses
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
 | `200`        | `application/json` | the detail of the daily record              |
-| `400`        | `text/plain`       | `{ message: "client error"}`                |
+| `404`        | `text/plain`       | `{ message: "Record not found"}`            |
 | `500`        | `text/plain`       | `{ message: "server error"}`                |
 
 </details>

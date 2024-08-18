@@ -1,4 +1,27 @@
-# /Project_Management/Equipment
+# /Project_Management/equipment
+
+<details>
+<summary><code>GET</code> <code><b>/</b></code> <code>(Get all equipments)</code></summary>
+
+<br />
+
+##### Headers
+| key | values | description |
+| --- | ------ | ----------- |
+| --- | ------ | ----------- |
+##### Body
+| key                | required | data type | description                              |
+| ------------------ | -------- | --------- | ---------------------------------------- |
+| PID                | true     | string    | id of the project                        |
+| SRID               | true     | string    | id of the equipment                      |
+| amount             | true     | int       | amount of the equipment                  |
+| unit               | true     | string    | the unit of the equipment                |
+##### Responses
+| http code    | content-type         | description                             |
+| ------------ | -------------------- | --------------------------------------- |
+| `200`        | `application/json`   | `{ data: the detail of the equipment }` |
+| `500`        | `text/plain`         | `{ message: "server error"}`            |
+</details>
 
 <details>
 <summary><code>POST</code> <code><b>/</b></code> <code>(Create an equipment)</code></summary>
@@ -13,7 +36,7 @@
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
 | PID                | true     | string    | id of the project                        |
-| EQID               | true     | string    | id of the equipment                      |
+| SRID               | true     | string    | id of the equipment                      |
 | amount             | true     | int       | amount of the equipment                  |
 | unit               | true     | string    | the unit of the equipment                |
 ##### Responses
@@ -25,7 +48,7 @@
 </details>
 
 <details>
-<summary><code>REMOVE</code> <code><b>/{PID}/{EID}</b></code> <code>(Remove an eqiupment)</code></summary>
+<summary><code>Delete</code> <code><b>/{PID}/{SRID}</b></code> <code>(Remove an eqiupment)</code></summary>
 
 <br />
 
@@ -37,7 +60,7 @@
 | key  | required | data type | description         |
 | ---- | -------- | --------- | ------------------- |
 | PID  | true     | string    | id of the project   |
-| EQID | true     | string    | id of the equipment |
+| SRID | true     | string    | id of the equipment |
 ##### Responses
 | http code    | content-type | description                                     |
 | ------------ | -------------| ----------------------------------------------- |
@@ -48,7 +71,7 @@
 </details>
 
 <details>
-<summary><code>RETRIEVE</code> <code><b>/{PID}/{EID}</b></code> <code>(Retrieve the detail of an equipment)</code></summary>
+<summary><code>GET</code> <code><b>/{PID}/{SRID}</b></code> <code>(Retrieve the detail of an equipment)</code></summary>
 
 <br />
 
@@ -60,7 +83,7 @@
 | key  | required | data type | description           |
 | ---- | -------- | --------- | --------------------- |
 | PID  | true     | string    | id of the project     |
-| EID  | true     | string    | id of the equipment   |
+| SRID  | true     | string    | id of the equipment   |
 ##### Responses
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |

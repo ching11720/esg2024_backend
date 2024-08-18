@@ -7,12 +7,12 @@ from django.db import connection
 @api_view(['GET', 'POST'])
 def equip_create(request):
     if request.method == 'GET':
-        equipment = models.Equipment.objects.all()
-        serializer = serializers.EQSerializer(equipment, many=True)
+        equipment = models.Source.objects.filter(status=1)
+        serializer = serializers.SourceSerializer(equipment, many=True)
         return Response(serializer.data)
     
     elif request.method == 'POST':
-        serializer = serializers.EQUsageSerializer(data=request.data)
+        serializer = serializers.UsageSerializer(data=request.data)
         # print(request.data)
         if serializer.is_valid():
             # print("valid")
@@ -29,27 +29,29 @@ def equip_create(request):
         return Response({'Error': 'server error'}, status=500)
 
 @api_view(['GET', 'DELETE'])
-def equip_retrieve(request, PID, EQID):
-    # print(PID, EQID)
+def equip_retrieve(request, PID, SRID):
+    print(PID, SRID)
     try:
-        # equipment = models.UsageEq.objects.get(EQID=EQID)
+        # equipment = models.Usage.objects.filter(SRID=SRID, PID=PID)
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM usage_eq WHERE PID = %s AND EQID = %s", [PID, EQID])
+            print("connected")
+            cursor.execute("SELECT * FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
             print("query executed")
             rows = cursor.fetchall()
             if rows:
-                columns = ['PID', 'EQID', 'amount', 'unit']
+                columns = ['PID', 'SRID', 'amount', 'unit']
                 equipment = [dict(zip(columns, row)) for row in rows]
-        # print(equipment)
+            else:
+                return Response({'Error': 'Equipment not found'}, status=404)
     except:
-        return Response({'Error': 'Equipment not found'}, status=404)
+        return Response({'Error': 'server error'}, status=500)
 
     if request.method == 'GET':
         return Response(equipment)
     
     elif request.method == 'DELETE':
         with connection.cursor() as cursor:
-            cursor.execute("DELETE FROM usage_eq WHERE PID = %s AND EQID = %s", [PID, EQID])
+            cursor.execute("DELETE FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
         return Response({'message': 'Equipment deleted successfully!'}, status=204)
     
     else:
@@ -58,12 +60,12 @@ def equip_retrieve(request, PID, EQID):
 @api_view(['GET', 'POST'])
 def material_create(request):
     if request.method == 'GET':
-        material = models.Material.objects.all()
-        serializer = serializers.MSerializer(material, many=True)
+        material = models.Source.objects.filter(status=2)
+        serializer = serializers.SourceSerializer(material, many=True)
         return Response(serializer.data)
     
     elif request.method == 'POST':
-        serializer = serializers.MUsageMSerializer(data=request.data)
+        serializer = serializers.UsageSerializer(data=request.data)
         if serializer.is_valid():
             material = serializer.save()
             response_data = {
@@ -77,18 +79,21 @@ def material_create(request):
         return Response({'Error': 'server error'}, status=500)
 
 @api_view(['GET', 'PUT'])
-def material_retrieve(request, PID, MID):
+def material_retrieve(request, PID, SRID):
     try:
         # material = models.UsageM.objects.get(MID=MID)
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM usage_m WHERE PID = %s AND MID = %s", [PID, MID])
+            cursor.execute("SELECT * FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
             print("query executed")
             rows = cursor.fetchall()
             if rows:
-                columns = ['PID', 'MID', 'amount', 'unit']
+                columns = ['PID', 'SRID', 'amount', 'unit']
                 material = [dict(zip(columns, row)) for row in rows]
+            else:
+                return Response({'Error': 'Material not found'}, status=404)
+        print(material)
     except:
-        return Response({'Error': 'Material not found'}, status=404)
+        return Response({'Error': 'server error'}, status=500)
 
     if request.method == 'GET':
         return Response(material)
@@ -105,13 +110,13 @@ def material_retrieve(request, PID, MID):
         # return Response(serializer.errors, status=400)
         data=request.data
         pid=data['PID']
-        mid=data['MID']
+        srid=data['SRID']
         amount=data['amount']
         unit=data['unit']
-        if not pid or not mid or not amount or not unit:
+        if not pid or not srid or amount<0 or not unit:
             return Response({'Error': 'client error'}, status=400)
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE usage_m SET amount = %s, unit = %s WHERE PID = %s AND MID = %s", [amount, unit, pid, mid])
+            cursor.execute("UPDATE `usage` SET amount = %s, unit = %s WHERE PID = %s AND SRID = %s", [amount, unit, pid, srid])
         return Response({'message': 'Material updated successfully!'}, status=200)
     
     else:
@@ -149,9 +154,11 @@ def mem_retrieve(request, PID, EID):
             if rows:
                 columns = ['EID', 'PID', 'position']
                 member = [dict(zip(columns, row)) for row in rows]
+            else:
+                return Response({'Error': 'Member not found'}, status=404)
         # print(member)
     except:
-        return Response({'Error': 'Member not found'}, status=404)
+        return Response({'Error': 'server error'}, status=500)
 
     if request.method == 'GET':
         return Response(member)
@@ -185,7 +192,7 @@ def mem_retrieve(request, PID, EID):
     
     else:
         return Response({'Error': 'server error'}, status=500)
-    
+
 @api_view(['GET', 'PUT'])
 def flow(request, PID):
     try:
@@ -208,5 +215,56 @@ def flow(request, PID):
             return Response(response_data, status=201)
         return Response(serializer.errors, status=400)
     
+    else:
+        return Response({'Error': 'server error'}, status=500)
+
+@api_view(['POST'])
+def record_create(request):
+    if request.method == 'POST':
+        serializer = serializers.RecordSerializer(data=request.data)
+        if serializer.is_valid():
+            record = serializer.save()
+            response_data = {
+                'message': 'Record added successfully!',
+                'data': serializer.data,
+            }
+            return Response(response_data, status=201)
+        return Response(serializer.errors, status=400)
+    
+    else:
+        return Response({'Error': 'server error'}, status=500)
+
+@api_view(['GET', 'PUT'])
+def record_retrieve(request, PID, date):
+    if request.method == 'GET':
+        print(PID, date)
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM `record` WHERE PID = %s AND date = %s", [PID, date])
+                rows = cursor.fetchall()
+                if rows:
+                    columns = ['PID', 'SRID', 'date', 'runtime', 'amount', 'unit']
+                    record = [dict(zip(columns, row)) for row in rows]
+                else:
+                    return Response({'Error': 'Record not found'}, status=404)
+        except:
+            return Response({'Error': 'server error'}, status=500)
+
+        if request.method == 'GET':
+            return Response(record)
+    
+    elif request.method == 'PUT':
+        data=request.data
+        pid=data['PID']
+        srid=data['SRID']
+        date=data['date']
+        runtime=data['runtime']
+        amount=data['amount']
+        unit=data['unit']
+        if not pid or not srid or not date:
+            return Response({'Error': 'client error'}, status=400)
+        with connection.cursor() as cursor:
+            cursor.execute("UPDATE record SET runtime = %s, amount = %s, unit = %s WHERE PID = %s AND SRID = %s AND date = %s", [runtime, amount, unit, pid, srid, date])
+        return Response({'message': 'Record updated successfully!'}, status=200)
     else:
         return Response({'Error': 'server error'}, status=500)

@@ -1,6 +1,32 @@
 # /Project_Management/member
 
 <details>
+<summary><code>GET</code> <code><b>/</b></code> <code>(Get all employees)</code></summary>
+
+<br />
+
+##### Headers
+| key | values | description |
+| --- | ------ | ----------- |
+| --- | ------ | ----------- |
+##### Body
+| key      | required | data type | description                              |
+| -------- | -------- | --------- | ---------------------------------------- |
+| EID      | true     | string    | the EID of the member                    |
+| name     | true     | string    |                                          |
+| gender   | true     | int       |                                          |
+| email    | true     | string    |                                          |
+| phone    | true     | string    |                                          |
+| nation   | true     | string    |                                          |
+| status   | true     | int       |                                          |
+##### Responses
+| http code    | content-type         | description                        |
+| ------------ | -------------------- | ---------------------------------- |
+| `200`        | `application/json`   | the detail of the posted member    |
+| `500`        | `text/plain`         | `{ message: "server error"}`       |
+</details>
+
+<details>
 <summary><code>POST</code> <code><b>/</b></code> <code>(Create an member)</code></summary>
 
 <br />
@@ -24,7 +50,7 @@
 </details>
 
 <details>
-<summary><code>REVISE</code> <code><b>/{PID}/{EID}</b></code> <code>(Revise an member)</code></summary>
+<summary><code>PUT</code> <code><b>/{PID}/{EID}</b></code> <code>(Revise an member)</code></summary>
 
 <br />
 
@@ -54,7 +80,7 @@
 </details>
 
 <details>
-<summary><code>REMOVE</code> <code><b>/{PID}/{EID}</b></code> <code>(Remove an member)</code></summary>
+<summary><code>DELETE</code> <code><b>/{PID}/{EID}</b></code> <code>(Remove an member)</code></summary>
 
 <br />
 
@@ -78,7 +104,7 @@
 </details>
 
 <details>
-<summary><code>RETRIEVE</code> <code><b>/{PID}/{EID}</b></code> <code>(Retrieve the detail of an member)</code></summary>
+<summary><code>GET</code> <code><b>/{PID}/{EID}</b></code> <code>(Retrieve the detail of an member)</code></summary>
 
 <br />only for admin
 
