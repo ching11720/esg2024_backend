@@ -1,34 +1,14 @@
 from rest_framework import serializers
 from . import models
 
-class EQUsageSerializer(serializers.ModelSerializer):
+class UsageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.UsageEq
+        model = models.Usage
         fields = '__all__'
 
-class MUsageMSerializer(serializers.ModelSerializer):
+class SourceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.UsageM
-        fields = '__all__'
-
-class MUsageSerializer(serializers.Serializer):
-    class Meta:
-        model = models.UsageM
-        fields = '__all__'
-    def update(self, instance, validated_data):
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        instance.save()
-        return instance
-
-class EQSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Equipment
-        fields = '__all__'
-
-class MSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Material
+        model = models.Source
         fields = '__all__'
 
 class MemSerializer(serializers.ModelSerializer):
@@ -45,3 +25,8 @@ class FlowSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Project
         fields = ['PID', 'flow']
+
+class RecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Record
+        fields = '__all__'

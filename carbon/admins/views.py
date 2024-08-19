@@ -2,10 +2,10 @@ from django.contrib.auth.models import User, Group
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer, EmployeesCreateSerialzer, EmployeesSerialzer, EmployeesDeleteSerialzer, ProjectSerializer
+from .serializers import UserSerializer
 import random, string, hashlib
 from datetime import datetime
-from .models import Employee, Project, WorksOn, Usage
+from .models import Employee
 from django.db.models import Q
 
 class CreateUserView(APIView):

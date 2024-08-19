@@ -109,8 +109,8 @@ DATABASES = {
 		'HOST': 'db',
 		'PORT': '3306',
         #if run in local, use this two lines
-        #'HOST': 'localhost',
-        #'PORT': '3307',
+        # 'HOST': 'localhost',
+        # 'PORT': '3307',
 
     }
 }
