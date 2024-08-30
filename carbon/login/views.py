@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from admins.models import Employee
+from pm.models import Employee
 import hashlib
 
 class LoginUserView(APIView):
@@ -22,13 +22,14 @@ class LoginUserView(APIView):
         if user.check_password(password):
         #if user is not None:
             login(request, user)
-            # refresh = RefreshToken.for_user(user)
-            """
-            return Response({
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }, status=status.HTTP_200_OK)"""
-            return Response({"success": True, "JWT": str(refresh.access_token), "first_login": True})
+            refresh = RefreshToken.for_user(user)
+            employee = Employee.objects.get(EID=username)
+            if employee.status == 2:
+                employee.status = 1
+                employee.save()
+                return Response({"success": True, "JWT": str(refresh.access_token), "first_login": True})
+            else:
+                return Response({"success": True, "JWT": str(refresh.access_token), "first_login": False})
         else:
             # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'success': False, 'JWT': '', 'first_login': True})
@@ -36,15 +37,16 @@ class LoginUserView(APIView):
 
     
 class RevisePasswordView(APIView):
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = (JWTAuthentication,)
+    # permission_classes = (IsAuthenticated,)
+    # authentication_classes = (JWTAuthentication,)
     def post(self, request, *args, **kwargs):
         # user = request.user
         uid = request.data.get('UID')
         old_password = request.data.get('old_password')
+        # old_password = hashlib.sha256(old_password.encode('utf-8')).hexdigest()
         new_password = request.data.get('newPw')
-        em = Employee.objects.get(EID=uid)
-        user = User.objects.get(username=em.name)
+        # new_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
+        user = User.objects.get(username=uid)
         if not user.check_password(old_password): # frontend will check if the new passwords are the same
             return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
         

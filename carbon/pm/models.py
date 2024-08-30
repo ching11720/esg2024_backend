@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Boundary(models.Model):
     BID = models.CharField(max_length=11, primary_key=True)
@@ -66,7 +67,8 @@ class Project(models.Model):
     PID = models.CharField(max_length=10, primary_key=True)
     pname = models.CharField(max_length=255)
     flow = models.TextField(blank=True, null=True)
-    PMID = models.ForeignKey('User', on_delete=models.CASCADE, to_field='UID', db_column='PMID')
+    # PMID = models.ForeignKey(User, on_delete=models.CASCADE, to_field='UID', db_column='PMID')
+    PMID = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='PMID')
     BID = models.ForeignKey('Boundary', on_delete=models.CASCADE, to_field='BID', db_column='BID')
 
     class Meta:

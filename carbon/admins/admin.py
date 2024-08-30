@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Employee#, Project, WorksOn, Usage
+from pm.models import Employee, Project, WorksOn
 
 admin.site.register(Employee)
-# admin.site.register(Project)
-# admin.site.register(WorksOn)
-# admin.site.register(Usage)
+admin.site.register(Project)
+admin.site.register(WorksOn)
