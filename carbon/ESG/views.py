@@ -39,6 +39,7 @@ class BoundaryView(APIView):
             # name=request.data.get('name'),
             address=request.data.get('address')
         )
+        boundary = Boundary.objects.get(BID=bid)
         serializer = BoundarySerializer(boundary)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
