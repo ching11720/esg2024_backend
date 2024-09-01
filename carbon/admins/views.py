@@ -56,6 +56,13 @@ from django.db.models import Q
 #     "password": "password",
 #     "hashed": "459b3b24c85be6d9cbbd21542329a8dcb44ecdc7e29b29a6b04d2e5fe54f8fd9"
 # }
+# {
+#     "userID": "022024090010",
+#     "password": "bRx3dcPm",
+#     "hashed": "96fc57084a93bfd7554261c11d76a8e24e677be37d79fd93311f29a1bee8addb"
+# }
+
+
 class CreateUserView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
