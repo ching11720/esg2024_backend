@@ -85,7 +85,7 @@ class CreateUserView(APIView):
             if permissions:
                 group, create = Group.objects.get_or_create(name=permissions)
                 user.groups.add(group)
-            return Response({'userID': username, 'password': password, 'hashed': hashed}, status=status.HTTP_201_CREATED)
+            return Response({'userID': username, 'password': password}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AssignAccessView(APIView):
