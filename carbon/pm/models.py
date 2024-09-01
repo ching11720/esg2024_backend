@@ -66,7 +66,7 @@ class Project(models.Model):
     PID = models.CharField(max_length=10, primary_key=True)
     pname = models.CharField(max_length=255)
     flow = models.TextField(blank=True, null=True)
-    PMID = models.ForeignKey('User', on_delete=models.CASCADE, to_field='UID', db_column='PMID')
+    PMID = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='PMID')
     BID = models.ForeignKey('Boundary', on_delete=models.CASCADE, to_field='BID', db_column='BID')
 
     class Meta:
@@ -90,6 +90,15 @@ class Record(models.Model):
         db_table = 'record'
         unique_together = (('PID', 'SRID', 'date'),)
 
+class Repair(models.Model):
+    SRID = models.ForeignKey('Source', on_delete=models.CASCADE, to_field='SRID', db_column='SRID')
+    date = models.DateField()
+    notes = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'repairs'
+        unique_together = (('SRID', 'date'),)
+
 class Source(models.Model):
     SRID = models.CharField(max_length=14, primary_key=True)
     name = models.CharField(max_length=255)
@@ -98,7 +107,7 @@ class Source(models.Model):
     purchase_date = models.DateField()
     disposal_date = models.DateField()
     age = models.IntegerField()
-    factor = models.FloatField(null=True, blank=True)
+    factor = models.FloatField(null=True, blank=True, default=0)
     form = models.CharField(max_length=10, null=True, blank=True)
     category = models.CharField(max_length=10, null=True, blank=True)
     status = models.IntegerField(default=1)
@@ -149,14 +158,6 @@ class Usage(models.Model):
     class Meta:
         db_table = 'usage'
         unique_together = (('PID', 'SRID'),)
-
-class User(models.Model):
-    UID = models.OneToOneField('Employee', to_field='EID', on_delete=models.CASCADE, db_column='UID')
-    password = models.CharField(max_length=255)
-    access = models.CharField(max_length=255)
-
-    class Meta:
-        db_table = 'users'
 
 class WorksOn(models.Model):
     EID = models.ForeignKey('Employee', to_field='EID', on_delete=models.CASCADE, db_column='EID')

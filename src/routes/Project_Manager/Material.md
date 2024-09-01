@@ -1,53 +1,6 @@
 # /Project_Management/material
 
 <details>
-<summary><code>GET</code> <code><b>/</b></code> <code>(Get all materials)</code></summary>
-
-<br />
-
-##### Headers
-| key | values | description |
-| --- | ------ | ----------- |
-| --- | ------ | ----------- |
-##### Body
-| key                | required | data type | description                              |
-| ------------------ | -------- | --------- | ---------------------------------------- |
-| PID                | true     | string    | id of the project                        |
-| SRID               | true     | string    | id of the material                       |
-| amount             | true     | int       | amount of the material                   |
-| unit               | true     | string    | the unit of the material                 |
-##### Responses
-| http code    | content-type         | description                             |
-| ------------ | -------------------- | --------------------------------------- |
-| `200`        | `application/json`   | `{ data: the detail of the material }`  |
-| `500`        | `text/plain`         | `{ message: "server error"}`            |
-</details>
-
-<details>
-<summary><code>POST</code> <code><b>/</b></code> <code>(Create a material)</code></summary>
-
-<br />
-
-##### Headers
-| key | values | description |
-| --- | ------ | ----------- |
-| --- | ------ | ----------- |
-##### Body
-| key                | required | data type | description                              |
-| ------------------ | -------- | --------- | ---------------------------------------- |
-| PID                | true     | string    | id of the project                        |
-| SRID               | true     | string    | id of the material                       |
-| amount             | true     | int       | amount of the material                   |
-| unit               | true     | string    | the unit of the material                 |
-##### Responses
-| http code    | content-type         | description                        |
-| ------------ | -------------------- | ---------------------------------- |
-| `200`        | `application/json`   | `{ message: 'Material added successfully!', data: the detail of the material }`  |
-| `400`        | `text/plain`         | `{ message: "client error"}`       |
-| `500`        | `text/plain`         | `{ message: "server error"}`       |
-</details>
-
-<details>
 <summary><code>PUT</code> <code><b>/{PID}/{SRID}</b></code> <code>(Revise a material)</code></summary>
 
 <br />

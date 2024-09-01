@@ -1,4 +1,4 @@
-# /Project_Management/daily_record
+# /project_management/daily_record
 
 <details>
 <summary><code>POST</code> <code><b>/</b></code> <code>(Create a daily record)</code></summary>
@@ -21,9 +21,9 @@
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `201`        | `application/json`   | `{'message': 'Record added successfully!','data': the detail of revised daily record}`|
-| `400`        | `text/plain`         | `{ message: "client error"}`       |
-| `500`        | `text/plain`         | `{ message: "server error"}`       |
+| `201`        | `application/json`   | `{'message': 'Record added successfully!','data': {'PID': (str), 'SRID': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}}`|
+| `400`        | `text/plain`         | `{'Error': error massage}`         |
+| `500`        | `text/plain`         | `{'Error': 'server error'}`        |
 </details>
 
 <details>
@@ -50,12 +50,12 @@
 | amount             | false    | float     | the amount of material used that day     |
 | unit               | false    | string    | the unit of material                     |
 ##### Responses
-| http code    | content-type       | description                                 |
-| ------------ | ------------------ | ------------------------------------------- |
-| `200`        | `application/json` | the detail of revised daily record          |
-| `400`        | `text/plain`       | `{ message: "client error"}`                |
-| `404`        | `text/plain`       | `{ message: "Record not found"}`            |
-| `500`        | `text/plain`       | `{ message: "server error"}`                |
+| http code    | content-type       | description                                   |
+| ------------ | ------------------ | --------------------------------------------- |
+| `200`        | `application/json` | `{'message': 'Record updated successfully!', 'data': {'PID': (str), 'SRID': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}}` |
+| `400`        | `text/plain`       | `{'Error': 'client error'}`                   |
+| `404`        | `text/plain`       | `{'Error': 'Record not found'}`               |
+| `500`        | `text/plain`       | `{'Error': 'server error'}`                   |
 
 </details>
 
@@ -76,8 +76,9 @@
 ##### Responses
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
-| `200`        | `application/json` | the detail of the daily record              |
-| `404`        | `text/plain`       | `{ message: "Record not found"}`            |
-| `500`        | `text/plain`       | `{ message: "server error"}`                |
+| `200`        | `application/json` | the list of daily records (form: `{'PID': (str), 'SRID': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}`) |
+| `400`        | `text/plain`       | `{'Error': 'client error'}`                 |
+| `404`        | `text/plain`       | `{'Error': 'Record not found'}`             |
+| `500`        | `text/plain`       | `{'Error': 'server error'}`                 |
 
 </details>

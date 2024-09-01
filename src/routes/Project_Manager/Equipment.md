@@ -1,7 +1,7 @@
-# /Project_Management/equipment
+# /project_management/usage
 
 <details>
-<summary><code>GET</code> <code><b>/</b></code> <code>(Get all equipments)</code></summary>
+<summary><code>POST</code> <code><b>/</b></code> <code>(Create an usage of source)</code></summary>
 
 <br />
 
@@ -13,38 +13,15 @@
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
 | PID                | true     | string    | id of the project                        |
-| SRID               | true     | string    | id of the equipment                      |
-| amount             | true     | int       | amount of the equipment                  |
-| unit               | true     | string    | the unit of the equipment                |
-##### Responses
-| http code    | content-type         | description                             |
-| ------------ | -------------------- | --------------------------------------- |
-| `200`        | `application/json`   | `{ data: the detail of the equipment }` |
-| `500`        | `text/plain`         | `{ message: "server error"}`            |
-</details>
-
-<details>
-<summary><code>POST</code> <code><b>/</b></code> <code>(Create an equipment)</code></summary>
-
-<br />
-
-##### Headers
-| key | values | description |
-| --- | ------ | ----------- |
-| --- | ------ | ----------- |
-##### Body
-| key                | required | data type | description                              |
-| ------------------ | -------- | --------- | ---------------------------------------- |
-| PID                | true     | string    | id of the project                        |
-| SRID               | true     | string    | id of the equipment                      |
-| amount             | true     | int       | amount of the equipment                  |
-| unit               | true     | string    | the unit of the equipment                |
+| SRID               | true     | string    | id of the source                         |
+| amount             | true     | int       | amount of the source                     |
+| unit               | true     | string    | the unit of the source                   |
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `200`        | `application/json`   | `{ message: 'Equipment added successfully!', data: the detail of the equipment }` |
-| `400`        | `text/plain`         | `{ message: "client error"}`       |
-| `500`        | `text/plain`         | `{ message: "server error"}`       |
+| `200`        | `application/json`   | `{'message': 'Usage added successfully!','data': {'PID': (str), 'SRID': (str), 'amount': (int), 'unit': (str)}}` |
+| `400`        | `text/plain`         | `{'Error': error massage}`         |
+| `500`        | `text/plain`         | `{'Error': 'server error'}`        |
 </details>
 
 <details>
