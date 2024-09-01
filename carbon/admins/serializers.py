@@ -2,8 +2,8 @@ from rest_framework import serializers
 from pm.models import Employee, Project
 
 class UserSerializer(serializers.Serializer):
-    username = serializers.CharField(max_length=150)
-    permission = serializers.CharField(max_length=50)
+    name = serializers.CharField(max_length=150)
+    access = serializers.CharField(max_length=50)
 
 class EmployeesCreateSerialzer(serializers.ModelSerializer):
     class Meta:
@@ -24,4 +24,4 @@ class EmployeesDeleteSerialzer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['PID', 'pname', 'PMID']
+        fields = ['PID', 'projectName', 'PMID']
