@@ -51,15 +51,16 @@ def source_create(request):
             'SID':data['SID'],
         }
         serializer1 = serializers.SourceSerializer(data=input1)
-        serializer2 = serializers.SupplySerializer(data=input2)
-        if serializer1.is_valid() and serializer2.is_valid():
+        if serializer1.is_valid():
             serializer1.save()
-            serializer2.save()
             response_data = {
                 'message': 'Source added successfully!',
                 'data': serializer1.data,
             }
-            return Response(response_data, status=201)
+            serializer2 = serializers.SupplySerializer(data=input2)
+            if serializer2.is_valid():
+                serializer2.save()
+                return Response(response_data, status=201)
         errors = {
             'source_add_errors': serializer1.errors,
             'supply_add_errors': serializer2.errors,
