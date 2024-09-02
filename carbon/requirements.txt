@@ -7,3 +7,4 @@ mysqlclient
 bcrypt
 djangorestframework-simplejwt
 python-dotenv
+django-cors-headers
