@@ -4,22 +4,17 @@ from rest_framework.response import Response
 from . import serializers
 from django.db import connection
 
-@api_view(['GET', 'POST'])
-def equip_create(request):
-    if request.method == 'GET':
-        equipment = models.Source.objects.filter(status=1)
-        serializer = serializers.SourceSerializer(equipment, many=True)
-        return Response(serializer.data)
-    
-    elif request.method == 'POST':
+@api_view(['POST'])
+def usage_create(request):
+    if request.method == 'POST':
         serializer = serializers.UsageSerializer(data=request.data)
         # print(request.data)
         if serializer.is_valid():
             # print("valid")
-            equipment = serializer.save()
+            serializer.save()
             # print("saved")
             response_data = {
-                'message': 'Equipment added successfully!',
+                'message': 'Usage added successfully!',
                 'data': serializer.data,
             }
             return Response(response_data, status=201)
@@ -28,21 +23,22 @@ def equip_create(request):
     else:
         return Response({'Error': 'server error'}, status=500)
 
-@api_view(['GET', 'DELETE'])
-def equip_retrieve(request, PID, SRID):
+@api_view(['GET', 'DELETE', 'PUT'])
+def usage_retrieve(request, PID, SRID):
     print(PID, SRID)
     try:
         # equipment = models.Usage.objects.filter(SRID=SRID, PID=PID)
         with connection.cursor() as cursor:
             print("connected")
-            cursor.execute("SELECT * FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
+            cursor.execute('''SELECT PID,source.SRID,name,`usage`.amount,`usage`.unit FROM `usage`,source 
+                           WHERE `usage`.SRID = source.SRID AND PID = %s AND source.SRID = %s''', [PID, SRID])
             print("query executed")
             rows = cursor.fetchall()
             if rows:
-                columns = ['PID', 'SRID', 'amount', 'unit']
+                columns = ['PID', 'SRID', 'name', 'amount', 'unit']
                 equipment = [dict(zip(columns, row)) for row in rows]
             else:
-                return Response({'Error': 'Equipment not found'}, status=404)
+                return Response({'Error': 'Source not found'}, status=404)
     except:
         return Response({'Error': 'server error'}, status=500)
 
@@ -52,51 +48,7 @@ def equip_retrieve(request, PID, SRID):
     elif request.method == 'DELETE':
         with connection.cursor() as cursor:
             cursor.execute("DELETE FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
-        return Response({'message': 'Equipment deleted successfully!'}, status=204)
-    
-    else:
-        return Response({'Error': 'server error'}, status=500)
-
-@api_view(['GET', 'POST'])
-def material_create(request):
-    if request.method == 'GET':
-        material = models.Source.objects.filter(status=2)
-        serializer = serializers.SourceSerializer(material, many=True)
-        return Response(serializer.data)
-    
-    elif request.method == 'POST':
-        serializer = serializers.UsageSerializer(data=request.data)
-        if serializer.is_valid():
-            material = serializer.save()
-            response_data = {
-                'message': 'Material added successfully!',
-                'data': serializer.data,
-            }
-            return Response(response_data, status=201)
-        return Response(serializer.errors, status=400)
-    
-    else:
-        return Response({'Error': 'server error'}, status=500)
-
-@api_view(['GET', 'PUT'])
-def material_retrieve(request, PID, SRID):
-    try:
-        # material = models.UsageM.objects.get(MID=MID)
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
-            print("query executed")
-            rows = cursor.fetchall()
-            if rows:
-                columns = ['PID', 'SRID', 'amount', 'unit']
-                material = [dict(zip(columns, row)) for row in rows]
-            else:
-                return Response({'Error': 'Material not found'}, status=404)
-        print(material)
-    except:
-        return Response({'Error': 'server error'}, status=500)
-
-    if request.method == 'GET':
-        return Response(material)
+        return Response({'message': 'Source deleted successfully!'}, status=204)
     
     elif request.method == 'PUT':
         # serializer = serializers.MUsageSerializer(material, data=request.data)
@@ -117,7 +69,7 @@ def material_retrieve(request, PID, SRID):
             return Response({'Error': 'client error'}, status=400)
         with connection.cursor() as cursor:
             cursor.execute("UPDATE `usage` SET amount = %s, unit = %s WHERE PID = %s AND SRID = %s", [amount, unit, pid, srid])
-        return Response({'message': 'Material updated successfully!'}, status=200)
+        return Response({'message': 'Material updated successfully!', 'data': {'PID': pid, 'SRID': srid, 'amount': amount, 'unit': unit}}, status=200)
     
     else:
         return Response({'Error': 'server error'}, status=500)
@@ -143,13 +95,30 @@ def mem_create(request):
     else:
         return Response({'Error': 'server error'}, status=500)
 
+@api_view(['GET'])
+def mem_p_list(request, PID):
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            cursor.execute('''SELECT employees.EID,name,PID,position,gender,email,phone,nation FROM works_on, employees 
+                           WHERE works_on.EID = employees.EID AND PID = %s;''', [PID])
+            # print("query executed")
+            rows = cursor.fetchall()
+            if rows:
+                columns = ['EID', 'name', 'PID', 'position', 'gender', 'email', 'phone', 'nation']
+                member = [dict(zip(columns, row)) for row in rows]
+            else:
+                return Response({'Error': "There's no member in this project"}, status=404)
+        return Response(member)
+    else:
+        return Response({'Error': 'server error'}, status=500)
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def mem_retrieve(request, PID, EID):
     try:
         # member = models.WorksOn.objects.get(EID=EID)
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM works_on WHERE PID = %s AND EID = %s", [PID, EID])
-            print("query executed")
+            # print("query executed")
             rows = cursor.fetchall()
             if rows:
                 columns = ['EID', 'PID', 'position']
@@ -181,7 +150,7 @@ def mem_retrieve(request, PID, EID):
             return Response({'Error': 'client error'}, status=400)
         with connection.cursor() as cursor:
             cursor.execute("UPDATE works_on SET position = %s WHERE PID = %s AND EID = %s", [position, pid, eid])
-        return Response({'message': 'Member updated successfully!'}, status=200)
+        return Response({'message': 'Member updated successfully!', 'data': {'EID': eid, 'PID': pid, 'position': position}}, status=200)
     
     elif request.method == 'DELETE':
         # member.delete()
@@ -236,22 +205,20 @@ def record_create(request):
 
 @api_view(['GET', 'PUT'])
 def record_retrieve(request, PID, date):
-    if request.method == 'GET':
-        print(PID, date)
-        try:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM `record` WHERE PID = %s AND date = %s", [PID, date])
-                rows = cursor.fetchall()
-                if rows:
-                    columns = ['PID', 'SRID', 'date', 'runtime', 'amount', 'unit']
-                    record = [dict(zip(columns, row)) for row in rows]
-                else:
-                    return Response({'Error': 'Record not found'}, status=404)
-        except:
-            return Response({'Error': 'server error'}, status=500)
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM `record` WHERE PID = %s AND date = %s", [PID, date])
+            rows = cursor.fetchall()
+            if rows:
+                columns = ['PID', 'SRID', 'date', 'runtime', 'amount', 'unit']
+                record = [dict(zip(columns, row)) for row in rows]
+            else:
+                return Response({'Error': 'Record not found'}, status=404)
+    except:
+        return Response({'Error': 'server error'}, status=500)
 
-        if request.method == 'GET':
-            return Response(record)
+    if request.method == 'GET':
+        return Response(record)
     
     elif request.method == 'PUT':
         data=request.data
@@ -265,6 +232,6 @@ def record_retrieve(request, PID, date):
             return Response({'Error': 'client error'}, status=400)
         with connection.cursor() as cursor:
             cursor.execute("UPDATE record SET runtime = %s, amount = %s, unit = %s WHERE PID = %s AND SRID = %s AND date = %s", [runtime, amount, unit, pid, srid, date])
-        return Response({'message': 'Record updated successfully!'}, status=200)
+        return Response({'message': 'Record updated successfully!', 'data': {'PID': pid, 'SRID': srid, 'date': date, 'runtime': runtime, 'amount': amount, 'unit': unit}}, status=200)
     else:
         return Response({'Error': 'server error'}, status=500)

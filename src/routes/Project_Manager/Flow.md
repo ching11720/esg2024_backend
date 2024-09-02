@@ -1,4 +1,4 @@
-# /Project_Management/flow
+# /project_management/flow
 
 <details>
 <summary><code>GET</code> <code><b>/{PID}</b></code> <code>(Get a flow of a project)</code></summary>
@@ -12,18 +12,13 @@
 ##### Path Parameters
 | key | required | data type | description                           |
 | --- | -------- | --------- | ------------------------------------- |
-| PID | true     | string    | the pid which is wanted to be posed |
-##### Body
-| key                | required | data type | description                              |
-| ------------------ | -------- | --------- | ---------------------------------------- |
-| `{ST.{EQM...}.{MAT...}.{Description} -> ST.{EQM...}.{MAT}.{Description} ...}(string)` | true     | json | ---------------------------------------- |
+| PID | true     | string    | the pid which is wanted to be posed   |
 ##### Responses
-| http code    | content-type         | description                        |
-| ------------ | -------------------- | ---------------------------------- |
-| `201`        | `text/plain`         | `{'data': the detail of the flow}` |
-| `400`        | `text/plain`         | `{ message: "client error"}`       |
-| `401`        | `text/plain`         | `{ message: "PID is invalid"}`     |
-| `500`        | `text/plain`         | `{ message: "server error"}`       |
+| http code    | content-type         | description                                |
+| ------------ | -------------------- | ------------------------------------------ |
+| `200`        | `text/plain`         | `{'data': {'PID': (str), 'flow': (json)}}` |
+| `401`        | `text/plain`         | `{'Error': 'PID is invalid'}`              |
+| `500`        | `text/plain`         | `{'Error': 'server error'}`                |
 </details>
 
 <details>
@@ -46,9 +41,9 @@
 ##### Responses
 | http code    | content-type | description                              |
 | ------------ | -------------| ---------------------------------------- |
-| `200`        | `text/plain` | `{ message: "Flow added successfully!"}` |
-| `400`        | `text/plain` | `{ message: "client error"}`             |
-| `401`        | `text/plain` | `{ message: "PID is invalid"}`           |
-| `500`        | `text/plain` | `{ message: "server error"}`             |
+| `200`        | `text/plain` | `{'message': "Flow added successfully!", 'data': {'PID': (str), 'flow': (json)}}` |
+| `400`        | `text/plain` | `{'Error': error massage}`               |
+| `401`        | `text/plain` | `{'Error': 'PID is invalid'}`            |
+| `500`        | `text/plain` | `{'Error': 'server error'}`              |
 
 </details>
