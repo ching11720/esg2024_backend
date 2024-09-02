@@ -23,21 +23,22 @@ def usage_create(request):
     else:
         return Response({'Error': 'server error'}, status=500)
 
-@api_view(['GET', 'DELETE'])
-def equip_retrieve(request, PID, SRID):
+@api_view(['GET', 'DELETE', 'PUT'])
+def usage_retrieve(request, PID, SRID):
     print(PID, SRID)
     try:
         # equipment = models.Usage.objects.filter(SRID=SRID, PID=PID)
         with connection.cursor() as cursor:
             print("connected")
-            cursor.execute("SELECT * FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
+            cursor.execute('''SELECT PID,source.SRID,name,`usage`.amount,`usage`.unit FROM `usage`,source 
+                           WHERE `usage`.SRID = source.SRID AND PID = %s AND source.SRID = %s''', [PID, SRID])
             print("query executed")
             rows = cursor.fetchall()
             if rows:
-                columns = ['PID', 'SRID', 'amount', 'unit']
+                columns = ['PID', 'SRID', 'name', 'amount', 'unit']
                 equipment = [dict(zip(columns, row)) for row in rows]
             else:
-                return Response({'Error': 'Equipment not found'}, status=404)
+                return Response({'Error': 'Source not found'}, status=404)
     except:
         return Response({'Error': 'server error'}, status=500)
 
@@ -47,30 +48,7 @@ def equip_retrieve(request, PID, SRID):
     elif request.method == 'DELETE':
         with connection.cursor() as cursor:
             cursor.execute("DELETE FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
-        return Response({'message': 'Equipment deleted successfully!'}, status=204)
-    
-    else:
-        return Response({'Error': 'server error'}, status=500)
-
-@api_view(['GET', 'PUT'])
-def material_retrieve(request, PID, SRID):
-    try:
-        # material = models.UsageM.objects.get(MID=MID)
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM `usage` WHERE PID = %s AND SRID = %s", [PID, SRID])
-            print("query executed")
-            rows = cursor.fetchall()
-            if rows:
-                columns = ['PID', 'SRID', 'amount', 'unit']
-                material = [dict(zip(columns, row)) for row in rows]
-            else:
-                return Response({'Error': 'Material not found'}, status=404)
-        print(material)
-    except:
-        return Response({'Error': 'server error'}, status=500)
-
-    if request.method == 'GET':
-        return Response(material)
+        return Response({'message': 'Source deleted successfully!'}, status=204)
     
     elif request.method == 'PUT':
         # serializer = serializers.MUsageSerializer(material, data=request.data)
@@ -91,7 +69,7 @@ def material_retrieve(request, PID, SRID):
             return Response({'Error': 'client error'}, status=400)
         with connection.cursor() as cursor:
             cursor.execute("UPDATE `usage` SET amount = %s, unit = %s WHERE PID = %s AND SRID = %s", [amount, unit, pid, srid])
-        return Response({'message': 'Material updated successfully!'}, status=200)
+        return Response({'message': 'Material updated successfully!', 'data': {'PID': pid, 'SRID': srid, 'amount': amount, 'unit': unit}}, status=200)
     
     else:
         return Response({'Error': 'server error'}, status=500)
