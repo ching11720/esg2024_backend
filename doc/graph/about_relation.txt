@@ -10,7 +10,9 @@ id rules:
 pid - 01yymmnn (the date that the project is create, 
                 the numbers nn will be re-counted from 00 after a different month)
 eid - 02yyyymmnnnn (nnnn will be the total number of employees)
-srid - 03yyyymm(the date that the source is bought)yy(age)nnnn(nnnn will be the total number of source)
+rid - 03yyyymm(the date that the source is bought)yy(age)nnnn(nnnn will be the total number of source)
 bid - 04xxxxxx(zip code, if it only has 5 digits, add 0 in first digit)nnn
                 (nnn will be the total number of boundary)
 sid - 05yyyymmnnnn (nnnn will be the total number of employees)
+pn - 06nnnn
+dailyID - serial number(int)
