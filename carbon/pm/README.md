@@ -16,8 +16,8 @@
 | SRID               | true     | string    | the id of the source                     |
 | date               | true     | date      | the date of the daily record             |
 | runtime            | false    | float     | equipment runtime of that day, unit: hr  |
-| amount             | false    | float     | the amount of material used that day     |
-| unit               | false    | string    | the unit of material                     |
+| amount             | true     | float     | the amount of material used that day     |
+| unit               | true     | string    | the unit of material                     |
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |

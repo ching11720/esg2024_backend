@@ -197,7 +197,15 @@ CREATE TABLE `boundary` (
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `type` varchar(100) NOT NULL,
+  `created_by` varchar(12) NOT NULL,
+  `created_date` date NOT NULL,
+  `last_modified_by` varchar(12) NOT NULL,
+  `last_modified_date` date NOT NULL,
   PRIMARY KEY (`BID`),
+  KEY `boundary_ibfk_1` (`created_by`),
+  KEY `boundary_ibfk_2` (`last_modified_by`),
+  CONSTRAINT `boundary_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `employees` (`EID`),
+  CONSTRAINT `boundary_ibfk_2` FOREIGN KEY (`last_modified_by`) REFERENCES `employees` (`EID`),
   CONSTRAINT `check_bid_format` CHECK (regexp_like(`BID`,_utf8mb4'^04[0-9]{9}$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -208,8 +216,49 @@ CREATE TABLE `boundary` (
 
 LOCK TABLES `boundary` WRITE;
 /*!40000 ALTER TABLE `boundary` DISABLE KEYS */;
-INSERT INTO `boundary` VALUES ('04106234002','office 1','台北市大安區仁愛路4段234號5樓','office'),('04305123001','factory 1','新竹縣竹北市光明一路123號','factory');
+INSERT INTO `boundary` VALUES ('04106234002','office 1','台北市大安區仁愛路4段234號5樓','office','022024040210','2024-09-09','022024040210','2024-09-09'),('04305123001','factory 1','新竹縣竹北市光明一路123號','factory','022024040210','2024-09-09','022024040210','2024-09-09');
 /*!40000 ALTER TABLE `boundary` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `daily_record`
+--
+
+DROP TABLE IF EXISTS `daily_record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `daily_record` (
+  `dailyID` int NOT NULL,
+  `PID` varchar(10) NOT NULL,
+  `PN` varchar(6) NOT NULL,
+  `date` date NOT NULL,
+  `runtime` float DEFAULT NULL,
+  `amount` float NOT NULL,
+  `unit` varchar(10) NOT NULL,
+  `created_by` varchar(12) NOT NULL,
+  `created_date` date NOT NULL,
+  `last_modified_by` varchar(12) NOT NULL,
+  `last_modifiled_date` date NOT NULL,
+  PRIMARY KEY (`dailyID`),
+  KEY `daily_record_ibfk_1` (`PID`),
+  KEY `daily_record_ibfk_2` (`PN`),
+  KEY `daily_record_ibfk_3` (`created_by`),
+  KEY `daily_record_ibfk_4` (`last_modified_by`),
+  CONSTRAINT `daily_record_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
+  CONSTRAINT `daily_record_ibfk_2` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`),
+  CONSTRAINT `daily_record_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `employees` (`EID`),
+  CONSTRAINT `daily_record_ibfk_4` FOREIGN KEY (`last_modified_by`) REFERENCES `employees` (`EID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `daily_record`
+--
+
+LOCK TABLES `daily_record` WRITE;
+/*!40000 ALTER TABLE `daily_record` DISABLE KEYS */;
+INSERT INTO `daily_record` VALUES (1,'01240701','060002','2024-08-17',NULL,45,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(2,'01240701','060004','2024-08-17',NULL,25,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(3,'01240701','060005','2024-08-16',5.5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(4,'01240701','060007','2024-08-16',6,2,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(5,'01240701','060009','2024-08-17',6.5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(6,'01240702','060001','2024-08-16',NULL,90,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(7,'01240702','060002','2024-08-17',NULL,60,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(8,'01240702','060002','2024-08-19',NULL,10,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(9,'01240702','060006','2024-08-16',5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(10,'01240702','060007','2024-08-17',7,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(11,'01240702','060008','2024-08-17',2,2,'unit','022024040210','2024-09-09','022024040210','2024-09-09');
+/*!40000 ALTER TABLE `daily_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -331,13 +380,13 @@ DROP TABLE IF EXISTS `emission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `emission` (
-  `SRID` varchar(14) NOT NULL,
+  `RID` varchar(14) NOT NULL,
   `GID` varchar(10) NOT NULL,
-  `amount` float NOT NULL,
-  PRIMARY KEY (`SRID`,`GID`),
+  `amount(kg)` float NOT NULL,
+  PRIMARY KEY (`RID`,`GID`),
   KEY `emission_ibfk_1` (`GID`),
-  CONSTRAINT `emission_ibfk_1` FOREIGN KEY (`GID`) REFERENCES `gas` (`GID`),
-  CONSTRAINT `emission_ibfk_2` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
+  CONSTRAINT `emission_ibfk_1` FOREIGN KEY (`GID`) REFERENCES `green_house_gas` (`GID`),
+  CONSTRAINT `emission_ibfk_2` FOREIGN KEY (`RID`) REFERENCES `resource` (`RID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -385,13 +434,13 @@ INSERT INTO `employees` VALUES ('022020112701','aaa',2,'aaa@mail.com','091111111
 UNLOCK TABLES;
 
 --
--- Table structure for table `gas`
+-- Table structure for table `green_house_gas`
 --
 
-DROP TABLE IF EXISTS `gas`;
+DROP TABLE IF EXISTS `green_house_gas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `gas` (
+CREATE TABLE `green_house_gas` (
   `GID` varchar(10) NOT NULL,
   `name` varchar(255) NOT NULL,
   `gwp` float NOT NULL,
@@ -400,13 +449,40 @@ CREATE TABLE `gas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `gas`
+-- Dumping data for table `green_house_gas`
 --
 
-LOCK TABLES `gas` WRITE;
-/*!40000 ALTER TABLE `gas` DISABLE KEYS */;
-INSERT INTO `gas` VALUES ('1','CO2',1),('2','CH4',27.9),('3','N2O',273),('4','SF6',24300),('5','NF3',17400);
-/*!40000 ALTER TABLE `gas` ENABLE KEYS */;
+LOCK TABLES `green_house_gas` WRITE;
+/*!40000 ALTER TABLE `green_house_gas` DISABLE KEYS */;
+INSERT INTO `green_house_gas` VALUES ('1','CO2',1),('2','CH4',27.9),('3','N2O',273),('4','SF6',24300),('5','NF3',17400);
+/*!40000 ALTER TABLE `green_house_gas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_part_number`
+--
+
+DROP TABLE IF EXISTS `product_part_number`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_part_number` (
+  `PN` varchar(6) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_amount` int NOT NULL,
+  `unit` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`PN`),
+  CONSTRAINT `check_pn_format` CHECK (regexp_like(`PN`,_utf8mb4'^06[0-9]{4}$'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_part_number`
+--
+
+LOCK TABLES `product_part_number` WRITE;
+/*!40000 ALTER TABLE `product_part_number` DISABLE KEYS */;
+INSERT INTO `product_part_number` VALUES ('060001','原油',140,'kg'),('060002','標籤貼紙',105,'kg'),('060003','油墨',120,'kg'),('060004','布料',90,'kg'),('060005','檢測儀',1,'unit'),('060006','掃描機',5,'unit'),('060007','風乾機',20,'unit'),('060008','機械手臂',14,'unit'),('060009','影印機',7,'unit');
+/*!40000 ALTER TABLE `product_part_number` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -437,99 +513,74 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES ('01240701','Project A','[\n    {\"step\": 1, \"equipments\": [{\"SRID\": \"03202107060003\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202403020012\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Initial setup and preparation\"}, \n    {\"step\": 2, \"equipments\": [{\"SRID\": \"03202104080002\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202207060005\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202407010019\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202401010010\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202406010014\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n    {\"step\": 3, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022024040210','04305123001'),('01240702','Project B','[\n  {\"step\": 1, \"equipments\": [{\"SRID\": \"03202007060001\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [\"\"], \"description\": \"Design and planning\"},\n  {\"step\": 2, \"equipments\": [{\"SRID\": \"03202209080006\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202307020008\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202311020009\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202405010013\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407020016\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407010017\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408010020\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Fabrication and construction\"},\n  {\"step\": 3, \"equipments\": [{\"SRID\": \"03202402090011\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Quality check and packaging\"},\n  {\"step\": 4, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408020021\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022022070508','04305123001');
+INSERT INTO `projects` VALUES ('01240701','Project A','[\n    {\"step\": 1, \"equipments\": [{\"SRID\": \"03202107060003\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202403020012\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Initial setup and preparation\"}, \n    {\"step\": 2, \"equipments\": [{\"SRID\": \"03202104080002\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202207060005\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202407010019\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202401010010\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202406010014\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n    {\"step\": 3, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022024040210','04106234002'),('01240702','Project B','[\n  {\"step\": 1, \"equipments\": [{\"SRID\": \"03202007060001\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [\"\"], \"description\": \"Design and planning\"},\n  {\"step\": 2, \"equipments\": [{\"SRID\": \"03202209080006\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202307020008\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202311020009\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202405010013\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407020016\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407010017\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408010020\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n  {\"step\": 3, \"equipments\": [{\"SRID\": \"03202402090011\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Quality check and packaging\"},\n  {\"step\": 4, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408020021\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022022070508','04106234002');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `record`
+-- Table structure for table `repair_log`
 --
 
-DROP TABLE IF EXISTS `record`;
+DROP TABLE IF EXISTS `repair_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `record` (
-  `PID` varchar(10) NOT NULL,
-  `SRID` varchar(14) NOT NULL,
-  `date` date NOT NULL,
-  `runtime` float DEFAULT NULL,
-  `amount` float DEFAULT NULL,
-  `unit` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`PID`,`SRID`,`date`),
-  KEY `record_ibfk_2` (`SRID`),
-  CONSTRAINT `record_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
-  CONSTRAINT `record_ibfk_2` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `record`
---
-
-LOCK TABLES `record` WRITE;
-/*!40000 ALTER TABLE `record` DISABLE KEYS */;
-INSERT INTO `record` VALUES ('01240701','03202104080002','2024-08-16',6,NULL,NULL),('01240701','03202107060003','2024-08-16',5.5,NULL,NULL),('01240701','03202207060005','2024-08-16',6.2,NULL,NULL),('01240701','03202302070007','2024-08-17',6.5,NULL,NULL),('01240701','03202406010014','2024-08-17',NULL,25,'kg'),('01240701','03202407010018','2024-08-17',NULL,45,'kg'),('01240702','03202007060001','2024-08-16',5,NULL,NULL),('01240702','03202209080006','2024-08-17',7,NULL,NULL),('01240702','03202307020008','2024-08-17',2,NULL,NULL),('01240702','03202311020009','2024-08-17',7.5,NULL,NULL),('01240702','03202401010010','2024-08-16',NULL,50,'kg'),('01240702','03202405010013','2024-08-16',NULL,40,'kg'),('01240702','03202407010015','2024-08-17',NULL,60,'kg'),('01240702','03202407010015','2024-08-19',NULL,10,'kg');
-/*!40000 ALTER TABLE `record` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `repairs`
---
-
-DROP TABLE IF EXISTS `repairs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `repairs` (
-  `SRID` varchar(14) NOT NULL,
+CREATE TABLE `repair_log` (
+  `RID` varchar(14) NOT NULL,
   `date` date NOT NULL,
   `notes` mediumtext,
-  PRIMARY KEY (`SRID`,`date`),
-  CONSTRAINT `repairs_ibfk_1` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
+  PRIMARY KEY (`RID`,`date`),
+  CONSTRAINT `repair_log_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `resource` (`RID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `repairs`
+-- Dumping data for table `repair_log`
 --
 
-LOCK TABLES `repairs` WRITE;
-/*!40000 ALTER TABLE `repairs` DISABLE KEYS */;
-INSERT INTO `repairs` VALUES ('03202007060001','2024-01-31','定期保養'),('03202104080002','2024-01-31','定期保養'),('03202107060003','2024-01-31','定期保養'),('03202201070004','2024-01-31','定期保養'),('03202207060005','2024-01-31','定期保養'),('03202209080006','2024-08-22','定期保養'),('03202302070007','2024-01-31','定期保養'),('03202307020008','2024-01-31','定期保養'),('03202311020009','2024-08-22','定期保養'),('03202407010015','2024-08-22','定期保養');
-/*!40000 ALTER TABLE `repairs` ENABLE KEYS */;
+LOCK TABLES `repair_log` WRITE;
+/*!40000 ALTER TABLE `repair_log` DISABLE KEYS */;
+INSERT INTO `repair_log` VALUES ('03202007060001','2024-01-31','定期保養'),('03202104080002','2024-01-31','定期保養'),('03202107060003','2024-01-31','定期保養'),('03202201070004','2024-01-31','定期保養'),('03202207060005','2024-01-31','定期保養'),('03202209080006','2024-08-22','定期保養'),('03202302070007','2024-01-31','定期保養'),('03202307020008','2024-01-31','定期保養'),('03202311020009','2024-08-22','定期保養'),('03202407010015','2024-08-22','定期保養');
+/*!40000 ALTER TABLE `repair_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `source`
+-- Table structure for table `resource`
 --
 
-DROP TABLE IF EXISTS `source`;
+DROP TABLE IF EXISTS `resource`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `source` (
-  `SRID` varchar(14) NOT NULL,
+CREATE TABLE `resource` (
+  `RID` varchar(14) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `PN` varchar(6) NOT NULL,
   `amount` int NOT NULL,
   `unit` varchar(10) NOT NULL,
   `purchase_date` date NOT NULL,
   `disposal_date` date NOT NULL,
   `age` int NOT NULL,
+  `SID` varchar(12) NOT NULL,
   `factor` float DEFAULT NULL,
   `form` varchar(10) DEFAULT NULL,
   `category` varchar(10) DEFAULT NULL,
   `status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`SRID`),
-  CONSTRAINT `check_srid_format` CHECK (regexp_like(`SRID`,_utf8mb4'^03[0-9]{12}$'))
+  PRIMARY KEY (`RID`),
+  KEY `resource_ibfk_1` (`PN`),
+  KEY `resource_ibfk_2` (`SID`),
+  CONSTRAINT `resource_ibfk_1` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`),
+  CONSTRAINT `resource_ibfk_2` FOREIGN KEY (`SID`) REFERENCES `suppliers` (`SID`),
+  CONSTRAINT `check_srid_format` CHECK (regexp_like(`RID`,_utf8mb4'^03[0-9]{12}$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `source`
+-- Dumping data for table `resource`
 --
 
-LOCK TABLES `source` WRITE;
-/*!40000 ALTER TABLE `source` DISABLE KEYS */;
-INSERT INTO `source` VALUES ('03202007060001','Equipment A',5,'pcs','2020-07-15','2026-07-15',6,NULL,NULL,NULL,1),('03202104080002','Equipment B',5,'pcs','2021-04-01','2029-04-01',8,NULL,NULL,NULL,1),('03202107060003','Equipment C',1,'pcs','2021-07-10','2027-07-10',6,NULL,NULL,NULL,1),('03202201070004','Equipment D',1,'pcs','2022-01-01','2029-01-01',7,NULL,NULL,NULL,1),('03202207060005','Equipment E',8,'pcs','2022-07-15','2028-07-15',6,NULL,NULL,NULL,1),('03202209080006','Equipment F',7,'pcs','2022-09-01','2030-09-01',8,NULL,NULL,NULL,1),('03202302070007','Equipment G',6,'pcs','2023-02-05','2030-02-05',7,NULL,NULL,NULL,1),('03202307020008','Equipment H',2,'pcs','2023-07-01','2025-07-01',2,NULL,NULL,NULL,1),('03202311020009','Equipment I',9,'pcs','2023-11-10','2025-11-10',2,NULL,NULL,NULL,1),('03202401010010','Material A',50,'kg','2024-01-10','2025-01-10',1,NULL,NULL,NULL,2),('03202402090011','Equipment J',1,'pcs','2024-02-01','2033-02-01',9,NULL,NULL,NULL,1),('03202403020012','Material B',30,'kg','2024-03-15','2026-03-15',2,NULL,NULL,NULL,2),('03202405010013','Material C',40,'kg','2024-05-20','2025-05-20',1,NULL,NULL,NULL,2),('03202406010014','Material D',25,'kg','2024-06-25','2025-06-25',1,NULL,NULL,NULL,2),('03202407010015','Material E',60,'kg','2024-07-10','2025-07-10',1,NULL,NULL,NULL,2),('03202407010017','Material G',35,'kg','2024-07-15','2025-07-15',1,NULL,NULL,NULL,2),('03202407010018','Material H',45,'kg','2024-07-20','2025-07-20',1,NULL,NULL,NULL,2),('03202407010019','Equipment K',2,'pcs','2024-07-20','2025-07-20',1,NULL,NULL,NULL,1),('03202407020016','Material F',55,'kg','2024-07-13','2026-07-13',2,NULL,NULL,NULL,2),('03202408010020','Material I',65,'kg','2024-08-05','2025-08-05',1,NULL,NULL,NULL,2),('03202408020021','Material J',50,'kg','2024-08-05','2026-08-05',2,NULL,NULL,NULL,2),('03202408100022','test',1,'unit','2024-08-22','2034-08-22',10,0,'NULL','NULL',0);
-/*!40000 ALTER TABLE `source` ENABLE KEYS */;
+LOCK TABLES `resource` WRITE;
+/*!40000 ALTER TABLE `resource` DISABLE KEYS */;
+INSERT INTO `resource` VALUES ('03202007060001','Equipment A','060006',5,'unit','2020-07-15','2026-07-15',6,'052020010004',NULL,NULL,NULL,1),('03202104080002','Equipment B','060007',5,'unit','2021-04-01','2029-04-01',8,'052020100008',NULL,NULL,NULL,1),('03202107060003','Equipment C','060005',1,'unit','2021-07-10','2027-07-10',6,'052020020005',NULL,NULL,NULL,1),('03202201070004','Equipment D','060009',1,'unit','2022-01-01','2029-01-01',7,'052020100007',NULL,NULL,NULL,1),('03202207060005','Equipment E','060007',8,'unit','2022-07-15','2028-07-15',6,'052020020006',NULL,NULL,NULL,1),('03202209080006','Equipment F','060007',7,'unit','2022-09-01','2030-09-01',8,'052021040010',NULL,NULL,NULL,1),('03202302070007','Equipment G','060009',6,'unit','2023-02-05','2030-02-05',7,'052020100009',NULL,NULL,NULL,1),('03202307020008','Equipment H','060008',2,'unit','2023-07-01','2025-07-01',2,'052020010001',NULL,NULL,NULL,1),('03202311020009','Equipment I','060008',9,'unit','2023-11-10','2025-11-10',2,'052020010003',NULL,NULL,NULL,1),('03202401010010','Material A','060001',50,'kg','2024-01-10','2025-01-10',1,'052020100007',NULL,NULL,NULL,2),('03202402090011','Equipment J','060008',1,'unit','2024-02-01','2033-02-01',9,'052021080011',NULL,NULL,NULL,1),('03202403020012','Material B','060003',30,'kg','2024-03-15','2026-03-15',2,'052022030012',NULL,NULL,NULL,2),('03202405010013','Material C','060001',40,'kg','2024-05-20','2025-05-20',1,'052020010004',NULL,NULL,NULL,2),('03202406010014','Material D','060004',25,'kg','2024-06-25','2025-06-25',1,'052023050014',NULL,NULL,NULL,2),('03202407010015','Material E','060002',60,'kg','2024-07-10','2025-07-10',1,'052020010001',NULL,NULL,NULL,2),('03202407010017','Material G','060003',35,'kg','2024-07-15','2025-07-15',1,'052020100009',NULL,NULL,NULL,2),('03202407010018','Material H','060002',45,'kg','2024-07-20','2025-07-20',1,'052021080011',NULL,NULL,NULL,2),('03202407010019','Equipment K','060008',2,'unit','2024-07-20','2025-07-20',1,'052020010002',NULL,NULL,NULL,1),('03202407020016','Material F','060003',55,'kg','2024-07-13','2026-07-13',2,'052023050015',NULL,NULL,NULL,2),('03202408010020','Material I','060004',65,'kg','2024-08-05','2025-08-05',1,'052020010002',NULL,NULL,NULL,2),('03202408020021','Material J','060001',50,'kg','2024-08-05','2026-08-05',2,'052022070013',NULL,NULL,NULL,2);
+/*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -562,33 +613,6 @@ INSERT INTO `suppliers` VALUES ('052020010001','Supplier A','0912345678','TW','1
 UNLOCK TABLES;
 
 --
--- Table structure for table `supply`
---
-
-DROP TABLE IF EXISTS `supply`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `supply` (
-  `SID` varchar(12) NOT NULL,
-  `SRID` varchar(14) NOT NULL,
-  PRIMARY KEY (`SID`,`SRID`),
-  KEY `supply_ibfk_2` (`SRID`),
-  CONSTRAINT `supply_ibfk_1` FOREIGN KEY (`SID`) REFERENCES `suppliers` (`SID`),
-  CONSTRAINT `supply_ibfk_2` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `supply`
---
-
-LOCK TABLES `supply` WRITE;
-/*!40000 ALTER TABLE `supply` DISABLE KEYS */;
-INSERT INTO `supply` VALUES ('052020010004','03202007060001'),('052020100008','03202104080002'),('052020020005','03202107060003'),('052020100007','03202201070004'),('052020020006','03202207060005'),('052021040010','03202209080006'),('052020100009','03202302070007'),('052020010001','03202307020008'),('052020010003','03202311020009'),('052020100007','03202401010010'),('052021080011','03202402090011'),('052022030012','03202403020012'),('052020010004','03202405010013'),('052020010004','03202406010014'),('052023050014','03202406010014'),('052020010001','03202407010015'),('052020100009','03202407010017'),('052021080011','03202407010018'),('052020010002','03202407010019'),('052023050015','03202407020016'),('052020010002','03202408010020'),('052022070013','03202408020021'),('052023050014','03202408020021'),('052020010001','03202408100022');
-/*!40000 ALTER TABLE `supply` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `usage`
 --
 
@@ -597,13 +621,13 @@ DROP TABLE IF EXISTS `usage`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usage` (
   `PID` varchar(10) NOT NULL,
-  `SRID` varchar(14) NOT NULL,
+  `PN` varchar(6) NOT NULL,
   `amount` int NOT NULL,
   `unit` varchar(45) NOT NULL,
-  PRIMARY KEY (`SRID`,`PID`),
+  PRIMARY KEY (`PN`,`PID`),
   KEY `usage_ibfk_1` (`PID`),
   CONSTRAINT `usage_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
-  CONSTRAINT `usage_ibfk_2` FOREIGN KEY (`SRID`) REFERENCES `source` (`SRID`)
+  CONSTRAINT `usage_ibfk_2` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -613,7 +637,7 @@ CREATE TABLE `usage` (
 
 LOCK TABLES `usage` WRITE;
 /*!40000 ALTER TABLE `usage` DISABLE KEYS */;
-INSERT INTO `usage` VALUES ('01240702','03202007060001',1,'unit'),('01240701','03202104080002',1,'unit'),('01240701','03202107060003',1,'unit'),('01240701','03202207060005',1,'unit'),('01240702','03202209080006',1,'unit'),('01240701','03202302070007',1,'unit'),('01240702','03202302070007',1,'unit'),('01240702','03202307020008',1,'unit'),('01240702','03202311020009',1,'unit'),('01240701','03202401010010',1,'kg'),('01240702','03202402090011',1,'unit'),('01240701','03202403020012',1,'kg'),('01240702','03202405010013',1,'kg'),('01240701','03202406010014',1,'kg'),('01240701','03202407010015',1,'kg'),('01240702','03202407010015',1,'kg'),('01240702','03202407010017',1,'kg'),('01240701','03202407010018',1,'kg'),('01240702','03202407010018',1,'kg'),('01240701','03202407010019',1,'unit'),('01240702','03202407020016',1,'kg'),('01240702','03202408010020',1,'kg'),('01240702','03202408020021',1,'kg');
+INSERT INTO `usage` VALUES ('01240701','060001',1,'kg'),('01240702','060001',2,'kg'),('01240701','060002',2,'kg'),('01240702','060002',2,'kg'),('01240701','060003',1,'kg'),('01240702','060003',2,'kg'),('01240701','060004',1,'kg'),('01240702','060004',1,'kg'),('01240701','060005',1,'unit'),('01240702','060006',1,'unit'),('01240701','060007',2,'unit'),('01240702','060007',1,'unit'),('01240701','060008',1,'unit'),('01240702','060008',3,'unit'),('01240701','060009',1,'unit'),('01240702','060009',1,'unit');
 /*!40000 ALTER TABLE `usage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -628,6 +652,7 @@ CREATE TABLE `works_on` (
   `EID` varchar(12) NOT NULL,
   `PID` varchar(10) NOT NULL,
   `position` varchar(255) NOT NULL,
+  `role_on_sys` varchar(100) NOT NULL,
   PRIMARY KEY (`EID`,`PID`),
   KEY `PID` (`PID`),
   CONSTRAINT `works_on_ibfk_1` FOREIGN KEY (`EID`) REFERENCES `employees` (`EID`),
@@ -641,7 +666,7 @@ CREATE TABLE `works_on` (
 
 LOCK TABLES `works_on` WRITE;
 /*!40000 ALTER TABLE `works_on` DISABLE KEYS */;
-INSERT INTO `works_on` VALUES ('022020112701','01240701','top manager'),('022020112701','01240702','top manager'),('022021021602','01240702','Construction Technician'),('022021032503','01240701','Processing Technician'),('022021110504','01240701','Testing Specialist'),('022022051705','01240702','Packaging Specialist'),('022022062106','01240702','Design Engineer'),('022022062707','01240701','Setup Engineer'),('022022062707','01240702','Setup Engineer'),('022022070508','01240702','project manager'),('022023050509','01240702','Testing Specialist'),('022024040210','01240701','project manager');
+INSERT INTO `works_on` VALUES ('022020112701','01240701','top manager','admin'),('022020112701','01240702','top manager','admin'),('022021021602','01240702','Frontend Engineer','read-only'),('022021032503','01240701','Processing Technician','read-only'),('022021110504','01240701','Testing Specialist','read-only'),('022022051705','01240702','Packaging Specialist','read-only'),('022022062106','01240702','Design Engineer','read-only'),('022022062707','01240701','Setup Engineer','member'),('022022062707','01240702','Setup Engineer','member'),('022022070508','01240702','project manager','member'),('022023050509','01240702','Testing Specialist','read-only'),('022024040210','01240701','project manager','member');
 /*!40000 ALTER TABLE `works_on` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -654,4 +679,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-02  6:37:07
+-- Dump completed on 2024-09-18  8:38:57
