@@ -262,6 +262,43 @@ INSERT INTO `daily_record` VALUES (1,'01240701','060002','2024-08-17',NULL,45,'k
 UNLOCK TABLES;
 
 --
+-- Table structure for table `daily_record_modified`
+--
+
+DROP TABLE IF EXISTS `daily_record_modified`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `daily_record_modified` (
+  `dailyID_modified` int NOT NULL,
+  `PID` varchar(10) NOT NULL,
+  `PN` varchar(6) NOT NULL,
+  `date` date NOT NULL,
+  `runtime` float DEFAULT NULL,
+  `amount` float NOT NULL,
+  `unit` varchar(10) NOT NULL,
+  `created_by` varchar(12) NOT NULL,
+  `created_date` date NOT NULL,
+  `status` int NOT NULL,
+  PRIMARY KEY (`dailyID_modified`),
+  KEY `daily_record_modified_ibfk_1` (`PID`),
+  KEY `daily_record_modified_ibfk_2` (`PN`),
+  KEY `daily_record_modified_ibfk_3` (`created_by`),
+  CONSTRAINT `daily_record_modified_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
+  CONSTRAINT `daily_record_modified_ibfk_2` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`),
+  CONSTRAINT `daily_record_modified_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `employees` (`EID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `daily_record_modified`
+--
+
+LOCK TABLES `daily_record_modified` WRITE;
+/*!40000 ALTER TABLE `daily_record_modified` DISABLE KEYS */;
+/*!40000 ALTER TABLE `daily_record_modified` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `django_admin_log`
 --
 
@@ -679,4 +716,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-18  8:38:57
+-- Dump completed on 2024-09-23 14:18:56
