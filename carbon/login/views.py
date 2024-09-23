@@ -6,7 +6,8 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from pm.models import Employee
+from serializers import WorksOnSerializer
+from pm.models import Employee, WorksOn
 import hashlib
 
 class LoginUserView(APIView):
@@ -17,7 +18,10 @@ class LoginUserView(APIView):
         # user = authenticate(request, username=username, password=hashed)
         # user = User.objects.filter(username=username, password=hashed).first()
         # return Response(user)
-        user= User.objects.get(username=username)
+        try:
+            user= User.objects.get(username=username)
+        except:
+            return Response({'success': False, 'JWT': '', 'first_login': True})
         # if user.check_password(hashed):
         if user.check_password(password):
         #if user is not None:
@@ -32,9 +36,19 @@ class LoginUserView(APIView):
                 return Response({"success": True, "JWT": str(refresh.access_token), "first_login": False})
         else:
             # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
-            return Response({'success': False, 'JWT': '', 'first_login': True})
-            
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
 
+# EID, Ename, authority, PM_rank    
+class UserInfoView(APIView):
+    def get(self, request, *args, **kwargs):
+        uid = request.data.get("user")
+        user = User.objects.get(username=uid)
+        authority = user.groups.all()
+        employee = Employee.objects.get(EID=uid)
+        EName = employee.name
+        worksons = WorksOn.filter(EID=employee)
+        serializer = WorksOnSerializer(worksons, many=True)
+        return Response({uid, EName, authority, serializer}, status=status.HTTP_200_OK)
     
 class RevisePasswordView(APIView):
     # permission_classes = (IsAuthenticated,)

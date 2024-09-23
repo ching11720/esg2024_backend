@@ -7,13 +7,12 @@ from rest_framework.views import APIView
 from django.db.models import Q
 import re
 
-# boundary need postal_code
 
 class BoundaryView(APIView):
     def post(self, request, *args, **kwargs):
         postal_code = re.findall('\d+', request.data.get('address', ''))[0]
         postal_code = postal_code.zfill(6)
-        b_count = Boundary.objects.count() #+ 1
+        b_count = Boundary.objects.count() 
         BID = f"04{postal_code}{b_count:03d}"
         request.data['BID'] = BID
         serializer = BoundarySerializer(data=request.data)
@@ -70,25 +69,67 @@ class BoundaryView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-
 """
+# get the total amount of data in specific table
+def total_table():
+    with connection.cursor() as cursor:
+        cursor.execute(f"SELECT COUNT(*) FROM `source`")
+        total = cursor.fetchone()[0]
+    return total
+
+# create id
+def create_id(pdate,age,nn):
+    ym=pdate.strftime('%Y%m')
+    SRID=f"03{ym}{str(age).zfill(2)}{str(nn).zfill(4)}"
+    return SRID
+
 class SourceView(APIView):
     def post(self, request, *args, **kwargs):
-        material = Material.objects.get(MName=request.data.get('MName'))
-        sid = material.MName
-        request.data['SID'] = sid
-        serializer = SourceSerializer(data=request.data)
-        if serializer.is_valid():
-            source = Source.objects.create(
-                SID=serializer.validated_data['SID'],
-                EName=serializer.validated_data['EName'],
-                form=serializer.validated_data['form'],
-                MName=serializer.validated_data['MName'],
-                category=serializer.validated_data['category'],
-            )
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        data=request.data
+        pdate=datetime.strptime(data['purchase_date'], '%Y-%m-%d')
+        age=data['age']
+        SRID=create_id(pdate,age,total_table()+1)
+        print(SRID)
+        
+        if data['factor'] == 'NULL':
+            factor=0
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            factor=float(data['factor'])
+        
+        input1={
+            'SRID':SRID,
+            'name':data['name'],
+            'amount':data['amount'],
+            'unit':data['unit'],
+            'purchase_date':data['purchase_date'],
+            'disposal_date':data['disposal_date'],
+            'age':int(age),
+            'factor':factor,
+            'form':data['form'],
+            'category':data['category'],
+            'status':data['status'],
+        }
+        input2={
+            'SRID':SRID,
+            'SID':data['SID'],
+        }
+        serializer1 = serializers.SourceSerializer(data=input1)
+        if serializer1.is_valid():
+            serializer1.save()
+            response_data = {
+                'message': 'Source added successfully!',
+                'data': serializer1.data,
+            }
+            serializer2 = serializers.SupplySerializer(data=input2)
+            if serializer2.is_valid():
+                serializer2.save()
+                return Response(response_data, status=201)
+        errors = {
+            'source_add_errors': serializer1.errors,
+            'supply_add_errors': serializer2.errors,
+        }
+        return Response(errors, status=400)
+    
     
     def put(self, request, *args, **kwargs):
         sid = request.data.get('SID')
@@ -133,10 +174,10 @@ class SourceView(APIView):
 
         serializer = BoundarySerializer(sources, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+"""
 
 
-
-
+"""
 class statement(APIView):
     def retrieve(self, request, *args, **kwargs):
     def Export(self, request, *args, **kwargs):
