@@ -37,7 +37,8 @@ class DailyRecord(models.Model):
         db_table = 'daily_record'
 
 class DailyRecordModified(models.Model):
-    dailyID_modified = models.IntegerField(primary_key=True)
+    dailyID_modified = models.AutoField(primary_key=True)
+    dailyID_origin = models.ForeignKey('DailyRecord', on_delete=models.CASCADE, to_field='dailyID', db_column='dailyID_origin')
     PID = models.ForeignKey('Project', on_delete=models.CASCADE, to_field='PID', db_column='PID')
     PN = models.ForeignKey('PPN', on_delete=models.CASCADE, to_field='PN', db_column='PN')
     date = models.DateField()
