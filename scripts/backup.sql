@@ -270,6 +270,7 @@ DROP TABLE IF EXISTS `daily_record_modified`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `daily_record_modified` (
   `dailyID_modified` int NOT NULL,
+  `dailyID_origin` int NOT NULL,
   `PID` varchar(10) NOT NULL,
   `PN` varchar(6) NOT NULL,
   `date` date NOT NULL,
@@ -283,9 +284,11 @@ CREATE TABLE `daily_record_modified` (
   KEY `daily_record_modified_ibfk_1` (`PID`),
   KEY `daily_record_modified_ibfk_2` (`PN`),
   KEY `daily_record_modified_ibfk_3` (`created_by`),
+  KEY `daily_record_modified_ibfk_4` (`dailyID_origin`),
   CONSTRAINT `daily_record_modified_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
   CONSTRAINT `daily_record_modified_ibfk_2` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`),
-  CONSTRAINT `daily_record_modified_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `employees` (`EID`)
+  CONSTRAINT `daily_record_modified_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `employees` (`EID`),
+  CONSTRAINT `daily_record_modified_ibfk_4` FOREIGN KEY (`dailyID_origin`) REFERENCES `daily_record` (`dailyID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -419,7 +422,7 @@ DROP TABLE IF EXISTS `emission`;
 CREATE TABLE `emission` (
   `RID` varchar(14) NOT NULL,
   `GID` varchar(10) NOT NULL,
-  `amount(kg)` float NOT NULL,
+  `amount_kg` float NOT NULL,
   PRIMARY KEY (`RID`,`GID`),
   KEY `emission_ibfk_1` (`GID`),
   CONSTRAINT `emission_ibfk_1` FOREIGN KEY (`GID`) REFERENCES `green_house_gas` (`GID`),
@@ -716,4 +719,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-23 14:18:56
+-- Dump completed on 2024-09-25 10:18:41
