@@ -20,7 +20,7 @@ def create_id(pdate,age,nn):
 
 # Create your views here.
 @api_view(['POST'])
-def source_create(request):
+def resource_create(request):
     if request.method == 'POST':
         data=request.data
         pdate=datetime.strptime(data['purchase_date'], '%Y-%m-%d')
@@ -71,7 +71,7 @@ def source_create(request):
         return Response({'Error': 'server error'}, status=500)
 
 @api_view(['GET', 'DELETE'])
-def source_retrieve(request, SRID):
+def resource_retrieve(request, SRID):
     try:
         source = models.Source.objects.get(SRID=SRID)
     except models.Source.DoesNotExist:

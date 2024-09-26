@@ -6,9 +6,9 @@ class Boundary(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     type = models.CharField(max_length=100)
-    create_by = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='EID')
-    create_date = models.DateField()
-    modified_by = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='EID', related_name='modified_by')
+    created_by = models.ForeignKey('Employee', related_name='created_boundaries', on_delete=models.CASCADE, to_field='EID', db_column='created_by')
+    created_date = models.DateField()
+    modified_by = models.ForeignKey('Employee', related_name='modified_boundaries', on_delete=models.CASCADE, to_field='EID', db_column='modified_by')
     modified_date = models.DateField()
 
     class Meta:
@@ -28,9 +28,9 @@ class DailyRecord(models.Model):
     runtime = models.FloatField(null=True, blank=True)
     amount = models.FloatField()
     unit = models.CharField(max_length=10)
-    create_by = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='EID')
-    create_date = models.DateField()
-    modified_by = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='EID', related_name='modified_by')
+    created_by = models.ForeignKey('Employee', related_name='created_DailyRecord', on_delete=models.CASCADE, to_field='EID', db_column='create_by')
+    created_date = models.DateField()
+    modified_by = models.ForeignKey('Employee', related_name='modified_DailyRecord', on_delete=models.CASCADE, to_field='EID', db_column='modified_by')
     modified_date = models.DateField()
 
     class Meta:
@@ -45,8 +45,8 @@ class DailyRecordModified(models.Model):
     runtime = models.FloatField(null=True, blank=True)
     amount = models.FloatField()
     unit = models.CharField(max_length=10)
-    create_by = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='EID')
-    create_date = models.DateField()
+    created_by = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='EID')
+    created_date = models.DateField()
     status = models.IntegerField()
 
     class Meta:
@@ -54,7 +54,7 @@ class DailyRecordModified(models.Model):
 
 class Emission(models.Model):
     RID = models.ForeignKey('Resource', on_delete=models.CASCADE, to_field='RID', db_column='RID')
-    GID = models.ForeignKey('Gas', on_delete=models.CASCADE, to_field='GID', db_column='GID')
+    GID = models.ForeignKey('GreenHouseGas', on_delete=models.CASCADE, to_field='GID', db_column='GID')
     amount_kg = models.FloatField()
 
     class Meta:
@@ -97,7 +97,7 @@ class GreenHouseGas(models.Model):
     gwp = models.FloatField()
 
     class Meta:
-        db_table = 'gas'
+        db_table = 'green_house_gas'
 
 class PPN(models.Model):
     PN = models.CharField(max_length=6, primary_key=True)

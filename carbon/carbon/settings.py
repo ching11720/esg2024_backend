@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'admins',
     'ESG',
     'pm',
-    'ppe',
+    'resources',
 ]
 
 MIDDLEWARE = [

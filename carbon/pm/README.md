@@ -304,6 +304,30 @@ flow's form example: `[
 </details>
 
 <details>
+<summary><code>GET</code> <code><b>/material/{PID}</b></code> <code>(Get all the materials in the specific project)</code></summary>
+
+<br />
+
+##### Headers
+| key | values | description |
+| --- | ------ | ----------- |
+| --- | ------ | ----------- |
+##### Body
+| key                | required | data type | description                              |
+| ------------------ | -------- | --------- | ---------------------------------------- |
+| PID                | true     | string    | id of the project                        |
+| PN                 | true     | string    | the part number of the product           |
+| amount             | true     | int       | amount of the source                     |
+| unit               | true     | string    | the unit of the source                   |
+##### Responses
+| http code    | content-type         | description                        |
+| ------------ | -------------------- | ---------------------------------- |
+| `200`        | `application/json`   | `{'message': 'Usage added successfully!','data': {'PID': (str), 'PN': (str), 'amount': (int), 'unit': (str)}}` |
+| `400`        | `text/plain`         | `{'Error': error massage}`         |
+| `500`        | `text/plain`         | `{'Error': 'server error'}`        |
+</details>
+
+<details>
 <summary><code>Delete</code> <code><b>/{PID}/{PN}</b></code> <code>(Remove usage of a source)</code></summary>
 
 <br />
