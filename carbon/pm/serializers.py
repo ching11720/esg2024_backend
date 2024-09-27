@@ -8,7 +8,7 @@ class UsageSerializer(serializers.ModelSerializer):
 
 class SourceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Source
+        model = models.Resource
         fields = '__all__'
 
 class MemSerializer(serializers.ModelSerializer):
@@ -28,5 +28,5 @@ class FlowSerializer(serializers.ModelSerializer):
 
 class RecordSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Record
+        model = models.DailyRecord
         fields = '__all__'

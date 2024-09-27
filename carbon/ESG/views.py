@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from rest_framework.response import Response
 from rest_framework import status
-from pm.models import Boundary, Source
+from pm.models import Boundary, Resource
 from .serializers import BoundarySerializer, SourceSerializer
 from rest_framework.views import APIView
 from django.db.models import Q

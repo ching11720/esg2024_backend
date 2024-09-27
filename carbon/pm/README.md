@@ -10,24 +10,24 @@
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
 ##### Body
-| key                | required | data type | description                              |
-| ------------------ | -------- | --------- | ---------------------------------------- |
-| PID                | true     | string    | the id of the project                    |
-| SRID               | true     | string    | the id of the source                     |
-| date               | true     | date      | the date of the daily record             |
-| runtime            | false    | float     | equipment runtime of that day, unit: hr  |
-| amount             | true     | float     | the amount of material used that day     |
-| unit               | true     | string    | the unit of material                     |
+| key                | required | data type | description                                         |
+| ------------------ | -------- | --------- | --------------------------------------------------- |
+| PID                | true     | string    | the id of the project                               |
+| PN                 | true     | string    | the part number of the product                      |
+| date               | true     | date      | the date of the daily record                        |
+| runtime            | false    | float     | equipment runtime of that day, unit: hr             |
+| amount             | true     | float     | the amount of material used that day                |
+| unit               | true     | string    | the unit of material                                |
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `201`        | `application/json`   | `{'message': 'Record added successfully!','data': {'PID': (str), 'SRID': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}}`|
+| `201`        | `application/json`   | `{'message': 'Record added successfully!','data': {'dailyID':(int),'PID': (str), 'PN': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}}`|
 | `400`        | `text/plain`         | `{'Error': error massage}`         |
 | `500`        | `text/plain`         | `{'Error': 'server error'}`        |
 </details>
 
 <details>
-<summary><code>PUT</code> <code><b>/{PID}/{date}</b></code> <code>(Revise a daily record)</code></summary>
+<summary><code>PUT</code> <code><b>/{PID}/{date}</b></code> <code>(Raise a requirement of revising a daily record)</code></summary>
 
 <br />
 
@@ -44,7 +44,7 @@
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
 | PID                | true     | string    | the id of the project                    |
-| SRID               | true     | string    | the id of the source                     |
+| PN                 | true     | string    | the part number of the product           |
 | date               | true     | date      | the date of the daily record             |
 | runtime            | false    | float     | equipment runtime of that day, unit: hr  |
 | amount             | false    | float     | the amount of material used that day     |
@@ -52,7 +52,7 @@
 ##### Responses
 | http code    | content-type       | description                                   |
 | ------------ | ------------------ | --------------------------------------------- |
-| `200`        | `application/json` | `{'message': 'Record updated successfully!', 'data': {'PID': (str), 'SRID': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}}` |
+| `200`        | `application/json` | `{'message': 'Record updated successfully!', 'data': {'PID': (str), 'PN': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}}` |
 | `400`        | `text/plain`       | `{'Error': 'client error'}`                   |
 | `404`        | `text/plain`       | `{'Error': 'Record not found'}`               |
 | `500`        | `text/plain`       | `{'Error': 'server error'}`                   |
@@ -76,7 +76,7 @@
 ##### Responses
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
-| `200`        | `application/json` | the list of daily records (form: `{'PID': (str), 'SRID': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}`) |
+| `200`        | `application/json` | the list of daily records (form: `{'PID': (str), 'PN': (str), 'date': (str), 'runtime': (float), 'amount': (float), 'unit': (str)}`) |
 | `400`        | `text/plain`       | `{'Error': 'client error'}`                 |
 | `404`        | `text/plain`       | `{'Error': 'Record not found'}`             |
 | `500`        | `text/plain`       | `{'Error': 'server error'}`                 |
@@ -85,7 +85,7 @@
 
 # /project_management/flow
 flow's form example: `[
-    {"step": 1, "equipments": [{"SRID": "03202107060003", "amount": 1, "unit": "unit"}], "materials": [{"SRID": "03202403020012", "amount": 1, "unit": "kg"}], "description": "Initial setup and preparation"}, 
+    {"step": 1, "equipments": [{"PN": "06xxxx", "amount": 1, "unit": "unit"}], "materials": [{"PN": "06xxxx", "amount": 1, "unit": "kg"}], "description": "Initial setup and preparation"}, 
     {"step": 2, .....}]`
 <details>
 <summary><code>GET</code> <code><b>/{PID}</b></code> <code>(Get a flow of a project)</code></summary>
@@ -164,17 +164,18 @@ flow's form example: `[
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
 ##### Body
-| key      | required | data type | description                              |
-| -------- | -------- | --------- | ---------------------------------------- |
-| PID      | true     | string    | id of the project                        |
-| EID      | true     | string    | the EID of the member                    |
-| position | true     | string    |                                          |
+| key         | required | data type | description                                         |
+| ----------- | -------- | --------- | --------------------------------------------------- |
+| PID         | true     | string    | id of the project                                   |
+| EID         | true     | string    | the EID of the member                               |
+| position    | true     | string    |                                                     |
+| role_on_sys | true     | string    | what content can this employee access in the system (admin, member, read_only) |
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `201`        | `application/json`   | `{'message': 'Member added successfully!','data': {'EID': (str), 'PID': (str), position: (str)}}`    |
-| `400`        | `text/plain`         | `{'Error': error massage}`       |
-| `500`        | `text/plain`         | `{'Error': 'server error'}`       |
+| `201`        | `application/json`   | `{'message': 'Member added successfully!','data': {'EID': (str), 'PID': (str), position: (str),'role_on_sys':(str)}}`    |
+| `400`        | `text/plain`         | `{'Error': error massage}`         |
+| `500`        | `text/plain`         | `{'Error': 'server error'}`        |
 </details>
 
 <details>
@@ -192,15 +193,16 @@ flow's form example: `[
 | PID      | true     | string    | id of the project     |
 | EID      | true     | string    | the EID of the member |
 ##### Body
-| key      | required | data type | description                |
-| -------- | -------- | --------- | -------------------------- |
-| PID      | true     | string    | id of the project          |
-| EID      | true     | string    | the EID of the member      |
-| Position | true     | string    | the position of the memeber|
+| key         | required | data type | description                                         |
+| ----------- | -------- | --------- | --------------------------------------------------- |
+| PID         | true     | string    | id of the project                                   |
+| EID         | true     | string    | the EID of the member                               |
+| position    | true     | string    |                                                     |
+| role_on_sys | true     | string    | what content can this employee access in the system (admin, member, read_only) |
 ##### Responses
 | http code    | content-type | description                                  |
 | ------------ | -------------| -------------------------------------------- |
-| `200`        | `text/plain` | `{'message': 'Member updated successfully!', 'data': {'EID': (str), 'PID': (str), 'position': (str)}}`|
+| `200`        | `text/plain` | `{'message': 'Member updated successfully!', 'data': {'EID': (str), 'PID': (str), 'position': (str),'role_on_sys':(str)}}`|
 | `400`        | `text/plain` | `{'Error': 'client error'}`                  |
 | `404`,       | `text/plain` | `{'Error': 'Member not found'}`              |
 | `500`        | `text/plain` | `{'Error': 'server error'}`                  |
@@ -247,7 +249,7 @@ flow's form example: `[
 ##### Responses
 | http code    | content-type       | description                                        |
 | ------------ | ------------------ | -------------------------------------------------- |
-| `200`        | `application/json` | `{'EID': (str), 'PID': (str), 'position': (str)}`  |
+| `200`        | `application/json` | `{'EID': (str), 'PID': (str), 'position': (str),'role_on_sys':(str)}`  |
 | `404`,       | `text/plain`       | `{'Error': 'Member not found'}`                    |
 | `500`        | `text/plain`       | `{'Error': 'server error'}`                        |
 
@@ -290,19 +292,43 @@ flow's form example: `[
 | key                | required | data type | description                              |
 | ------------------ | -------- | --------- | ---------------------------------------- |
 | PID                | true     | string    | id of the project                        |
-| SRID               | true     | string    | id of the source                         |
+| PN                 | true     | string    | the part number of the product           |
 | amount             | true     | int       | amount of the source                     |
 | unit               | true     | string    | the unit of the source                   |
 ##### Responses
 | http code    | content-type         | description                        |
 | ------------ | -------------------- | ---------------------------------- |
-| `200`        | `application/json`   | `{'message': 'Usage added successfully!','data': {'PID': (str), 'SRID': (str), 'amount': (int), 'unit': (str)}}` |
+| `200`        | `application/json`   | `{'message': 'Usage added successfully!','data': {'PID': (str), 'PN': (str), 'amount': (int), 'unit': (str)}}` |
 | `400`        | `text/plain`         | `{'Error': error massage}`         |
 | `500`        | `text/plain`         | `{'Error': 'server error'}`        |
 </details>
 
 <details>
-<summary><code>Delete</code> <code><b>/{PID}/{SRID}</b></code> <code>(Remove usage of a source)</code></summary>
+<summary><code>GET</code> <code><b>/material/{PID}</b></code> <code>(Get all the materials in the specific project)</code></summary>
+
+<br />
+
+##### Headers
+| key | values | description |
+| --- | ------ | ----------- |
+| --- | ------ | ----------- |
+##### Body
+| key                | required | data type | description                              |
+| ------------------ | -------- | --------- | ---------------------------------------- |
+| PID                | true     | string    | id of the project                        |
+| PN                 | true     | string    | the part number of the product           |
+| amount             | true     | int       | amount of the source                     |
+| unit               | true     | string    | the unit of the source                   |
+##### Responses
+| http code    | content-type         | description                        |
+| ------------ | -------------------- | ---------------------------------- |
+| `200`        | `application/json`   | `{'message': 'Usage added successfully!','data': {'PID': (str), 'PN': (str), 'amount': (int), 'unit': (str)}}` |
+| `400`        | `text/plain`         | `{'Error': error massage}`         |
+| `500`        | `text/plain`         | `{'Error': 'server error'}`        |
+</details>
+
+<details>
+<summary><code>Delete</code> <code><b>/{PID}/{PN}</b></code> <code>(Remove usage of a source)</code></summary>
 
 <br />
 
@@ -311,21 +337,21 @@ flow's form example: `[
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
 ##### Path Parameters
-| key  | required | data type | description         |
-| ---- | -------- | --------- | ------------------- |
-| PID  | true     | string    | id of the project   |
-| SRID | true     | string    | id of the source    |
+| key  | required | data type | description                    |
+| ---- | -------- | --------- | ------------------------------ |
+| PID  | true     | string    | id of the project              |
+| PN   | true     | string    | the part number of the product |
 ##### Responses
 | http code    | content-type | description                                     |
 | ------------ | -------------| ----------------------------------------------- |
-| `204`        | `text/plain` | `{'message': 'Source deleted successfully!'}`   |
-| `404`        | `text/plain` | `{'Error': 'Source not found'}`                 |
+| `204`        | `text/plain` | `{'message': 'Usage deleted successfully!'}`    |
+| `404`        | `text/plain` | `{'Error': 'Usage not found'}`                  |
 | `500`        | `text/plain` | `{'Error': 'server error'}`                     |
 
 </details>
 
 <details>
-<summary><code>PUT</code> <code><b>/{PID}/{SRID}</b></code> <code>(Revise usage of source)</code></summary>
+<summary><code>PUT</code> <code><b>/{PID}/{PN}</b></code> <code>(Revise usage of source)</code></summary>
 
 <br />
 
@@ -334,29 +360,29 @@ flow's form example: `[
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
 ##### Path Parameters
-| key    | required | data type | description                |
-| ------ | -------- | --------- | -------------------------- |
-| PID    | true     | string    | id of the project          |
-| SRID   | true     | string    | id of the source           |
+| key    | required | data type | description                    |
+| ------ | -------- | --------- | ------------------------------ |
+| PID    | true     | string    | id of the project              |
+| PN     | true     | string    | the part number of the product |
 ##### Body
-| key    | required | data type | description                |
-| ------ | -------- | --------- | -------------------------- |
-| PID    | true     | string    | id of the project          |
-| SRID   | true     | string    | id of the source           |
-| amount | true     | int       | the amount of the source   |
-| unit   | true     | number    | the unit of the source     |
+| key                | required | data type | description                              |
+| ------------------ | -------- | --------- | ---------------------------------------- |
+| PID                | true     | string    | id of the project                        |
+| PN                 | true     | string    | the part number of the product           |
+| amount             | true     | int       | amount of the source                     |
+| unit               | true     | string    | the unit of the source                   |
 ##### Responses
 | http code    | content-type | description                                   |
 | ------------ | -------------| -------------------------------------         |
-| `200`        | `text/plain` | `{'message': 'Material updated successfully!', 'data': {'PID': (str), 'SRID': (str), 'amount': (int), 'unit': (str)}}`|
+| `200`        | `text/plain` | `{'message': 'Usage updated successfully!', 'data': {'PID': (str), 'PN': (str), 'amount': (int), 'unit': (str)}}`|
 | `400`        | `text/plain` | `{'Error': 'client error'}`                   |
-| `404`        | `text/plain` | `{'Error': 'Source not found'}`               |
+| `404`        | `text/plain` | `{'Error': 'Usage not found'}`               |
 | `500`        | `text/plain` | `{'Error': 'server error'}`                   |
 
 </details>
 
 <details>
-<summary><code>GET</code> <code><b>/{PID}/{SRID}</b></code> <code>(Retrieve the detail of usage)</code></summary>
+<summary><code>GET</code> <code><b>/{PID}/{PN}</b></code> <code>(Retrieve the detail of usage)</code></summary>
 
 <br />
 
@@ -365,15 +391,15 @@ flow's form example: `[
 | --- | ------ | ----------- |
 | --- | ------ | ----------- |
 ##### Path Parameters
-| key  | required | data type | description           |
-| ---- | -------- | --------- | --------------------- |
-| PID  | true     | string    | id of the project     |
-| SRID | true     | string    | id of the source      |
+| key    | required | data type | description                    |
+| ------ | -------- | --------- | ------------------------------ |
+| PID    | true     | string    | id of the project              |
+| PN     | true     | string    | the part number of the product |
 ##### Responses
 | http code    | content-type       | description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
-| `200`        | `application/json` | `{'PID': (str), 'SRID': (str), 'name': (str), 'amount': (int), 'unit': (str)}`       |
-| `404`        | `text/plain`       | `{'Error': 'Source not found'}`             |
+| `200`        | `application/json` | `{'PID': (str), 'PN': (str), 'name': (str), 'amount': (int), 'unit': (str)}`       |
+| `404`        | `text/plain`       | `{'Error': 'Usage not found'}`             |
 | `500`        | `text/plain`       | `{'Error': 'server error'}`                 |
 
 </details>
