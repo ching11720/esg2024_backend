@@ -22,6 +22,7 @@ class LoginUserView(APIView):
             user= User.objects.get(username=username)
         except:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
         # if user.check_password(hashed):
         if user.check_password(password):
         #if user is not None:
@@ -37,22 +38,18 @@ class LoginUserView(APIView):
         else:
             # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'success': False}, status=status.HTTP_401_UNAUTHORIZED)
-<<<<<<< HEAD
-=======
-            
->>>>>>> acd4caed3a2c5768c94847338b30cb8073d689ba
 
-# # EID, Ename, authority, PM_rank    
-# class UserInfoView(APIView):
-#     def get(self, request, *args, **kwargs):
-#         uid = request.data.get("user")
-#         user = User.objects.get(username=uid)
-#         authority = user.groups.all()
-#         employee = Employee.objects.get(EID=uid)
-#         EName = employee.name
-#         worksons = WorksOn.filter(EID=employee)
-#         serializer = WorksOnSerializer(worksons, many=True)
-#         return Response({uid, EName, authority, serializer}, status=status.HTTP_200_OK)
+# EID, Ename, authority, PM_rank    
+class UserInfoView(APIView):
+    def get(self, request, *args, **kwargs):
+        uid = request.data.get("user")
+        user = User.objects.get(username=uid)
+        authority = user.groups.all()
+        employee = Employee.objects.get(EID=uid)
+        EName = employee.name
+        worksons = WorksOn.filter(EID=employee)
+        serializer = WorksOnSerializer(worksons, many=True)
+        return Response({uid, EName, authority, serializer}, status=status.HTTP_200_OK)
     
 class RevisePasswordView(APIView):
     # permission_classes = (IsAuthenticated,)
