@@ -37,6 +37,10 @@ class LoginUserView(APIView):
         else:
             # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'success': False}, status=status.HTTP_401_UNAUTHORIZED)
+<<<<<<< HEAD
+=======
+            
+>>>>>>> acd4caed3a2c5768c94847338b30cb8073d689ba
 
 # # EID, Ename, authority, PM_rank    
 # class UserInfoView(APIView):
