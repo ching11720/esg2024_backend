@@ -21,7 +21,7 @@ class LoginUserView(APIView):
         try:
             user= User.objects.get(username=username)
         except:
-            return Response({'success': False, 'JWT': '', 'first_login': True})
+            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
         # if user.check_password(hashed):
         if user.check_password(password):
         #if user is not None:
@@ -36,7 +36,7 @@ class LoginUserView(APIView):
                 return Response({"success": True, "JWT": str(refresh.access_token), "first_login": False})
         else:
             # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
-            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'success': False}, status=status.HTTP_401_UNAUTHORIZED)
 
 # EID, Ename, authority, PM_rank    
 class UserInfoView(APIView):
