@@ -22,8 +22,8 @@ class LoginUserView(APIView):
             user= User.objects.get(username=username)
         except:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
-        if user.check_password(hashed):
-        #if user.check_password(password):
+        # if user.check_password(hashed):
+        if user.check_password(password):
         #if user is not None:
             login(request, user)
             refresh = RefreshToken.for_user(user)

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'helloworld',
     'login',
     'admins',
-    'ESG',
+    # 'ESG',
     'pm',
     'resources',
 ]
