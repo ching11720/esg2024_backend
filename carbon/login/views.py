@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from serializers import WorksOnSerializer
+#from serializers import WorksOnSerializer
 from pm.models import Employee, WorksOn
 import hashlib
 
@@ -14,7 +14,7 @@ class LoginUserView(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get("user")
         password = request.data.get("password")
-        # hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
         # user = authenticate(request, username=username, password=hashed)
         # user = User.objects.filter(username=username, password=hashed).first()
         # return Response(user)
@@ -22,8 +22,8 @@ class LoginUserView(APIView):
             user= User.objects.get(username=username)
         except:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
-        # if user.check_password(hashed):
-        if user.check_password(password):
+        if user.check_password(hashed):
+        #if user.check_password(password):
         #if user is not None:
             login(request, user)
             refresh = RefreshToken.for_user(user)
@@ -38,17 +38,17 @@ class LoginUserView(APIView):
             # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'success': False}, status=status.HTTP_401_UNAUTHORIZED)
 
-# EID, Ename, authority, PM_rank    
-class UserInfoView(APIView):
-    def get(self, request, *args, **kwargs):
-        uid = request.data.get("user")
-        user = User.objects.get(username=uid)
-        authority = user.groups.all()
-        employee = Employee.objects.get(EID=uid)
-        EName = employee.name
-        worksons = WorksOn.filter(EID=employee)
-        serializer = WorksOnSerializer(worksons, many=True)
-        return Response({uid, EName, authority, serializer}, status=status.HTTP_200_OK)
+# # EID, Ename, authority, PM_rank    
+# class UserInfoView(APIView):
+#     def get(self, request, *args, **kwargs):
+#         uid = request.data.get("user")
+#         user = User.objects.get(username=uid)
+#         authority = user.groups.all()
+#         employee = Employee.objects.get(EID=uid)
+#         EName = employee.name
+#         worksons = WorksOn.filter(EID=employee)
+#         serializer = WorksOnSerializer(worksons, many=True)
+#         return Response({uid, EName, authority, serializer}, status=status.HTTP_200_OK)
     
 class RevisePasswordView(APIView):
     # permission_classes = (IsAuthenticated,)
