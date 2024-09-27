@@ -289,5 +289,11 @@ class DeleteEmployeeView(APIView):
             return Response({'success': True}, status=status.HTTP_200_OK)
         except Employee.DoesNotExist:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+        
+
+# class Approve(APIView):
+#     def get(self, request, *args, **kwargs):
+#         # `PID`, `PMID`, `time(system produce)`, `oldContent(equipment, usage time)`, `newContent(equipment, usage time)` 
+        
 
 
