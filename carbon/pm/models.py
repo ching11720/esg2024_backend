@@ -53,6 +53,7 @@ class DailyRecordModified(models.Model):
         db_table = 'daily_record_modified'
 
 class Emission(models.Model):
+    emissionID = models.AutoField(primary_key=True)
     RID = models.ForeignKey('Resource', on_delete=models.CASCADE, to_field='RID', db_column='RID')
     GID = models.ForeignKey('GreenHouseGas', on_delete=models.CASCADE, to_field='GID', db_column='GID')
     amount_kg = models.FloatField()
@@ -131,13 +132,13 @@ class Project(models.Model):
         ]
 
 class RepairLog(models.Model):
+    repairID = models.AutoField(primary_key=True)
     RID = models.ForeignKey('Resource', on_delete=models.CASCADE, to_field='RID', db_column='RID')
     date = models.DateField()
     notes = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'repair_log'
-        unique_together = (('RID', 'date'),)
 
 class Resource(models.Model):
     RID = models.CharField(max_length=14, primary_key=True)
@@ -184,6 +185,7 @@ class Supplier(models.Model):
         ]
 
 class Usage(models.Model):
+    usageID = models.AutoField(primary_key=True)
     PID = models.ForeignKey('Project', on_delete=models.CASCADE, to_field='PID', db_column='PID')
     PN = models.ForeignKey('PPN', on_delete=models.CASCADE, to_field='PN', db_column='PN')
     amount = models.IntegerField()
@@ -194,6 +196,7 @@ class Usage(models.Model):
         unique_together = (('PID', 'PN'),)
 
 class WorksOn(models.Model):
+    workID = models.AutoField(primary_key=True)
     EID = models.ForeignKey('Employee', to_field='EID', on_delete=models.CASCADE, db_column='EID')
     PID = models.ForeignKey('Project', to_field='PID', on_delete=models.CASCADE, db_column='PID')
     position = models.CharField(max_length=255)
