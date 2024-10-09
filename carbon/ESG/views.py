@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from django.db.models import Q
 import re
 
-
+# {"BID": "04000000000", "name": "none", "address": "none", "type": "none"}
 class BoundaryView(APIView):
     def post(self, request, *args, **kwargs):
         postal_code = re.findall('\d+', request.data.get('address', ''))[0]
