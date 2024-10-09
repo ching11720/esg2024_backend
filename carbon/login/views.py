@@ -42,14 +42,14 @@ class LoginUserView(APIView):
 # EID, Ename, authority, PM_rank    
 class UserInfoView(APIView):
     def get(self, request, *args, **kwargs):
-        uid = request.data.get("user")
-        user = User.objects.get(username=uid)
+        EID = request.data.get("user")
+        user = User.objects.get(username=EID)
         authority = user.groups.all()
-        employee = Employee.objects.get(EID=uid)
+        employee = Employee.objects.get(EID=EID)
         EName = employee.name
         worksons = WorksOn.filter(EID=employee)
-        serializer = WorksOnSerializer(worksons, many=True)
-        return Response({uid, EName, authority, serializer}, status=status.HTTP_200_OK)
+        PM_rank = WorksOnSerializer(worksons, many=True)
+        return Response({EID, EName, authority, PM_rank}, status=status.HTTP_200_OK)
     
 class RevisePasswordView(APIView):
     # permission_classes = (IsAuthenticated,)
