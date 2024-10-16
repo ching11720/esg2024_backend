@@ -21,7 +21,7 @@ class LoginUserView(APIView):
         try:
             user= User.objects.get(username=username)
         except:
-            return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+            print("success: false, status: 404")
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
         # if user.check_password(hashed):
         if user.check_password(password):
@@ -32,12 +32,59 @@ class LoginUserView(APIView):
             if employee.status == 2:
                 employee.status = 1
                 employee.save()
-                return Response({"success": True, "JWT": str(refresh.access_token), "first_login": True})
+                success = True
+                first_login = True
+                print("success: ")
+                print(success)
+                print("first_login: ")
+                print(first_login)
+                print("JWT: ")
+                print(refresh)
+                print("status: 200")
+                return Response({"success": True, "JWT": str(refresh.access_token), "first_login": True}, status=status.HTTP_200_OK)
             else:
-                return Response({"success": True, "JWT": str(refresh.access_token), "first_login": False})
+                success = True
+                first_login = False
+                print("success: ")
+                print(success)
+                print("first_login: ")
+                print(first_login)
+                print("JWT: ")
+                print(refresh)
+                print("status: 200")
+                return Response({"success": True, "JWT": str(refresh.access_token), "first_login": False}, status=status.HTTP_200_OK)
         else:
             # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+            print("success: false, status: 401")
             return Response({'success': False}, status=status.HTTP_401_UNAUTHORIZED)
+# class LoginUserView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         username = request.data.get("user")
+#         password = request.data.get("password")
+#         hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
+#         # user = authenticate(request, username=username, password=hashed)
+#         # user = User.objects.filter(username=username, password=hashed).first()
+#         # return Response(user)
+#         try:
+#             user= User.objects.get(username=username)
+#         except:
+#             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+#             # return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
+#         # if user.check_password(hashed):
+#         if user.check_password(password):
+#         #if user is not None:
+#             login(request, user)
+#             refresh = RefreshToken.for_user(user)
+#             employee = Employee.objects.get(EID=username)
+#             if employee.status == 2:
+#                 employee.status = 1
+#                 employee.save()
+#                 return Response({"success": True, "JWT": str(refresh.access_token), "first_login": True})
+#             else:
+#                 return Response({"success": True, "JWT": str(refresh.access_token), "first_login": False})
+#         else:
+#             # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+#             return Response({'success': False}, status=status.HTTP_401_UNAUTHORIZED)
 
 # EID, Ename, authority, PM_rank    
 class UserInfoView(APIView):
@@ -57,7 +104,7 @@ class RevisePasswordView(APIView):
     def post(self, request, *args, **kwargs):
         # user = request.user
         uid = request.data.get('UID')
-        old_password = request.data.get('old_password')
+        old_password = request.data.get('oldPw')
         # old_password = hashlib.sha256(old_password.encode('utf-8')).hexdigest()
         new_password = request.data.get('newPw')
         # new_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
