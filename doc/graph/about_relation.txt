@@ -6,6 +6,11 @@ for source:
 1 - equipment in use
 2 - material in use
 
+status for daily_record_modify:
+0 - not permitted
+1 - permitted
+2 - rejected
+
 id rules:
 pid - 01yymmnn (the date that the project is create, 
                 the numbers nn will be re-counted from 00 after a different month)
