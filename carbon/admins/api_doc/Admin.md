@@ -33,6 +33,6 @@
 |           | method   | input                         | output                                     |                            |
 |---------- | -------- | ----------------------------- | ------------------------------------------ | -------------------------- |
 | /create   | POST     | {"name":"", "gender":1, "phone":"", "email":"", "nation":"", "PID":""} | {'success': True, 'EID': ""}| gender: 1 or 2(int), email: @xxx.com |
-| /delete   | DELETE   | {"EID":"", "region":"", "nation": "", "name": "", "PID": ""} | {'name': "", 'gender': "", 'phone': "", 'email': "", 'nation': "", 'status': 1} | inputs can be none |
+| /delete   | DELETE   | {"EID":""} | {'name': "", 'gender': "", 'phone': "", 'email': "", 'nation': "", 'status': 1} | inputs can be none |
 | /retrieve | GET      | {"EID":"", "region":"", "nation": "", "name": "", "PID": ""} | {'name': "", 'gender': "", 'phone': "", 'email': "", 'nation': "", 'status': 1} | inputs can be none |
 | /revise   | PUT      | {"EID":""} | {'success': True} |                            |
