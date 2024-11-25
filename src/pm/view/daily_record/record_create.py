@@ -11,6 +11,8 @@ def record_create(request):
         request.data['created_date'] = now.strftime('%Y-%m-%d')
         request.data['last_modified_by'] = '022024040210'
         request.data['last_modified_date'] = now.strftime('%Y-%m-%d')
+        ## todo
+        request.data['current_factor'] = 0
 
         serializer = DailyRecordSerializer(data=request.data)
         if serializer.is_valid():

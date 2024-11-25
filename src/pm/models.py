@@ -28,6 +28,7 @@ class DailyRecord(models.Model):
     runtime = models.FloatField(null=True, blank=True)
     amount = models.FloatField()
     unit = models.CharField(max_length=10)
+    current_factor = models.FloatField(default=0)
     created_by = models.ForeignKey('Employee', related_name='created_DailyRecord', on_delete=models.CASCADE, to_field='EID', db_column='created_by')
     created_date = models.DateField()
     last_modified_by = models.ForeignKey('Employee', related_name='modified_DailyRecord', on_delete=models.CASCADE, to_field='EID', db_column='last_modified_by')
@@ -46,6 +47,7 @@ class DailyRecordModified(models.Model):
     runtime = models.FloatField(null=True, blank=True)
     amount = models.FloatField()
     unit = models.CharField(max_length=10)
+    current_factor = models.FloatField(default=0)
     created_by = models.ForeignKey('Employee', on_delete=models.CASCADE, to_field='EID', db_column='created_by')
     created_date = models.DateField()
     status = models.IntegerField()
@@ -106,6 +108,7 @@ class PPN(models.Model):
     name = models.CharField(max_length=255)
     total_amount = models.IntegerField()
     unit = models.CharField(max_length=20)
+    average_factor = models.FloatField(default=0)
 
     class Meta:
         db_table = 'product_part_number'
