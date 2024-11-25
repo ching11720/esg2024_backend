@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.39, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.40, for Linux (x86_64)
 --
 -- Host: localhost    Database: ESG_db
 -- ------------------------------------------------------
--- Server version	8.0.39
+-- Server version	8.0.40
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -228,17 +228,18 @@ DROP TABLE IF EXISTS `daily_record`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `daily_record` (
-  `dailyID` int NOT NULL,
+  `dailyID` int NOT NULL AUTO_INCREMENT,
   `PID` varchar(10) NOT NULL,
   `PN` varchar(6) NOT NULL,
   `date` date NOT NULL,
   `runtime` float DEFAULT NULL,
   `amount` float NOT NULL,
   `unit` varchar(10) NOT NULL,
+  `current_factor` float NOT NULL,
   `created_by` varchar(12) NOT NULL,
   `created_date` date NOT NULL,
   `last_modified_by` varchar(12) NOT NULL,
-  `last_modifiled_date` date NOT NULL,
+  `last_modified_date` date NOT NULL,
   PRIMARY KEY (`dailyID`),
   KEY `daily_record_ibfk_1` (`PID`),
   KEY `daily_record_ibfk_2` (`PN`),
@@ -248,7 +249,7 @@ CREATE TABLE `daily_record` (
   CONSTRAINT `daily_record_ibfk_2` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`),
   CONSTRAINT `daily_record_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `employees` (`EID`),
   CONSTRAINT `daily_record_ibfk_4` FOREIGN KEY (`last_modified_by`) REFERENCES `employees` (`EID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +258,7 @@ CREATE TABLE `daily_record` (
 
 LOCK TABLES `daily_record` WRITE;
 /*!40000 ALTER TABLE `daily_record` DISABLE KEYS */;
-INSERT INTO `daily_record` VALUES (1,'01240701','060002','2024-08-17',NULL,45,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(2,'01240701','060004','2024-08-17',NULL,25,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(3,'01240701','060005','2024-08-16',5.5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(4,'01240701','060007','2024-08-16',6,2,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(5,'01240701','060009','2024-08-17',6.5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(6,'01240702','060001','2024-08-16',NULL,90,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(7,'01240702','060002','2024-08-17',NULL,60,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(8,'01240702','060002','2024-08-19',NULL,10,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(9,'01240702','060006','2024-08-16',5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(10,'01240702','060007','2024-08-17',7,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(11,'01240702','060008','2024-08-17',2,2,'unit','022024040210','2024-09-09','022024040210','2024-09-09');
+INSERT INTO `daily_record` VALUES (1,'01240701','060002','2024-08-17',NULL,45,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(2,'01240701','060004','2024-08-17',NULL,25,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(3,'01240701','060005','2024-08-16',5.5,1,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(4,'01240701','060007','2024-08-16',6,2,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(5,'01240701','060009','2024-08-17',6.5,1,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(6,'01240702','060001','2024-08-16',NULL,90,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(7,'01240702','060002','2024-08-17',NULL,60,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(8,'01240702','060002','2024-08-19',NULL,10,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(9,'01240702','060006','2024-08-16',5,1,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(10,'01240702','060007','2024-08-17',7,1,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(11,'01240702','060008','2024-08-17',2,2,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(12,'01240702','060002','2024-10-28',NULL,60,'kg',0,'022024040210','2024-10-28','022024040210','2024-10-28');
 /*!40000 ALTER TABLE `daily_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,6 +278,7 @@ CREATE TABLE `daily_record_modified` (
   `runtime` float DEFAULT NULL,
   `amount` float NOT NULL,
   `unit` varchar(10) NOT NULL,
+  `current_factor` float NOT NULL,
   `created_by` varchar(12) NOT NULL,
   `created_date` date NOT NULL,
   `status` int NOT NULL,
@@ -374,7 +376,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -383,7 +385,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2024-08-02 07:24:19.672000'),(2,'auth','0001_initial','2024-08-02 07:24:20.707217'),(3,'admin','0001_initial','2024-08-02 07:24:20.939531'),(4,'admin','0002_logentry_remove_auto_add','2024-08-02 07:24:20.954980'),(5,'admin','0003_logentry_add_action_flag_choices','2024-08-02 07:24:20.978110'),(6,'contenttypes','0002_remove_content_type_name','2024-08-02 07:24:21.110089'),(7,'auth','0002_alter_permission_name_max_length','2024-08-02 07:24:21.212032'),(8,'auth','0003_alter_user_email_max_length','2024-08-02 07:24:21.259136'),(9,'auth','0004_alter_user_username_opts','2024-08-02 07:24:21.281122'),(10,'auth','0005_alter_user_last_login_null','2024-08-02 07:24:21.376793'),(11,'auth','0006_require_contenttypes_0002','2024-08-02 07:24:21.385533'),(12,'auth','0007_alter_validators_add_error_messages','2024-08-02 07:24:21.409542'),(13,'auth','0008_alter_user_username_max_length','2024-08-02 07:24:21.525911'),(14,'auth','0009_alter_user_last_name_max_length','2024-08-02 07:24:21.633259'),(15,'auth','0010_alter_group_name_max_length','2024-08-02 07:24:21.677381'),(16,'auth','0011_update_proxy_permissions','2024-08-02 07:24:21.698053'),(17,'auth','0012_alter_user_first_name_max_length','2024-08-02 07:24:21.803437'),(18,'helloworld','0001_initial','2024-08-02 07:24:21.817863'),(19,'login','0001_initial','2024-08-02 07:24:21.840660'),(20,'pm','0001_initial','2024-08-07 05:53:11.943703'),(21,'pm','0002_usage_amount_usage_unit','2024-08-07 06:03:57.626789'),(22,'sessions','0001_initial','2024-08-07 06:03:57.772434'),(23,'pm','0003_usage_amount_usage_unit','2024-08-08 07:20:46.140220');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2024-08-02 07:24:19.672000'),(2,'auth','0001_initial','2024-08-02 07:24:20.707217'),(3,'admin','0001_initial','2024-08-02 07:24:20.939531'),(4,'admin','0002_logentry_remove_auto_add','2024-08-02 07:24:20.954980'),(5,'admin','0003_logentry_add_action_flag_choices','2024-08-02 07:24:20.978110'),(6,'contenttypes','0002_remove_content_type_name','2024-08-02 07:24:21.110089'),(7,'auth','0002_alter_permission_name_max_length','2024-08-02 07:24:21.212032'),(8,'auth','0003_alter_user_email_max_length','2024-08-02 07:24:21.259136'),(9,'auth','0004_alter_user_username_opts','2024-08-02 07:24:21.281122'),(10,'auth','0005_alter_user_last_login_null','2024-08-02 07:24:21.376793'),(11,'auth','0006_require_contenttypes_0002','2024-08-02 07:24:21.385533'),(12,'auth','0007_alter_validators_add_error_messages','2024-08-02 07:24:21.409542'),(13,'auth','0008_alter_user_username_max_length','2024-08-02 07:24:21.525911'),(14,'auth','0009_alter_user_last_name_max_length','2024-08-02 07:24:21.633259'),(15,'auth','0010_alter_group_name_max_length','2024-08-02 07:24:21.677381'),(16,'auth','0011_update_proxy_permissions','2024-08-02 07:24:21.698053'),(17,'auth','0012_alter_user_first_name_max_length','2024-08-02 07:24:21.803437'),(18,'helloworld','0001_initial','2024-08-02 07:24:21.817863'),(19,'login','0001_initial','2024-08-02 07:24:21.840660'),(20,'pm','0001_initial','2024-08-07 05:53:11.943703'),(21,'pm','0002_usage_amount_usage_unit','2024-08-07 06:03:57.626789'),(22,'sessions','0001_initial','2024-08-07 06:03:57.772434'),(23,'pm','0003_usage_amount_usage_unit','2024-08-08 07:20:46.140220'),(24,'ESG','0001_initial','2024-10-09 09:33:26.761191'),(25,'ESG','0002_alter_source_table','2024-10-09 09:33:26.801066'),(26,'ESG','0003_delete_equipment_delete_material_delete_boundary_and_more','2024-10-09 09:33:26.939790');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -512,6 +514,7 @@ CREATE TABLE `product_part_number` (
   `name` varchar(255) NOT NULL,
   `total_amount` int NOT NULL,
   `unit` varchar(20) DEFAULT NULL,
+  `average_factor` float NOT NULL,
   PRIMARY KEY (`PN`),
   CONSTRAINT `check_pn_format` CHECK (regexp_like(`PN`,_utf8mb4'^06[0-9]{4}$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -523,7 +526,7 @@ CREATE TABLE `product_part_number` (
 
 LOCK TABLES `product_part_number` WRITE;
 /*!40000 ALTER TABLE `product_part_number` DISABLE KEYS */;
-INSERT INTO `product_part_number` VALUES ('060001','原油',140,'kg'),('060002','標籤貼紙',105,'kg'),('060003','油墨',120,'kg'),('060004','布料',90,'kg'),('060005','檢測儀',1,'unit'),('060006','掃描機',5,'unit'),('060007','風乾機',20,'unit'),('060008','機械手臂',14,'unit'),('060009','影印機',7,'unit');
+INSERT INTO `product_part_number` VALUES ('060001','原油',140,'kg',0),('060002','標籤貼紙',105,'kg',0),('060003','油墨',120,'kg',0),('060004','布料',90,'kg',0),('060005','檢測儀',1,'unit',0),('060006','掃描機',5,'unit',0),('060007','風乾機',20,'unit',0),('060008','機械手臂',14,'unit',0),('060009','影印機',7,'unit',0);
 /*!40000 ALTER TABLE `product_part_number` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -555,7 +558,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES ('01240701','Project A','[\n    {\"step\": 1, \"equipments\": [{\"SRID\": \"03202107060003\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202403020012\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Initial setup and preparation\"}, \n    {\"step\": 2, \"equipments\": [{\"SRID\": \"03202104080002\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202207060005\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202407010019\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202401010010\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202406010014\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n    {\"step\": 3, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022024040210','04106234002'),('01240702','Project B','[\n  {\"step\": 1, \"equipments\": [{\"SRID\": \"03202007060001\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [\"\"], \"description\": \"Design and planning\"},\n  {\"step\": 2, \"equipments\": [{\"SRID\": \"03202209080006\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202307020008\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202311020009\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202405010013\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407020016\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407010017\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408010020\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n  {\"step\": 3, \"equipments\": [{\"SRID\": \"03202402090011\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Quality check and packaging\"},\n  {\"step\": 4, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408020021\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022022070508','04106234002');
+INSERT INTO `projects` VALUES ('01240701','Project A','[{\"step\": 1,\"equipments\": [{\"SRID\": \"03202107060003\", \"amount\": 1, \"unit\": \"unit\"}],\"materials\": [{\"SRID\": \"03202403020012\", \"amount\": 1, \"unit\": \"kg\"}],\"description\": \"Initial setup and preparation\"},{\"step\": 2,\"equipments\": [{\"SRID\": \"03202104080002\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202207060005\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202407010019\", \"amount\": 1, \"unit\": \"unit\"}],\"materials\": [{\"SRID\": \"03202401010010\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202406010014\", \"amount\": 1, \"unit\": \"kg\"}],\"description\": \"Processing and assembly\"},{\"step\": 3,\"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}],\"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}],\"description\": \"Final inspection and testing\"}]','022024040210','04106234002'),('01240702','Project B','[\n  {\"step\": 1, \"equipments\": [{\"SRID\": \"03202007060001\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [\"\"], \"description\": \"Design and planning\"},\n  {\"step\": 2, \"equipments\": [{\"SRID\": \"03202209080006\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202307020008\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202311020009\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202405010013\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407020016\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407010017\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408010020\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n  {\"step\": 3, \"equipments\": [{\"SRID\": \"03202402090011\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Quality check and packaging\"},\n  {\"step\": 4, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408020021\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022022070508','04106234002');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -567,14 +570,14 @@ DROP TABLE IF EXISTS `repair_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `repair_log` (
-  `repairID` int NOT NULL,
+  `repairID` int NOT NULL AUTO_INCREMENT,
   `RID` varchar(14) NOT NULL,
   `date` date NOT NULL,
   `notes` mediumtext,
   PRIMARY KEY (`repairID`),
   KEY `repair_log_ibfk_1` (`RID`),
   CONSTRAINT `repair_log_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `resource` (`RID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -583,7 +586,7 @@ CREATE TABLE `repair_log` (
 
 LOCK TABLES `repair_log` WRITE;
 /*!40000 ALTER TABLE `repair_log` DISABLE KEYS */;
-INSERT INTO `repair_log` VALUES (1,'03202007060001','2024-01-31','定期保養'),(2,'03202104080002','2024-01-31','定期保養'),(3,'03202107060003','2024-01-31','定期保養'),(4,'03202201070004','2024-01-31','定期保養'),(5,'03202207060005','2024-01-31','定期保養'),(6,'03202209080006','2024-08-22','定期保養'),(7,'03202302070007','2024-01-31','定期保養'),(8,'03202307020008','2024-01-31','定期保養'),(9,'03202311020009','2024-08-22','定期保養'),(10,'03202407010015','2024-08-22','定期保養');
+INSERT INTO `repair_log` VALUES (1,'03202007060001','2024-01-31','定期保養'),(2,'03202104080002','2024-01-31','定期保養'),(3,'03202107060003','2024-01-31','定期保養'),(4,'03202201070004','2024-01-31','定期保養'),(5,'03202207060005','2024-01-31','定期保養'),(6,'03202209080006','2024-08-22','定期保養'),(7,'03202302070007','2024-01-31','定期保養'),(8,'03202307020008','2024-01-31','定期保養'),(9,'03202311020009','2024-08-22','定期保養'),(10,'03202407010015','2024-08-22','定期保養'),(11,'03202407010015','2024-08-22','定期保養');
 /*!40000 ALTER TABLE `repair_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -664,7 +667,7 @@ DROP TABLE IF EXISTS `usage`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usage` (
-  `usageID` int NOT NULL,
+  `usageID` int NOT NULL AUTO_INCREMENT,
   `PID` varchar(10) NOT NULL,
   `PN` varchar(6) NOT NULL,
   `amount` int NOT NULL,
@@ -674,7 +677,7 @@ CREATE TABLE `usage` (
   KEY `usage_ibfk_2` (`PN`),
   CONSTRAINT `usage_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
   CONSTRAINT `usage_ibfk_2` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -683,7 +686,7 @@ CREATE TABLE `usage` (
 
 LOCK TABLES `usage` WRITE;
 /*!40000 ALTER TABLE `usage` DISABLE KEYS */;
-INSERT INTO `usage` VALUES (1,'01240701','060001',1,'kg'),(2,'01240702','060001',2,'kg'),(3,'01240701','060002',2,'kg'),(4,'01240702','060002',2,'kg'),(5,'01240701','060003',1,'kg'),(6,'01240702','060003',2,'kg'),(7,'01240701','060004',1,'kg'),(8,'01240702','060004',1,'kg'),(9,'01240701','060005',1,'unit'),(10,'01240702','060006',1,'unit'),(11,'01240701','060007',2,'unit'),(12,'01240702','060007',1,'unit'),(13,'01240701','060008',1,'unit'),(14,'01240702','060008',3,'unit'),(15,'01240701','060009',1,'unit'),(16,'01240702','060009',1,'unit');
+INSERT INTO `usage` VALUES (1,'01240701','060001',1,'kg'),(2,'01240702','060001',2,'kg'),(3,'01240701','060002',2,'kg'),(4,'01240702','060002',2,'kg'),(5,'01240701','060003',1,'kg'),(6,'01240702','060003',2,'kg'),(7,'01240701','060004',1,'kg'),(8,'01240702','060004',1,'kg'),(9,'01240701','060005',1,'unit'),(10,'01240702','060006',1,'unit'),(11,'01240701','060007',2,'unit'),(12,'01240702','060007',1,'unit'),(14,'01240702','060008',3,'unit'),(15,'01240701','060009',1,'unit'),(16,'01240702','060009',1,'unit');
 /*!40000 ALTER TABLE `usage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -695,7 +698,7 @@ DROP TABLE IF EXISTS `works_on`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `works_on` (
-  `workID` int NOT NULL,
+  `workID` int NOT NULL AUTO_INCREMENT,
   `EID` varchar(12) NOT NULL,
   `PID` varchar(10) NOT NULL,
   `position` varchar(255) NOT NULL,
@@ -705,7 +708,7 @@ CREATE TABLE `works_on` (
   KEY `works_on_ibfk_1` (`EID`),
   CONSTRAINT `works_on_ibfk_1` FOREIGN KEY (`EID`) REFERENCES `employees` (`EID`),
   CONSTRAINT `works_on_ibfk_2` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -727,4 +730,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-02 10:34:50
+-- Dump completed on 2024-11-20  9:17:58
