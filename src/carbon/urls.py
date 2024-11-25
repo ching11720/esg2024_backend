@@ -24,4 +24,5 @@ urlpatterns = [
     path('ESG/', include('ESG.urls')),
     path('project_management/', include('pm.urls')),
     path('resource/', include('resources.urls')),
+    path('statement/', include('statement.urls')),
 ]
