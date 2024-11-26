@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.39, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.40, for Linux (x86_64)
 --
 -- Host: localhost    Database: ESG_db
 -- ------------------------------------------------------
--- Server version	8.0.39
+-- Server version	8.0.40
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -82,7 +82,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add act',6,'add_act'),(22,'Can change act',6,'change_act'),(23,'Can delete act',6,'delete_act'),(24,'Can view act',6,'view_act'),(25,'Can add act fac',7,'add_actfac'),(26,'Can change act fac',7,'change_actfac'),(27,'Can delete act fac',7,'delete_actfac'),(28,'Can view act fac',7,'view_actfac'),(29,'Can add ef',8,'add_ef'),(30,'Can change ef',8,'change_ef'),(31,'Can delete ef',8,'delete_ef'),(32,'Can view ef',8,'view_ef'),(33,'Can add es',9,'add_es'),(34,'Can change es',9,'change_es'),(35,'Can delete es',9,'delete_es'),(36,'Can view es',9,'view_es'),(37,'Can add gwps',10,'add_gwps'),(38,'Can change gwps',10,'change_gwps'),(39,'Can delete gwps',10,'delete_gwps'),(40,'Can view gwps',10,'view_gwps'),(41,'Can add act',11,'add_act'),(42,'Can change act',11,'change_act'),(43,'Can delete act',11,'delete_act'),(44,'Can view act',11,'view_act'),(45,'Can add act fac',12,'add_actfac'),(46,'Can change act fac',12,'change_actfac'),(47,'Can delete act fac',12,'delete_actfac'),(48,'Can view act fac',12,'view_actfac'),(49,'Can add ef',13,'add_ef'),(50,'Can change ef',13,'change_ef'),(51,'Can delete ef',13,'delete_ef'),(52,'Can view ef',13,'view_ef'),(53,'Can add es',14,'add_es'),(54,'Can change es',14,'change_es'),(55,'Can delete es',14,'delete_es'),(56,'Can view es',14,'view_es'),(57,'Can add gwps',15,'add_gwps'),(58,'Can change gwps',15,'change_gwps'),(59,'Can delete gwps',15,'delete_gwps'),(60,'Can view gwps',15,'view_gwps'),(61,'Can add session',16,'add_session'),(62,'Can change session',16,'change_session'),(63,'Can delete session',16,'delete_session'),(64,'Can view session',16,'view_session'),(65,'Can add employee',17,'add_employee'),(66,'Can change employee',17,'change_employee'),(67,'Can delete employee',17,'delete_employee'),(68,'Can view employee',17,'view_employee'),(69,'Can add equipment',18,'add_equipment'),(70,'Can change equipment',18,'change_equipment'),(71,'Can delete equipment',18,'delete_equipment'),(72,'Can view equipment',18,'view_equipment'),(73,'Can add material',19,'add_material'),(74,'Can change material',19,'change_material'),(75,'Can delete material',19,'delete_material'),(76,'Can view material',19,'view_material'),(77,'Can add project',20,'add_project'),(78,'Can change project',20,'change_project'),(79,'Can delete project',20,'delete_project'),(80,'Can view project',20,'view_project'),(81,'Can add supplier',21,'add_supplier'),(82,'Can change supplier',21,'change_supplier'),(83,'Can delete supplier',21,'delete_supplier'),(84,'Can view supplier',21,'view_supplier'),(85,'Can add user',22,'add_user'),(86,'Can change user',22,'change_user'),(87,'Can delete user',22,'delete_user'),(88,'Can view user',22,'view_user'),(89,'Can add usage',23,'add_usage'),(90,'Can change usage',23,'change_usage'),(91,'Can delete usage',23,'delete_usage'),(92,'Can view usage',23,'view_usage'),(93,'Can add supply',24,'add_supply'),(94,'Can change supply',24,'change_supply'),(95,'Can delete supply',24,'delete_supply'),(96,'Can view supply',24,'view_supply'),(97,'Can add works on',25,'add_workson'),(98,'Can change works on',25,'change_workson'),(99,'Can delete works on',25,'delete_workson'),(100,'Can view works on',25,'view_workson'),(101,'Can add usage m',26,'add_usagem'),(102,'Can change usage m',26,'change_usagem'),(103,'Can delete usage m',26,'delete_usagem'),(104,'Can view usage m',26,'view_usagem'),(105,'Can add usage eq',27,'add_usageeq'),(106,'Can change usage eq',27,'change_usageeq'),(107,'Can delete usage eq',27,'delete_usageeq'),(108,'Can view usage eq',27,'view_usageeq'),(109,'Can add boundary',28,'add_boundary'),(110,'Can change boundary',28,'change_boundary'),(111,'Can delete boundary',28,'delete_boundary'),(112,'Can view boundary',28,'view_boundary'),(113,'Can add emission',29,'add_emission'),(114,'Can change emission',29,'change_emission'),(115,'Can delete emission',29,'delete_emission'),(116,'Can view emission',29,'view_emission'),(117,'Can add gas',30,'add_gas'),(118,'Can change gas',30,'change_gas'),(119,'Can delete gas',30,'delete_gas'),(120,'Can view gas',30,'view_gas'),(121,'Can add record',31,'add_record'),(122,'Can change record',31,'change_record'),(123,'Can delete record',31,'delete_record'),(124,'Can view record',31,'view_record'),(125,'Can add source',32,'add_source'),(126,'Can change source',32,'change_source'),(127,'Can delete source',32,'delete_source'),(128,'Can view source',32,'view_source');
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add act',6,'add_act'),(22,'Can change act',6,'change_act'),(23,'Can delete act',6,'delete_act'),(24,'Can view act',6,'view_act'),(25,'Can add act fac',7,'add_actfac'),(26,'Can change act fac',7,'change_actfac'),(27,'Can delete act fac',7,'delete_actfac'),(28,'Can view act fac',7,'view_actfac'),(29,'Can add ef',8,'add_ef'),(30,'Can change ef',8,'change_ef'),(31,'Can delete ef',8,'delete_ef'),(32,'Can view ef',8,'view_ef'),(33,'Can add es',9,'add_es'),(34,'Can change es',9,'change_es'),(35,'Can delete es',9,'delete_es'),(36,'Can view es',9,'view_es'),(37,'Can add gwps',10,'add_gwps'),(38,'Can change gwps',10,'change_gwps'),(39,'Can delete gwps',10,'delete_gwps'),(40,'Can view gwps',10,'view_gwps'),(41,'Can add act',11,'add_act'),(42,'Can change act',11,'change_act'),(43,'Can delete act',11,'delete_act'),(44,'Can view act',11,'view_act'),(45,'Can add act fac',12,'add_actfac'),(46,'Can change act fac',12,'change_actfac'),(47,'Can delete act fac',12,'delete_actfac'),(48,'Can view act fac',12,'view_actfac'),(49,'Can add ef',13,'add_ef'),(50,'Can change ef',13,'change_ef'),(51,'Can delete ef',13,'delete_ef'),(52,'Can view ef',13,'view_ef'),(53,'Can add es',14,'add_es'),(54,'Can change es',14,'change_es'),(55,'Can delete es',14,'delete_es'),(56,'Can view es',14,'view_es'),(57,'Can add gwps',15,'add_gwps'),(58,'Can change gwps',15,'change_gwps'),(59,'Can delete gwps',15,'delete_gwps'),(60,'Can view gwps',15,'view_gwps'),(61,'Can add session',16,'add_session'),(62,'Can change session',16,'change_session'),(63,'Can delete session',16,'delete_session'),(64,'Can view session',16,'view_session'),(65,'Can add employee',17,'add_employee'),(66,'Can change employee',17,'change_employee'),(67,'Can delete employee',17,'delete_employee'),(68,'Can view employee',17,'view_employee'),(69,'Can add equipment',18,'add_equipment'),(70,'Can change equipment',18,'change_equipment'),(71,'Can delete equipment',18,'delete_equipment'),(72,'Can view equipment',18,'view_equipment'),(73,'Can add material',19,'add_material'),(74,'Can change material',19,'change_material'),(75,'Can delete material',19,'delete_material'),(76,'Can view material',19,'view_material'),(77,'Can add project',20,'add_project'),(78,'Can change project',20,'change_project'),(79,'Can delete project',20,'delete_project'),(80,'Can view project',20,'view_project'),(81,'Can add supplier',21,'add_supplier'),(82,'Can change supplier',21,'change_supplier'),(83,'Can delete supplier',21,'delete_supplier'),(84,'Can view supplier',21,'view_supplier'),(85,'Can add user',22,'add_user'),(86,'Can change user',22,'change_user'),(87,'Can delete user',22,'delete_user'),(88,'Can view user',22,'view_user'),(89,'Can add usage',23,'add_usage'),(90,'Can change usage',23,'change_usage'),(91,'Can delete usage',23,'delete_usage'),(92,'Can view usage',23,'view_usage'),(93,'Can add supply',24,'add_supply'),(94,'Can change supply',24,'change_supply'),(95,'Can delete supply',24,'delete_supply'),(96,'Can view supply',24,'view_supply'),(97,'Can add works on',25,'add_workson'),(98,'Can change works on',25,'change_workson'),(99,'Can delete works on',25,'delete_workson'),(100,'Can view works on',25,'view_workson'),(101,'Can add usage m',26,'add_usagem'),(102,'Can change usage m',26,'change_usagem'),(103,'Can delete usage m',26,'delete_usagem'),(104,'Can view usage m',26,'view_usagem'),(105,'Can add usage eq',27,'add_usageeq'),(106,'Can change usage eq',27,'change_usageeq'),(107,'Can delete usage eq',27,'delete_usageeq'),(108,'Can view usage eq',27,'view_usageeq'),(109,'Can add boundary',28,'add_boundary'),(110,'Can change boundary',28,'change_boundary'),(111,'Can delete boundary',28,'delete_boundary'),(112,'Can view boundary',28,'view_boundary'),(113,'Can add emission',29,'add_emission'),(114,'Can change emission',29,'change_emission'),(115,'Can delete emission',29,'delete_emission'),(116,'Can view emission',29,'view_emission'),(117,'Can add gas',30,'add_gas'),(118,'Can change gas',30,'change_gas'),(119,'Can delete gas',30,'delete_gas'),(120,'Can view gas',30,'view_gas'),(121,'Can add record',31,'add_record'),(122,'Can change record',31,'change_record'),(123,'Can delete record',31,'delete_record'),(124,'Can view record',31,'view_record'),(125,'Can add source',32,'add_source'),(126,'Can change source',32,'change_source'),(127,'Can delete source',32,'delete_source'),(128,'Can view source',32,'view_source'),(129,'Can add daily record',33,'add_dailyrecord'),(130,'Can change daily record',33,'change_dailyrecord'),(131,'Can delete daily record',33,'delete_dailyrecord'),(132,'Can view daily record',33,'view_dailyrecord'),(133,'Can add daily record modified',34,'add_dailyrecordmodified'),(134,'Can change daily record modified',34,'change_dailyrecordmodified'),(135,'Can delete daily record modified',34,'delete_dailyrecordmodified'),(136,'Can view daily record modified',34,'view_dailyrecordmodified'),(137,'Can add green house gas',35,'add_greenhousegas'),(138,'Can change green house gas',35,'change_greenhousegas'),(139,'Can delete green house gas',35,'delete_greenhousegas'),(140,'Can view green house gas',35,'view_greenhousegas'),(141,'Can add ppn',36,'add_ppn'),(142,'Can change ppn',36,'change_ppn'),(143,'Can delete ppn',36,'delete_ppn'),(144,'Can view ppn',36,'view_ppn'),(145,'Can add repair log',37,'add_repairlog'),(146,'Can change repair log',37,'change_repairlog'),(147,'Can delete repair log',37,'delete_repairlog'),(148,'Can view repair log',37,'view_repairlog'),(149,'Can add resource',38,'add_resource'),(150,'Can change resource',38,'change_resource'),(151,'Can delete resource',38,'delete_resource'),(152,'Can view resource',38,'view_resource');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,17 +228,18 @@ DROP TABLE IF EXISTS `daily_record`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `daily_record` (
-  `dailyID` int NOT NULL,
+  `dailyID` int NOT NULL AUTO_INCREMENT,
   `PID` varchar(10) NOT NULL,
   `PN` varchar(6) NOT NULL,
   `date` date NOT NULL,
   `runtime` float DEFAULT NULL,
   `amount` float NOT NULL,
   `unit` varchar(10) NOT NULL,
+  `current_factor` float NOT NULL,
   `created_by` varchar(12) NOT NULL,
   `created_date` date NOT NULL,
   `last_modified_by` varchar(12) NOT NULL,
-  `last_modifiled_date` date NOT NULL,
+  `last_modified_date` date NOT NULL,
   PRIMARY KEY (`dailyID`),
   KEY `daily_record_ibfk_1` (`PID`),
   KEY `daily_record_ibfk_2` (`PN`),
@@ -248,7 +249,7 @@ CREATE TABLE `daily_record` (
   CONSTRAINT `daily_record_ibfk_2` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`),
   CONSTRAINT `daily_record_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `employees` (`EID`),
   CONSTRAINT `daily_record_ibfk_4` FOREIGN KEY (`last_modified_by`) REFERENCES `employees` (`EID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +258,7 @@ CREATE TABLE `daily_record` (
 
 LOCK TABLES `daily_record` WRITE;
 /*!40000 ALTER TABLE `daily_record` DISABLE KEYS */;
-INSERT INTO `daily_record` VALUES (1,'01240701','060002','2024-08-17',NULL,45,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(2,'01240701','060004','2024-08-17',NULL,25,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(3,'01240701','060005','2024-08-16',5.5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(4,'01240701','060007','2024-08-16',6,2,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(5,'01240701','060009','2024-08-17',6.5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(6,'01240702','060001','2024-08-16',NULL,90,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(7,'01240702','060002','2024-08-17',NULL,60,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(8,'01240702','060002','2024-08-19',NULL,10,'kg','022024040210','2024-09-09','022024040210','2024-09-09'),(9,'01240702','060006','2024-08-16',5,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(10,'01240702','060007','2024-08-17',7,1,'unit','022024040210','2024-09-09','022024040210','2024-09-09'),(11,'01240702','060008','2024-08-17',2,2,'unit','022024040210','2024-09-09','022024040210','2024-09-09');
+INSERT INTO `daily_record` VALUES (1,'01240701','060002','2024-08-17',NULL,45,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(2,'01240701','060004','2024-08-17',NULL,25,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(3,'01240701','060005','2024-08-16',5.5,1,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(4,'01240701','060007','2024-08-16',6,2,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(5,'01240701','060009','2024-08-17',6.5,1,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(6,'01240702','060001','2024-08-16',NULL,90,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(7,'01240702','060002','2024-08-17',NULL,60,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(8,'01240702','060002','2024-08-19',NULL,10,'kg',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(9,'01240702','060006','2024-08-16',5,1,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(10,'01240702','060007','2024-08-17',7,1,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(11,'01240702','060008','2024-08-17',2,2,'unit',0,'022024040210','2024-09-09','022024040210','2024-09-09'),(12,'01240702','060002','2024-10-28',NULL,60,'kg',0,'022024040210','2024-10-28','022024040210','2024-10-28');
 /*!40000 ALTER TABLE `daily_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,6 +278,7 @@ CREATE TABLE `daily_record_modified` (
   `runtime` float DEFAULT NULL,
   `amount` float NOT NULL,
   `unit` varchar(10) NOT NULL,
+  `current_factor` float NOT NULL,
   `created_by` varchar(12) NOT NULL,
   `created_date` date NOT NULL,
   `status` int NOT NULL,
@@ -348,7 +350,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,7 +359,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(6,'helloworld','act'),(7,'helloworld','actfac'),(8,'helloworld','ef'),(9,'helloworld','es'),(10,'helloworld','gwps'),(11,'login','act'),(12,'login','actfac'),(13,'login','ef'),(14,'login','es'),(15,'login','gwps'),(28,'pm','boundary'),(29,'pm','emission'),(17,'pm','employee'),(18,'pm','equipment'),(30,'pm','gas'),(19,'pm','material'),(20,'pm','project'),(31,'pm','record'),(32,'pm','source'),(21,'pm','supplier'),(24,'pm','supply'),(23,'pm','usage'),(27,'pm','usageeq'),(26,'pm','usagem'),(22,'pm','user'),(25,'pm','workson'),(16,'sessions','session');
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(6,'helloworld','act'),(7,'helloworld','actfac'),(8,'helloworld','ef'),(9,'helloworld','es'),(10,'helloworld','gwps'),(11,'login','act'),(12,'login','actfac'),(13,'login','ef'),(14,'login','es'),(15,'login','gwps'),(28,'pm','boundary'),(33,'pm','dailyrecord'),(34,'pm','dailyrecordmodified'),(29,'pm','emission'),(17,'pm','employee'),(18,'pm','equipment'),(30,'pm','gas'),(35,'pm','greenhousegas'),(19,'pm','material'),(36,'pm','ppn'),(20,'pm','project'),(31,'pm','record'),(37,'pm','repairlog'),(38,'pm','resource'),(32,'pm','source'),(21,'pm','supplier'),(24,'pm','supply'),(23,'pm','usage'),(27,'pm','usageeq'),(26,'pm','usagem'),(22,'pm','user'),(25,'pm','workson'),(16,'sessions','session');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -374,7 +376,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -383,7 +385,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2024-08-02 07:24:19.672000'),(2,'auth','0001_initial','2024-08-02 07:24:20.707217'),(3,'admin','0001_initial','2024-08-02 07:24:20.939531'),(4,'admin','0002_logentry_remove_auto_add','2024-08-02 07:24:20.954980'),(5,'admin','0003_logentry_add_action_flag_choices','2024-08-02 07:24:20.978110'),(6,'contenttypes','0002_remove_content_type_name','2024-08-02 07:24:21.110089'),(7,'auth','0002_alter_permission_name_max_length','2024-08-02 07:24:21.212032'),(8,'auth','0003_alter_user_email_max_length','2024-08-02 07:24:21.259136'),(9,'auth','0004_alter_user_username_opts','2024-08-02 07:24:21.281122'),(10,'auth','0005_alter_user_last_login_null','2024-08-02 07:24:21.376793'),(11,'auth','0006_require_contenttypes_0002','2024-08-02 07:24:21.385533'),(12,'auth','0007_alter_validators_add_error_messages','2024-08-02 07:24:21.409542'),(13,'auth','0008_alter_user_username_max_length','2024-08-02 07:24:21.525911'),(14,'auth','0009_alter_user_last_name_max_length','2024-08-02 07:24:21.633259'),(15,'auth','0010_alter_group_name_max_length','2024-08-02 07:24:21.677381'),(16,'auth','0011_update_proxy_permissions','2024-08-02 07:24:21.698053'),(17,'auth','0012_alter_user_first_name_max_length','2024-08-02 07:24:21.803437'),(18,'helloworld','0001_initial','2024-08-02 07:24:21.817863'),(19,'login','0001_initial','2024-08-02 07:24:21.840660'),(20,'pm','0001_initial','2024-08-07 05:53:11.943703'),(21,'pm','0002_usage_amount_usage_unit','2024-08-07 06:03:57.626789'),(22,'sessions','0001_initial','2024-08-07 06:03:57.772434'),(23,'pm','0003_usage_amount_usage_unit','2024-08-08 07:20:46.140220');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2024-08-02 07:24:19.672000'),(2,'auth','0001_initial','2024-08-02 07:24:20.707217'),(3,'admin','0001_initial','2024-08-02 07:24:20.939531'),(4,'admin','0002_logentry_remove_auto_add','2024-08-02 07:24:20.954980'),(5,'admin','0003_logentry_add_action_flag_choices','2024-08-02 07:24:20.978110'),(6,'contenttypes','0002_remove_content_type_name','2024-08-02 07:24:21.110089'),(7,'auth','0002_alter_permission_name_max_length','2024-08-02 07:24:21.212032'),(8,'auth','0003_alter_user_email_max_length','2024-08-02 07:24:21.259136'),(9,'auth','0004_alter_user_username_opts','2024-08-02 07:24:21.281122'),(10,'auth','0005_alter_user_last_login_null','2024-08-02 07:24:21.376793'),(11,'auth','0006_require_contenttypes_0002','2024-08-02 07:24:21.385533'),(12,'auth','0007_alter_validators_add_error_messages','2024-08-02 07:24:21.409542'),(13,'auth','0008_alter_user_username_max_length','2024-08-02 07:24:21.525911'),(14,'auth','0009_alter_user_last_name_max_length','2024-08-02 07:24:21.633259'),(15,'auth','0010_alter_group_name_max_length','2024-08-02 07:24:21.677381'),(16,'auth','0011_update_proxy_permissions','2024-08-02 07:24:21.698053'),(17,'auth','0012_alter_user_first_name_max_length','2024-08-02 07:24:21.803437'),(18,'helloworld','0001_initial','2024-08-02 07:24:21.817863'),(19,'login','0001_initial','2024-08-02 07:24:21.840660'),(20,'pm','0001_initial','2024-08-07 05:53:11.943703'),(21,'pm','0002_usage_amount_usage_unit','2024-08-07 06:03:57.626789'),(22,'sessions','0001_initial','2024-08-07 06:03:57.772434'),(23,'pm','0003_usage_amount_usage_unit','2024-08-08 07:20:46.140220'),(24,'ESG','0001_initial','2024-10-09 09:33:26.761191'),(25,'ESG','0002_alter_source_table','2024-10-09 09:33:26.801066'),(26,'ESG','0003_delete_equipment_delete_material_delete_boundary_and_more','2024-10-09 09:33:26.939790');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -420,10 +422,12 @@ DROP TABLE IF EXISTS `emission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `emission` (
+  `emissionID` int NOT NULL,
   `RID` varchar(14) NOT NULL,
   `GID` varchar(10) NOT NULL,
   `amount_kg` float NOT NULL,
-  PRIMARY KEY (`RID`,`GID`),
+  PRIMARY KEY (`emissionID`),
+  UNIQUE KEY `unique_emission` (`RID`,`GID`),
   KEY `emission_ibfk_1` (`GID`),
   CONSTRAINT `emission_ibfk_1` FOREIGN KEY (`GID`) REFERENCES `green_house_gas` (`GID`),
   CONSTRAINT `emission_ibfk_2` FOREIGN KEY (`RID`) REFERENCES `resource` (`RID`)
@@ -436,7 +440,7 @@ CREATE TABLE `emission` (
 
 LOCK TABLES `emission` WRITE;
 /*!40000 ALTER TABLE `emission` DISABLE KEYS */;
-INSERT INTO `emission` VALUES ('03202401010010','1',10),('03202401010010','2',1),('03202403020012','1',12),('03202405010013','1',13),('03202406010014','1',14),('03202407010015','1',15),('03202407010017','1',17),('03202407010017','4',0.0005),('03202407010018','1',18),('03202407020016','1',16),('03202407020016','5',0.001),('03202408010020','1',20),('03202408010020','3',0.1),('03202408020021','1',21);
+INSERT INTO `emission` VALUES (1,'03202401010010','1',10),(2,'03202401010010','2',1),(3,'03202403020012','1',12),(4,'03202405010013','1',13),(5,'03202406010014','1',14),(6,'03202407010015','1',15),(7,'03202407010017','1',17),(8,'03202407010017','4',0.0005),(9,'03202407010018','1',18),(10,'03202407020016','1',16),(11,'03202407020016','5',0.001),(12,'03202408010020','1',20),(13,'03202408010020','3',0.1),(14,'03202408020021','1',21);
 /*!40000 ALTER TABLE `emission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -510,6 +514,7 @@ CREATE TABLE `product_part_number` (
   `name` varchar(255) NOT NULL,
   `total_amount` int NOT NULL,
   `unit` varchar(20) DEFAULT NULL,
+  `average_factor` float NOT NULL,
   PRIMARY KEY (`PN`),
   CONSTRAINT `check_pn_format` CHECK (regexp_like(`PN`,_utf8mb4'^06[0-9]{4}$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -521,7 +526,7 @@ CREATE TABLE `product_part_number` (
 
 LOCK TABLES `product_part_number` WRITE;
 /*!40000 ALTER TABLE `product_part_number` DISABLE KEYS */;
-INSERT INTO `product_part_number` VALUES ('060001','原油',140,'kg'),('060002','標籤貼紙',105,'kg'),('060003','油墨',120,'kg'),('060004','布料',90,'kg'),('060005','檢測儀',1,'unit'),('060006','掃描機',5,'unit'),('060007','風乾機',20,'unit'),('060008','機械手臂',14,'unit'),('060009','影印機',7,'unit');
+INSERT INTO `product_part_number` VALUES ('060001','原油',140,'kg',0),('060002','標籤貼紙',105,'kg',0),('060003','油墨',120,'kg',0),('060004','布料',90,'kg',0),('060005','檢測儀',1,'unit',0),('060006','掃描機',5,'unit',0),('060007','風乾機',20,'unit',0),('060008','機械手臂',14,'unit',0),('060009','影印機',7,'unit',0);
 /*!40000 ALTER TABLE `product_part_number` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -553,7 +558,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES ('01240701','Project A','[\n    {\"step\": 1, \"equipments\": [{\"SRID\": \"03202107060003\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202403020012\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Initial setup and preparation\"}, \n    {\"step\": 2, \"equipments\": [{\"SRID\": \"03202104080002\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202207060005\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202407010019\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202401010010\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202406010014\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n    {\"step\": 3, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022024040210','04106234002'),('01240702','Project B','[\n  {\"step\": 1, \"equipments\": [{\"SRID\": \"03202007060001\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [\"\"], \"description\": \"Design and planning\"},\n  {\"step\": 2, \"equipments\": [{\"SRID\": \"03202209080006\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202307020008\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202311020009\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202405010013\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407020016\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407010017\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408010020\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n  {\"step\": 3, \"equipments\": [{\"SRID\": \"03202402090011\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Quality check and packaging\"},\n  {\"step\": 4, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408020021\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022022070508','04106234002');
+INSERT INTO `projects` VALUES ('01240701','Project A','[{\"step\": 1,\"equipments\": [{\"SRID\": \"03202107060003\", \"amount\": 1, \"unit\": \"unit\"}],\"materials\": [{\"SRID\": \"03202403020012\", \"amount\": 1, \"unit\": \"kg\"}],\"description\": \"Initial setup and preparation\"},{\"step\": 2,\"equipments\": [{\"SRID\": \"03202104080002\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202207060005\", \"amount\": 1, \"unit\": \"unit\"},{\"SRID\": \"03202407010019\", \"amount\": 1, \"unit\": \"unit\"}],\"materials\": [{\"SRID\": \"03202401010010\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202406010014\", \"amount\": 1, \"unit\": \"kg\"}],\"description\": \"Processing and assembly\"},{\"step\": 3,\"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}],\"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"},{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}],\"description\": \"Final inspection and testing\"}]','022024040210','04106234002'),('01240702','Project B','[\n  {\"step\": 1, \"equipments\": [{\"SRID\": \"03202007060001\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [\"\"], \"description\": \"Design and planning\"},\n  {\"step\": 2, \"equipments\": [{\"SRID\": \"03202209080006\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202307020008\", \"amount\": 1, \"unit\": \"unit\"}, {\"SRID\": \"03202311020009\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202405010013\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407020016\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202407010017\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408010020\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Processing and assembly\"},\n  {\"step\": 3, \"equipments\": [{\"SRID\": \"03202402090011\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010018\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Quality check and packaging\"},\n  {\"step\": 4, \"equipments\": [{\"SRID\": \"03202302070007\", \"amount\": 1, \"unit\": \"unit\"}], \"materials\": [{\"SRID\": \"03202407010015\", \"amount\": 1, \"unit\": \"kg\"}, {\"SRID\": \"03202408020021\", \"amount\": 1, \"unit\": \"kg\"}], \"description\": \"Final inspection and testing\"}\n]','022022070508','04106234002');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -565,12 +570,14 @@ DROP TABLE IF EXISTS `repair_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `repair_log` (
+  `repairID` int NOT NULL AUTO_INCREMENT,
   `RID` varchar(14) NOT NULL,
   `date` date NOT NULL,
   `notes` mediumtext,
-  PRIMARY KEY (`RID`,`date`),
+  PRIMARY KEY (`repairID`),
+  KEY `repair_log_ibfk_1` (`RID`),
   CONSTRAINT `repair_log_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `resource` (`RID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -579,7 +586,7 @@ CREATE TABLE `repair_log` (
 
 LOCK TABLES `repair_log` WRITE;
 /*!40000 ALTER TABLE `repair_log` DISABLE KEYS */;
-INSERT INTO `repair_log` VALUES ('03202007060001','2024-01-31','定期保養'),('03202104080002','2024-01-31','定期保養'),('03202107060003','2024-01-31','定期保養'),('03202201070004','2024-01-31','定期保養'),('03202207060005','2024-01-31','定期保養'),('03202209080006','2024-08-22','定期保養'),('03202302070007','2024-01-31','定期保養'),('03202307020008','2024-01-31','定期保養'),('03202311020009','2024-08-22','定期保養'),('03202407010015','2024-08-22','定期保養');
+INSERT INTO `repair_log` VALUES (1,'03202007060001','2024-01-31','定期保養'),(2,'03202104080002','2024-01-31','定期保養'),(3,'03202107060003','2024-01-31','定期保養'),(4,'03202201070004','2024-01-31','定期保養'),(5,'03202207060005','2024-01-31','定期保養'),(6,'03202209080006','2024-08-22','定期保養'),(7,'03202302070007','2024-01-31','定期保養'),(8,'03202307020008','2024-01-31','定期保養'),(9,'03202311020009','2024-08-22','定期保養'),(10,'03202407010015','2024-08-22','定期保養'),(11,'03202407010015','2024-08-22','定期保養');
 /*!40000 ALTER TABLE `repair_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -660,15 +667,17 @@ DROP TABLE IF EXISTS `usage`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usage` (
+  `usageID` int NOT NULL AUTO_INCREMENT,
   `PID` varchar(10) NOT NULL,
   `PN` varchar(6) NOT NULL,
   `amount` int NOT NULL,
   `unit` varchar(45) NOT NULL,
-  PRIMARY KEY (`PN`,`PID`),
-  KEY `usage_ibfk_1` (`PID`),
+  PRIMARY KEY (`usageID`),
+  UNIQUE KEY `unique_usage` (`PID`,`PN`),
+  KEY `usage_ibfk_2` (`PN`),
   CONSTRAINT `usage_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`),
   CONSTRAINT `usage_ibfk_2` FOREIGN KEY (`PN`) REFERENCES `product_part_number` (`PN`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -677,7 +686,7 @@ CREATE TABLE `usage` (
 
 LOCK TABLES `usage` WRITE;
 /*!40000 ALTER TABLE `usage` DISABLE KEYS */;
-INSERT INTO `usage` VALUES ('01240701','060001',1,'kg'),('01240702','060001',2,'kg'),('01240701','060002',2,'kg'),('01240702','060002',2,'kg'),('01240701','060003',1,'kg'),('01240702','060003',2,'kg'),('01240701','060004',1,'kg'),('01240702','060004',1,'kg'),('01240701','060005',1,'unit'),('01240702','060006',1,'unit'),('01240701','060007',2,'unit'),('01240702','060007',1,'unit'),('01240701','060008',1,'unit'),('01240702','060008',3,'unit'),('01240701','060009',1,'unit'),('01240702','060009',1,'unit');
+INSERT INTO `usage` VALUES (1,'01240701','060001',1,'kg'),(2,'01240702','060001',2,'kg'),(3,'01240701','060002',2,'kg'),(4,'01240702','060002',2,'kg'),(5,'01240701','060003',1,'kg'),(6,'01240702','060003',2,'kg'),(7,'01240701','060004',1,'kg'),(8,'01240702','060004',1,'kg'),(9,'01240701','060005',1,'unit'),(10,'01240702','060006',1,'unit'),(11,'01240701','060007',2,'unit'),(12,'01240702','060007',1,'unit'),(14,'01240702','060008',3,'unit'),(15,'01240701','060009',1,'unit'),(16,'01240702','060009',1,'unit');
 /*!40000 ALTER TABLE `usage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -689,15 +698,17 @@ DROP TABLE IF EXISTS `works_on`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `works_on` (
+  `workID` int NOT NULL AUTO_INCREMENT,
   `EID` varchar(12) NOT NULL,
   `PID` varchar(10) NOT NULL,
   `position` varchar(255) NOT NULL,
   `role_on_sys` varchar(100) NOT NULL,
-  PRIMARY KEY (`EID`,`PID`),
-  KEY `PID` (`PID`),
+  PRIMARY KEY (`workID`),
+  UNIQUE KEY `unique_work` (`PID`,`EID`),
+  KEY `works_on_ibfk_1` (`EID`),
   CONSTRAINT `works_on_ibfk_1` FOREIGN KEY (`EID`) REFERENCES `employees` (`EID`),
   CONSTRAINT `works_on_ibfk_2` FOREIGN KEY (`PID`) REFERENCES `projects` (`PID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -706,7 +717,7 @@ CREATE TABLE `works_on` (
 
 LOCK TABLES `works_on` WRITE;
 /*!40000 ALTER TABLE `works_on` DISABLE KEYS */;
-INSERT INTO `works_on` VALUES ('022020112701','01240701','top manager','admin'),('022020112701','01240702','top manager','admin'),('022021021602','01240702','Frontend Engineer','read-only'),('022021032503','01240701','Processing Technician','read-only'),('022021110504','01240701','Testing Specialist','read-only'),('022022051705','01240702','Packaging Specialist','read-only'),('022022062106','01240702','Design Engineer','read-only'),('022022062707','01240701','Setup Engineer','member'),('022022062707','01240702','Setup Engineer','member'),('022022070508','01240702','project manager','member'),('022023050509','01240702','Testing Specialist','read-only'),('022024040210','01240701','project manager','member');
+INSERT INTO `works_on` VALUES (1,'022020112701','01240701','top manager','admin'),(2,'022020112701','01240702','top manager','admin'),(3,'022021021602','01240702','Frontend Engineer','read-only'),(4,'022021032503','01240701','Processing Technician','read-only'),(5,'022021110504','01240701','Testing Specialist','read-only'),(6,'022022051705','01240702','Packaging Specialist','read-only'),(7,'022022062106','01240702','Design Engineer','read-only'),(8,'022022062707','01240701','Setup Engineer','member'),(9,'022022062707','01240702','Setup Engineer','member'),(10,'022022070508','01240702','project manager','member'),(11,'022023050509','01240702','Testing Specialist','read-only'),(12,'022024040210','01240701','project manager','member');
 /*!40000 ALTER TABLE `works_on` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -719,8 +730,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<< HEAD
--- Dump completed on 2024-09-25 10:18:41
-=======
--- Dump completed on 2024-09-25 10:18:41
->>>>>>> acd4caed3a2c5768c94847338b30cb8073d689ba
+-- Dump completed on 2024-11-20  9:17:58
