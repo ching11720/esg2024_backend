@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CreateUserView, CreateProjectView, EmployeeView, DeleteEmployeeView, AssignAccessView
+from .views import CreateUserView, CreateProjectView, EmployeeView, DeleteEmployeeView, AssignAccessView, GetAccessView
 from . import views
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path('employee/delete/', DeleteEmployeeView.as_view(), name='employee_delete'),
     path('employee/retrieve/', EmployeeView.as_view(), name='employee_retrieve'),
     path('employee/revise/', EmployeeView.as_view(), name='employee_revise'),
+    path('getaccess', GetAccessView.as_view(), name='getaccess')
 ]
 
 

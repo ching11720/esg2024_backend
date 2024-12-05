@@ -11,6 +11,7 @@ class EmployeesCreateSerialzer(serializers.ModelSerializer):
         fields = ['name', 'gender', 'phone', 'email', 'nation', 'status']
 
 class EmployeesSerialzer(serializers.ModelSerializer):
+    # mail = serializers.EmailField(source='email')
     class Meta:
         model = Employee
         fields = ['EID', 'name', 'gender', 'phone', 'email', 'nation', 'status']

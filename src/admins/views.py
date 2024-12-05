@@ -170,42 +170,25 @@ class CreateProjectView(APIView):
 # {"name":"test7", "gender":1, "phone":"0912345678", "email":"a@a.com", "nation":"TW", "status":"1", "PID":"01000000"}
 class EmployeeView(APIView):
     def post(self, request, *args, **kwargs):
-        serializer = EmployeesCreateSerialzer(data=request.data)
-        # pid = request.data.get('PID', None)
-        if serializer.is_valid():
-            # Generate EID in the format "02" + year + month + the number of the employee
-            now = datetime.now()
-            year = now.strftime("%Y")
-            month = now.strftime("%m")
-
-            # Get the current number of employees
-            current_employee_count = Employee.objects.count()
-            employee_number = current_employee_count
-            EID = f"02{year}{month}{employee_number:04d}"
-
-            # Create employee
-            Employee.objects.create(
-                EID=EID,
-                name=serializer.validated_data['name'],
-                gender=serializer.validated_data['gender'],
-                phone=serializer.validated_data['phone'],
-                email=serializer.validated_data['email'],
-                nation=serializer.validated_data['nation'],
-                status=3
-            )
-            """
-            # works_on
-            if pid:
-                try:
-                    employee = Employee.objects.get(EID=EID)
-                    project = Project.objects.get(PID=pid)
-                    WorksOn.objects.create(EID=employee, PID=project, position="Default Position")
-                except Project.DoesNotExist:
-                    return Response({'error': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
-            """
-            return Response({'success': True, 'EID': EID}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+        now = datetime.now()
+        year = now.strftime("%Y")
+        month = now.strftime("%m")
+        current_employee_count = Employee.objects.count()
+        employee_number = current_employee_count
+        EID = f"02{year}{month}{employee_number:04d}"
+        if len(request.data) != 5:
+            return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+        Employee.objects.create(
+            EID=EID,
+            name=request.data['name'],
+            gender=request.data['gender'],
+            phone=request.data['phone'],
+            email=request.data['mail'],
+            nation=request.data['nation'],
+            status=3
+        )
+        return Response({'success': True, 'EID': EID}, status=status.HTTP_201_CREATED)
+        
     def get(self, request, *args, **kwargs):
         EID = request.query_params.get('EID', None)
         nation = request.query_params.get('region', None)
@@ -238,18 +221,18 @@ class EmployeeView(APIView):
         except Employee.DoesNotExist:
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
         
-        serializer = EmployeesSerialzer(employee, data=request.data)
+        # serializer = EmployeesSerialzer(employee, data=request.data)
         pid = request.data.get('PID', None)      
-        if serializer.is_valid():
+        if len(request.data) >= 6:
             Employee.objects.filter(EID=eid).update(
-                name=serializer.validated_data['name'],
-                gender=serializer.validated_data['gender'],
-                phone=serializer.validated_data['phone'],
-                email=serializer.validated_data['email'],
-                nation=serializer.validated_data['nation'],
+                name=request.data['name'],
+                gender=request.data['gender'],
+                phone=request.data['phone'],
+                email=request.data['email'],
+                nation=request.data['nation'],
             )
             em = Employee.objects.filter(EID=eid)
-            new_data = EmployeesSerialzer(em)
+            # new_data = EmployeesSerialzer(em)
             if pid:
                 try:
                     employee = Employee.objects.get(EID=eid)
@@ -258,7 +241,7 @@ class EmployeeView(APIView):
                 except Project.DoesNotExist:
                     return Response({'error': 'Project not found'}, status=status.HTTP_404_NOT_FOUND)
             return Response({'success': True}, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
     
     
 class DeleteEmployeeView(APIView):    
@@ -291,7 +274,7 @@ class DeleteEmployeeView(APIView):
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
         
 
-class GetAccess(APIView):
+class GetAccessView(APIView):
     def get(self, request, *args, **kwargs):
         projects = Project.objects.all().values('PID', 'pname')
         project_list = [{'id': project['PID'], 'name': project['pname']} for project in projects]
