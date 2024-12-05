@@ -26,7 +26,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = ['PID', 'projectName', 'PMID']
 
-# class ModifiedDailyRecordSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = daily_record_modified
-#         fields = []
+class AccessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['PID', 'projectName']

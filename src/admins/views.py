@@ -163,7 +163,7 @@ class CreateProjectView(APIView):
         #if serializer.is_valid():
             #project = serializer.save()
         #return Response('success', status=status.HTTP_201_CREATED)
-        return Response({'projectName': project.pname, 'PID': PID, 'PMID': pmid.EID}, status=status.HTTP_201_CREATED)
+        return Response({'success': True, 'PID': PID, 'PMID': pmid.EID}, status=status.HTTP_201_CREATED)
         #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # status  3 -> account not created, 2 -> created but haven't logged in, 1 -> exist, 0 -> deleted
@@ -291,9 +291,9 @@ class DeleteEmployeeView(APIView):
             return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
         
 
-# class Approve(APIView):
-#     def get(self, request, *args, **kwargs):
-#         # `PID`, `PMID`, `time(system produce)`, `oldContent(equipment, usage time)`, `newContent(equipment, usage time)` 
-        
-
+class GetAccess(APIView):
+    def get(self, request, *args, **kwargs):
+        projects = Project.objects.all().values('PID', 'pname')
+        project_list = [{'id': project['PID'], 'name': project['pname']} for project in projects]
+        return Response({'data': project_list}, status=status.HTTP_200_OK)
 
