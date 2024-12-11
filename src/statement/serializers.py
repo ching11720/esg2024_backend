@@ -1,5 +1,10 @@
-from pm.models import DailyRecord
+from pm.models import DailyRecord, Project
 from rest_framework import serializers
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['PID', 'pname']
 
 class StatementSerializer(serializers.ModelSerializer):
     PName = serializers.CharField(source='PID.pname')
