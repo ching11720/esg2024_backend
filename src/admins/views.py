@@ -150,7 +150,8 @@ class CreateProjectView(APIView):
 
         # Generate the PID
         PID = f"01{yy}{mm}{nn:02d}"
-        BID = Boundary.objects.get(BID='04000000000')
+        BID = request.data.get('BID')
+        # BID = Boundary.objects.get(BID='04000000000')
         # Add the generated PID to the request data
         request.data['PID'] = PID
         try:
@@ -228,7 +229,7 @@ class EmployeeView(APIView):
                 name=request.data['name'],
                 gender=request.data['gender'],
                 phone=request.data['phone'],
-                email=request.data['email'],
+                email=request.data['mail'],
                 nation=request.data['nation'],
             )
             em = Employee.objects.filter(EID=eid)
@@ -251,7 +252,6 @@ class DeleteEmployeeView(APIView):
 
         # if not name:
         #     return Response({'error': 'Name is required to delete an employee'}, status=status.HTTP_400_BAD_REQUEST)
-
         try:
             # employee = Employee.objects.get(EID=EID, name=name)
             # # Update the status
@@ -262,8 +262,13 @@ class DeleteEmployeeView(APIView):
             # user.delete()
             # serializer = EmployeesSerialzer(employee)
             employee = Employee.objects.get(EID=EID)
+            if employee.name != request.query_params.get('name'):
+                return Response({'success': False}, status=status.HTTP_404_NOT_FOUND)
             employee.status = 0
             employee.save()
+            Employee.objects.filter(EID=EID).update(
+                status=0
+            )
             # WorksOn.objects.filter(EID=EID).delete()
             user = User.objects.filter(username=employee.name)
             group, created = Group.objects.get_or_create(name='deleted')
@@ -280,3 +285,8 @@ class GetAccessView(APIView):
         project_list = [{'id': project['PID'], 'name': project['pname']} for project in projects]
         return Response({'data': project_list}, status=status.HTTP_200_OK)
 
+class GetBoundaryView(APIView):
+    def get(self, request, *args, **kwargs):
+        boundarys = Boundary.objects.all().values('BID', 'name')
+        boundary_list = [{'bid': boundary['BID'], 'name': boundary['name']} for boundary in boundarys]
+        return Response({'data': boundary_list}, status=status.HTTP_200_OK)
