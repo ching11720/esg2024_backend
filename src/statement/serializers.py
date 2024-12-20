@@ -12,4 +12,4 @@ class StatementSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DailyRecord
-        fields = ['PName', 'PPN_name', 'date', 'runtime', 'amount', 'unit', 'current_factor']
+        fields = ['PName', 'PPN_name', 'date', 'runtime', 'amount', 'current_factor']
