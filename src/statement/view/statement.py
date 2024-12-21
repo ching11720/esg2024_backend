@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from pm.models import DailyRecord
-from .serializers import StatementSerializer
+from ..serializers import StatementSerializer
 
 # Create your views here.
 @api_view(['POST'])

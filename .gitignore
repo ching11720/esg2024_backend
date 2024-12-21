@@ -1,7 +1,5 @@
-node_modules
+*.env
 
-package-lock.json
+scripts/create_test_data.py
 
-.env
-
-./scripts/.env
+.DS_Store
