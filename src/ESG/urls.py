@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import BoundaryView
-from pm import views
+from .views import BoundaryView, StatementView
 urlpatterns = [
-    path('boundary', BoundaryView.as_view(), name="boundary"),
-    # path('source/', views.source_create, name="source_create"),
-    # path('source/<str:SRID>/', views.source_retrieve, name="source_retrieve"),
+    path('boundary/create/', BoundaryView.as_view(), name="boundary_create"),
+    path('boundary/retrieve/', BoundaryView.as_view(), name="boundary_retrieve"),
+    path('boundary/revise/', BoundaryView.as_view(), name="boundary_revise"),
+    path('boundary/delete/', BoundaryView.as_view(), name="boundary_delete"),
+    path('statement', StatementView.as_view(), name="statement")
 ]
