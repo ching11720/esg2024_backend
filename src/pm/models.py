@@ -8,8 +8,8 @@ class Boundary(models.Model):
     type = models.CharField(max_length=100)
     created_by = models.ForeignKey('Employee', related_name='created_boundaries', on_delete=models.CASCADE, to_field='EID', db_column='created_by')
     created_date = models.DateField()
-    modified_by = models.ForeignKey('Employee', related_name='modified_boundaries', on_delete=models.CASCADE, to_field='EID', db_column='modified_by')
-    modified_date = models.DateField()
+    modified_by = models.ForeignKey('Employee', related_name='modified_boundaries', on_delete=models.CASCADE, to_field='EID', db_column='last_modified_by')
+    modified_date = models.DateField(db_column='last_modified_date')
 
     class Meta:
         db_table = 'boundary'
