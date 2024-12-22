@@ -11,6 +11,7 @@ class EmployeesCreateSerialzer(serializers.ModelSerializer):
         fields = ['name', 'gender', 'phone', 'email', 'nation', 'status']
 
 class EmployeesSerialzer(serializers.ModelSerializer):
+    # mail = serializers.EmailField(source='email')
     class Meta:
         model = Employee
         fields = ['EID', 'name', 'gender', 'phone', 'email', 'nation', 'status']
@@ -26,7 +27,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = ['PID', 'projectName', 'PMID']
 
-# class ModifiedDailyRecordSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = daily_record_modified
-#         fields = []
+class AccessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['PID', 'projectName']
